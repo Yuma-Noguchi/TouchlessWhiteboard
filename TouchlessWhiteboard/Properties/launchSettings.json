@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "TouchlessWhiteboard (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "TouchlessWhiteboard (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
