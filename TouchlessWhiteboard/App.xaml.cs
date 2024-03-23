@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TouchlessWhiteboard.ViewModel;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -33,7 +34,8 @@ namespace TouchlessWhiteboard
         {
             this.InitializeComponent();
             Ioc.Default.ConfigureServices(new ServiceCollection()
-
+            .AddSingleton<SettingsWindowViewModel>()
+            .AddSingleton<MainWindowViewModel>()
            .BuildServiceProvider());
         }
 
@@ -43,7 +45,7 @@ namespace TouchlessWhiteboard
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
-            _window = new MainWindow();
+            _window = new SettingsWindow();
             _window.Activate();
         }
 

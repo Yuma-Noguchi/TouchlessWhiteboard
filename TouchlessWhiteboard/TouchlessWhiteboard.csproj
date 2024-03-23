@@ -13,6 +13,17 @@
     <Nullable>enable</Nullable>
     <Version>$(VersionPrefix)</Version>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Assets\Camera-icon.png" />
+    <None Remove="Assets\Copilot-icon.png" />
+    <None Remove="Assets\Eraser-icon.png" />
+    <None Remove="Assets\In-Air-3D-Mouse-icon.png" />
+    <None Remove="Assets\Search-icon.png" />
+    <None Remove="Assets\Selection-icon.png" />
+    <None Remove="Assets\Sticky-Notes-icon.png" />
+    <None Remove="Assets\Tools-icon.png" />
+    <None Remove="SettingsWindow.xaml" />
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -41,6 +52,37 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\Camera-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Copilot-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Eraser-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\In-Air-3D-Mouse-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Search-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Selection-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Sticky-Notes-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Tools-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="SettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!-- 
