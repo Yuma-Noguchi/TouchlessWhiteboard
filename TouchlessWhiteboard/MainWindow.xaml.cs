@@ -26,8 +26,8 @@ public sealed partial class MainWindow : Window
     {
         this.InitializeComponent();
         
-        Ioc.Default.ConfigureServices(new ServiceCollection()
-
-            .BuildServiceProvider());
+        Title = "Touchless Whiteboard";
+        ExtendsContentIntoTitleBar = true;
+        SetTitleBar(TitleBar);
     }
 }
