@@ -23,6 +23,12 @@ public partial class MainWindowViewModel
     public bool IsInAir3DMouseEnabled { get; set; }
     public string DominantHand { get; set; }
     public double PinchSensitivity { get; set; }
+    public bool IsCalculatorEnabled { get; set; }
+    public bool IsRulerEnabled { get; set; }
+    public bool IsTimerEnabled { get; set; }
+    public bool IsAlarmEnabled { get; set; }
+    public bool IsQuickFileAccessEnabled { get; set; }
+
 
     public MainWindowViewModel()
     {

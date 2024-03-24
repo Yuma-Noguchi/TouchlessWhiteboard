@@ -27,6 +27,12 @@ public partial class SettingsWindowViewModel : INotifyPropertyChanged
 
     private int _pinchSensitivity;
 
+    private bool _isCalculatorEnabled;
+    private bool _isRulerEnabled;
+    private bool _isTimerEnabled;
+    private bool _isAlarmEnabled;
+    private bool _isQuickFileAccessEnabled;
+
     public SettingsWindowViewModel()
     {
     }
@@ -157,6 +163,56 @@ public partial class SettingsWindowViewModel : INotifyPropertyChanged
         {
             _pinchSensitivity = value;
             OnPropertyChanged("PinchSensitivity");
+        }
+    }
+
+    public bool IsCalculatorEnabled
+    {
+        get { return _isCalculatorEnabled; }
+        set
+        {
+            _isCalculatorEnabled = value;
+            OnPropertyChanged("IsCalculatorEnabled");
+        }
+    }
+
+    public bool IsRulerEnabled
+    {
+        get { return _isRulerEnabled; }
+        set
+        {
+            _isRulerEnabled = value;
+            OnPropertyChanged("IsRulerEnabled");
+        }
+    }
+
+    public bool IsTimerEnabled
+    {
+        get { return _isTimerEnabled; }
+        set
+        {
+            _isTimerEnabled = value;
+            OnPropertyChanged("IsTimerEnabled");
+        }
+    }
+
+    public bool IsAlarmEnabled
+    {
+        get { return _isAlarmEnabled; }
+        set
+        {
+            _isAlarmEnabled = value;
+            OnPropertyChanged("IsAlarmEnabled");
+        }
+    }
+
+    public bool IsQuickFileAccessEnabled
+    {
+        get { return _isQuickFileAccessEnabled; }
+        set
+        {
+            _isQuickFileAccessEnabled = value;
+            OnPropertyChanged("IsQuickFileAccessEnabled");
         }
     }
 
