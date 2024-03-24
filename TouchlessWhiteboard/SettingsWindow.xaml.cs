@@ -1,4 +1,5 @@
 using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -11,6 +12,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Windows.Input;
+using TouchlessWhiteboard.Models;
 using TouchlessWhiteboard.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -67,9 +70,33 @@ public sealed partial class SettingsWindow : Window
         mainWindowViewModel.IsAlarmEnabled = ViewModel.IsAlarmEnabled;
         mainWindowViewModel.IsQuickFileAccessEnabled = ViewModel.IsQuickFileAccessEnabled;
 
+        mainWindowViewModel.SelectedWebcam = ViewModel.SelectedWebcam;
+
         //// Launch the main window
         var mainWindow = new MainWindow();
         mainWindow.Activate();
+    }
+
+    private void ProfileChange_Clicked(object sender, RoutedEventArgs e)
+    {
+        Button clickedButton = (Button)sender;
+        Profile profile = (Profile)clickedButton.DataContext;
+
+        // call changeprofile function in viewmodel
+        ViewModel.ChangeProfile(profile);
+    }
+
+    private void AddProfile_Clicked(object sender, RoutedEventArgs e)
+    {
+        ViewModel.AddProfile();
+    }
+
+    private void DeleteProfile_Clicked(object sender, RoutedEventArgs e)
+    {
+        Button clickedButton = (Button)sender;
+
+        // call deleteprofile function in viewmodel
+        ViewModel.DeleteProfile();
     }
 
     private void CheckBox_Checked(object sender, RoutedEventArgs e)

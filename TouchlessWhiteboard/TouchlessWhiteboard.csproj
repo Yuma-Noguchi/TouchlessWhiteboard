@@ -22,6 +22,7 @@
     <None Remove="Assets\Selection-icon.png" />
     <None Remove="Assets\Sticky-Notes-icon.png" />
     <None Remove="Assets\Tools-icon.png" />
+    <None Remove="Resources\settings.json" />
     <None Remove="SettingsWindow.xaml" />
   </ItemGroup>
 
@@ -41,6 +42,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230913002" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="WinUIEx" Version="2.3.4" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
@@ -52,6 +54,9 @@
   -->
   <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <ProjectCapability Include="Msix" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\settings.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Camera-icon.png">

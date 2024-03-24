@@ -37,8 +37,11 @@ namespace TouchlessWhiteboard
             Ioc.Default.ConfigureServices(new ServiceCollection()
             .AddSingleton<SettingsWindowViewModel>()
             .AddSingleton<WebcamService>()
+            .AddSingleton<ProfileService>()
+            .AddSingleton<Profile>()
+            .AddSingleton<ProfileList>()
             .AddSingleton<MainWindowViewModel>()
-           .BuildServiceProvider());
+            .BuildServiceProvider());
         }
 
         /// <summary>

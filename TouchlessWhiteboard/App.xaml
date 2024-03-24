@@ -34,6 +34,16 @@
                 <Setter Property="Height" Value="40"/>
                 <!-- Add more setters as needed -->
             </Style>
+            <Style x:Key="ProfileButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="LightSalmon"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="CornerRadius" Value="37.5"/>
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="Margin" Value="0,20,0,0"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
