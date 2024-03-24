@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using TouchlessWhiteboard.Models;
 using TouchlessWhiteboard.ViewModel;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -35,6 +36,7 @@ namespace TouchlessWhiteboard
             this.InitializeComponent();
             Ioc.Default.ConfigureServices(new ServiceCollection()
             .AddSingleton<SettingsWindowViewModel>()
+            .AddSingleton<WebcamService>()
             .AddSingleton<MainWindowViewModel>()
            .BuildServiceProvider());
         }

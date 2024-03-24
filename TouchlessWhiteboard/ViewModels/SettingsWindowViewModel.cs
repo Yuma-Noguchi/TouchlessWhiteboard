@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TouchlessWhiteboard.Models;
 
 namespace TouchlessWhiteboard.ViewModel;
 
@@ -51,8 +52,24 @@ public partial class SettingsWindowViewModel : ObservableObject
     [ObservableProperty]
     private bool isQuickFileAccessEnabled;
 
-    public SettingsWindowViewModel()
+    private readonly WebcamService _webcamService;
+    [ObservableProperty]
+    private List<string> webcams;
+    [ObservableProperty]
+    private string selectedWebcam;
+
+    public SettingsWindowViewModel(WebcamService webcamService)
     {
+        _webcamService = webcamService;
+        InitializeAsync();
     }
-    
+
+    private async Task InitializeAsync()
+    {
+        webcams = await _webcamService.GetAvailableWebcams();
+        if (webcams.Count > 0)
+        {
+            SelectedWebcam = webcams[0];
+        }
+    }
 }
