@@ -276,8 +276,8 @@
         <Grid Grid.Row="2" Grid.Column="1" x:Name="QuickTools" Margin="10,10,0,0">
             <TextBlock Text="Quick Tools" FontSize="20" FontWeight="Bold"/>
             <Border Width="350" Height="400" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
-            <TextBlock Text="Choose which functions to use in this profile." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
-            <Grid Margin="20,60,20,20">
+            <TextBlock Text="Choose up to 3 tools to use in this profile." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
+            <Grid Margin="20,80,20,20">
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
                         <Setter Property="FontSize" Value="20"/>
@@ -296,7 +296,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCalculatorEnabled, Mode=TwoWay}">
+                <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCalculatorEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="CalculatorCheckBox">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Calculator-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                         <TextBlock Text="Calculator" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -314,7 +314,7 @@
                     </Border>
                 </Popup>
 
-                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsRulerEnabled, Mode=TwoWay}">
+                <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsRulerEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="RulerCheckBox">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Ruler-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                         <TextBlock Text="Ruler" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -332,7 +332,7 @@
                     </Border>
                 </Popup>
 
-                <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsTimerEnabled, Mode=TwoWay}">
+                <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsTimerEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="TimerCheckBox">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Timer-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                         <TextBlock Text="Timer" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -350,7 +350,7 @@
                     </Border>
                 </Popup>
 
-                <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsAlarmEnabled, Mode=TwoWay}">
+                <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsAlarmEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="AlarmCheckBox">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Alarm-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                         <TextBlock Text="Alarm" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -368,7 +368,7 @@
                     </Border>
                 </Popup>
 
-                <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsQuickFileAccessEnabled, Mode=TwoWay}">
+                <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsQuickFileAccessEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="QuickFileAccessCheckBox">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                         <TextBlock Text="Quick File Access" VerticalAlignment="Center" Margin="15,0,0,0"/>

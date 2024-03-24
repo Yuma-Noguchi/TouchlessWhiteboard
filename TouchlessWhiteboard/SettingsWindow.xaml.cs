@@ -26,6 +26,8 @@ namespace TouchlessWhiteboard;
 /// </summary>
 public sealed partial class SettingsWindow : Window
 {
+    private int _counter = 0;
+    private List<CheckBox> QuickToolsCheckBoxList = new List<CheckBox>();
     public SettingsWindow()
     {
         this.InitializeComponent();
@@ -35,6 +37,12 @@ public sealed partial class SettingsWindow : Window
         SetTitleBar(TitleBar);
 
         ViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
+
+        QuickToolsCheckBoxList.Add(CalculatorCheckBox);
+        QuickToolsCheckBoxList.Add(RulerCheckBox);
+        QuickToolsCheckBoxList.Add(TimerCheckBox);
+        QuickToolsCheckBoxList.Add(AlarmCheckBox);
+        QuickToolsCheckBoxList.Add(QuickFileAccessCheckBox);
     }
 
     public SettingsWindowViewModel? ViewModel { get; }
@@ -69,6 +77,34 @@ public sealed partial class SettingsWindow : Window
         var mainWindow = new MainWindow();
         mainWindow.Activate();
     }
+
+    private void CheckBox_Checked(object sender, RoutedEventArgs e)
+    {
+        _counter++;
+        if (_counter >= 3)
+        {
+            foreach (var checkbox in QuickToolsCheckBoxList)
+            {
+                if (checkbox.IsChecked == false)
+                {
+                    checkbox.IsEnabled = false;
+                }
+            }
+        }
+    }
+
+    private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+    {
+        _counter--;
+        if (_counter < 3)
+        {
+            foreach (var checkbox in QuickToolsCheckBoxList)
+            {
+                checkbox.IsEnabled = true;
+            }
+        }
+    }
+
 
     private async void OnClickTouchlessArtsHelpBtn(object sender, RoutedEventArgs e)
     {
