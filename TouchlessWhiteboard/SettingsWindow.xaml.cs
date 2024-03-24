@@ -91,6 +91,14 @@ public sealed partial class SettingsWindow : Window
         ViewModel.AddProfile();
     }
 
+    private void DeleteProfile_Clicked(object sender, RoutedEventArgs e)
+    {
+        Button clickedButton = (Button)sender;
+
+        // call deleteprofile function in viewmodel
+        ViewModel.DeleteProfile();
+    }
+
     private void CheckBox_Checked(object sender, RoutedEventArgs e)
     {
         _counter++;

@@ -14,6 +14,8 @@ namespace TouchlessWhiteboard.ViewModel;
 public partial class SettingsWindowViewModel : ObservableObject, INotifyPropertyChanged
 {
     [ObservableProperty]
+    private string name;
+    [ObservableProperty]
     private bool isTouchlessArtsEnabled;
     [ObservableProperty]
     private bool isEraserEnabled;
@@ -78,6 +80,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             ActiveProfile = profiles.First();
 
             // set all the properties to the values of the active profile
+            name = ActiveProfile.Name;
             isTouchlessArtsEnabled = ActiveProfile.IsTouchlessArtsEnabled;
             isEraserEnabled = ActiveProfile.IsEraserEnabled;
             isShapesEnabled = ActiveProfile.IsShapesEnabled;
@@ -129,6 +132,9 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
     {
         switch (e.PropertyName)
         {
+            case nameof(Name):
+                ActiveProfile.Name = Name;
+                break;
             case nameof(IsTouchlessArtsEnabled):
                 ActiveProfile.IsTouchlessArtsEnabled = IsTouchlessArtsEnabled;
                 break;
@@ -195,6 +201,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         ActiveProfile = profile;
 
         // set the UI to reflect the active profile
+        Name = ActiveProfile.Name;
         IsTouchlessArtsEnabled = ActiveProfile.IsTouchlessArtsEnabled;
         IsEraserEnabled = ActiveProfile.IsEraserEnabled;
         IsShapesEnabled = ActiveProfile.IsShapesEnabled;
@@ -217,6 +224,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         {
             SelectedWebcam = ActiveProfile.SelectedWebcam;
         }
+        ActiveProfile.IsSelected = true;
     }
 
     public void AddProfile()
@@ -261,5 +269,15 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         Profiles.Add(newProfile);
         ActiveProfile = newProfile;
         ChangeProfile(newProfile);
+    }
+
+    public void DeleteProfile()
+    {
+        Profiles.Remove(ActiveProfile);
+        if (Profiles.Count > 0)
+        {
+            ActiveProfile = Profiles.Last();
+            ChangeProfile(ActiveProfile);
+        }
     }
 }

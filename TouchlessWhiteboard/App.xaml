@@ -35,7 +35,7 @@
                 <!-- Add more setters as needed -->
             </Style>
             <Style x:Key="ProfileButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="LightGreen"/>
+                <Setter Property="Background" Value="LightSalmon"/>
                 <Setter Property="Foreground" Value="Black"/>
                 <Setter Property="CornerRadius" Value="37.5"/>
                 <Setter Property="FontSize" Value="25"/>

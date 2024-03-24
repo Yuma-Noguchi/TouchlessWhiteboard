@@ -56,9 +56,9 @@
                                 <Button.Content>
                                     <TextBlock Text="{Binding Name, Converter={StaticResource FirstLetterConverter}}"/>
                                 </Button.Content>
-                                <Button.Background>
-                                    <SolidColorBrush Color="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}"/>
-                                </Button.Background>
+                                <!--<Button.Background>-->
+                                    <!--<SolidColorBrush Color="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>-->
+                                <!--</Button.Background>-->
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -67,10 +67,14 @@
             </StackPanel>
         </Grid>
         <!--#endregion Profile Selection-->
-
+        
+        <!--#region Delete Profile-->
+        <Button Grid.Row="1" Grid.Column="1" Content="Delete Profile" Click="DeleteProfile_Clicked" HorizontalAlignment="Center" Margin="0,40,60,0" Background="LightPink" Foreground="Black" FontWeight="Bold" FontSize="15"/>
+        <!--#endregion Delete Profile-->
+        
         <!--#region Settings Name-->
         <Grid Grid.Row="1" Grid.Column="1" x:Name="SettingsName" Margin="10,10,0,0">
-            <TextBox Header="Enter profile name:" PlaceholderText="Name" Text="{Binding Name}" Width="200" HorizontalAlignment="Left" />
+            <TextBox Header="Enter profile name:" PlaceholderText="Name" Text="{x:Bind ViewModel.Name, Mode=TwoWay}" Width="200" HorizontalAlignment="Left" />
         </Grid>
         <!--#endregion Settings Name-->
         
