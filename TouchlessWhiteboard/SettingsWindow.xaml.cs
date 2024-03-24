@@ -59,6 +59,12 @@ public sealed partial class SettingsWindow : Window
 
         mainWindowViewModel.PinchSensitivity = ViewModel.PinchSensitivity / 100.0;
 
+        mainWindowViewModel.IsCalculatorEnabled = ViewModel.IsCalculatorEnabled;
+        mainWindowViewModel.IsRulerEnabled = ViewModel.IsRulerEnabled;
+        mainWindowViewModel.IsTimerEnabled = ViewModel.IsTimerEnabled;
+        mainWindowViewModel.IsAlarmEnabled = ViewModel.IsAlarmEnabled;
+        mainWindowViewModel.IsQuickFileAccessEnabled = ViewModel.IsQuickFileAccessEnabled;
+
         //// Launch the main window
         var mainWindow = new MainWindow();
         mainWindow.Activate();
@@ -176,5 +182,65 @@ public sealed partial class SettingsWindow : Window
     {
         // if the Popup is open, then close it 
         if (InAir3DMouseHelpPopup.IsOpen) { InAir3DMouseHelpPopup.IsOpen = false; }
+    }
+
+    private void OpenCalculatorPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // open the Popup if it isn't open already 
+        if (!CalculatorHelpPopup.IsOpen) { CalculatorHelpPopup.IsOpen = true; }
+    }
+
+    private void CloseCalculatorPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // if the Popup is open, then close it 
+        if (CalculatorHelpPopup.IsOpen) { CalculatorHelpPopup.IsOpen = false; }
+    }
+
+    private void OpenRulerPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // open the Popup if it isn't open already 
+        if (!RulerHelpPopup.IsOpen) { RulerHelpPopup.IsOpen = true; }
+    }
+
+    private void CloseRulerPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // if the Popup is open, then close it 
+        if (RulerHelpPopup.IsOpen) { RulerHelpPopup.IsOpen = false; }
+    }
+
+    private void OpenTimerPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // open the Popup if it isn't open already 
+        if (!TimerHelpPopup.IsOpen) { TimerHelpPopup.IsOpen = true; }
+    }
+
+    private void CloseTimerPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // if the Popup is open, then close it 
+        if (TimerHelpPopup.IsOpen) { TimerHelpPopup.IsOpen = false; }
+    }
+
+    private void OpenAlarmPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // open the Popup if it isn't open already 
+        if (!AlarmHelpPopup.IsOpen) { AlarmHelpPopup.IsOpen = true; }
+    }
+
+    private void CloseAlarmPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // if the Popup is open, then close it 
+        if (AlarmHelpPopup.IsOpen) { AlarmHelpPopup.IsOpen = false; }
+    }
+
+    private void OpenQuickFileAccessPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // open the Popup if it isn't open already 
+        if (!QuickFileAccessHelpPopup.IsOpen) { QuickFileAccessHelpPopup.IsOpen = true; }
+    }
+
+    private void CloseQuickFileAccessPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // if the Popup is open, then close it 
+        if (QuickFileAccessHelpPopup.IsOpen) { QuickFileAccessHelpPopup.IsOpen = false; }
     }
 }
