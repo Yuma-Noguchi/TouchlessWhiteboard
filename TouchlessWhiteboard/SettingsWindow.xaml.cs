@@ -57,6 +57,8 @@ public sealed partial class SettingsWindow : Window
 
         mainWindowViewModel.DominantHand = ViewModel.IsLeftHanded ? "Left" : "Right";
 
+        mainWindowViewModel.PinchSensitivity = ViewModel.PinchSensitivity / 100.0;
+
         //// Launch the main window
         var mainWindow = new MainWindow();
         mainWindow.Activate();

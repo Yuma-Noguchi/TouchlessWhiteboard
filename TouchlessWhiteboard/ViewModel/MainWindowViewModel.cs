@@ -22,6 +22,7 @@ public partial class MainWindowViewModel
     public bool IsToolsEnabled { get; set; }
     public bool IsInAir3DMouseEnabled { get; set; }
     public string DominantHand { get; set; }
+    public double PinchSensitivity { get; set; }
 
     public MainWindowViewModel()
     {
