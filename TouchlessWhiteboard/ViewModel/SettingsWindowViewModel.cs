@@ -22,10 +22,12 @@ public partial class SettingsWindowViewModel : INotifyPropertyChanged
     private bool _isToolsEnabled;
     private bool _isInAir3DMouseEnabled;
 
+    private bool _isLeftHanded;
+    private bool _isRightHanded;
+
     public SettingsWindowViewModel()
     {
     }
-
     public bool IsTouchlessArtsEnabled
     {
         get { return _isTouchlessArtsEnabled; }
@@ -123,6 +125,26 @@ public partial class SettingsWindowViewModel : INotifyPropertyChanged
         {
             _isInAir3DMouseEnabled = value;
             OnPropertyChanged("IsInAir3DMouseEnabled");
+        }
+    }
+
+    public bool IsLeftHanded
+    {
+        get { return _isLeftHanded; }
+        set
+        {
+            _isLeftHanded = value;
+            OnPropertyChanged("IsLeftHanded");
+        }
+    }
+
+    public bool IsRightHanded
+    {
+        get { return _isRightHanded; }
+        set
+        {
+            _isRightHanded = value;
+            OnPropertyChanged("IsRightHanded");
         }
     }
 

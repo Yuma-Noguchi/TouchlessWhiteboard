@@ -55,6 +55,8 @@ public sealed partial class SettingsWindow : Window
         mainWindowViewModel.IsToolsEnabled = ViewModel.IsToolsEnabled;
         mainWindowViewModel.IsInAir3DMouseEnabled = ViewModel.IsInAir3DMouseEnabled;
 
+        mainWindowViewModel.DominantHand = ViewModel.IsLeftHanded ? "Left" : "Right";
+
         //// Launch the main window
         var mainWindow = new MainWindow();
         mainWindow.Activate();
