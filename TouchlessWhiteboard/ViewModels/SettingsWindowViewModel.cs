@@ -39,7 +39,7 @@ public partial class SettingsWindowViewModel : ObservableObject
     private bool isRightHanded;
 
     [ObservableProperty]
-    private int pinchSensitivity;
+    private double pinchSensitivity;
 
     [ObservableProperty]
     private bool isCalculatorEnabled;
@@ -58,18 +58,89 @@ public partial class SettingsWindowViewModel : ObservableObject
     [ObservableProperty]
     private string selectedWebcam;
 
-    public SettingsWindowViewModel(WebcamService webcamService)
+    private readonly ProfileService _profileService;
+    [ObservableProperty]
+    private List<Profile> profiles;
+
+    public Profile ActiveProfile { get; set; }
+
+    public SettingsWindowViewModel(WebcamService webcamService, ProfileService profileService)
     {
         _webcamService = webcamService;
+        _profileService = profileService;
         InitializeAsync();
+        if (profiles != null && profiles.Any())
+        {
+            ActiveProfile = profiles.First();
+
+            // set all the properties to the values of the active profile
+            isTouchlessArtsEnabled = ActiveProfile.IsTouchlessArtsEnabled;
+            isEraserEnabled = ActiveProfile.IsEraserEnabled;
+            isShapesEnabled = ActiveProfile.IsShapesEnabled;
+            isSelectionEnabled = ActiveProfile.IsSelectionEnabled;
+            isStickyNotesEnabled = ActiveProfile.IsStickyNotesEnabled;
+            isCameraEnabled = ActiveProfile.IsCameraEnabled;
+            isSearchEnabled = ActiveProfile.IsSearchEnabled;
+            isCopilotEnabled = ActiveProfile.IsCopilotEnabled;
+            isToolsEnabled = ActiveProfile.IsToolsEnabled;
+            isInAir3DMouseEnabled = ActiveProfile.IsInAir3DMouseEnabled;
+            isLeftHanded = ActiveProfile.IsLeftHanded;
+            isRightHanded = ActiveProfile.IsRightHanded;
+            pinchSensitivity = ActiveProfile.PinchSensitivity;
+            isCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
+            isRulerEnabled = ActiveProfile.IsRulerEnabled;
+            isTimerEnabled = ActiveProfile.IsTimerEnabled;
+            isAlarmEnabled = ActiveProfile.IsAlarmEnabled;
+            isQuickFileAccessEnabled = ActiveProfile.IsQuickFileAccessEnabled;
+            // if selected webcam exists in the list of available webcams, set it as the selected webcam
+            if (webcams.Contains(ActiveProfile.SelectedWebcam))
+            {
+                SelectedWebcam = ActiveProfile.SelectedWebcam;
+            }
+            else
+            {
+                if (webcams.Count > 0)
+                {
+                    SelectedWebcam = webcams[0];
+                }
+            }
+        }
+        PropertyChanged += (s, e) => UpdateProfile();
     }
 
-    private async Task InitializeAsync()
+    private async void InitializeAsync()
     {
+        Profiles = await _profileService.LoadProfilesFromJson("Resources/settings.json");
+
         webcams = await _webcamService.GetAvailableWebcams();
         if (webcams.Count > 0)
         {
             SelectedWebcam = webcams[0];
         }
+    }
+
+    private void UpdateProfile()
+    {
+        // Assuming 'profiles' is not null and has at least one element
+
+        ActiveProfile.IsTouchlessArtsEnabled = isTouchlessArtsEnabled;
+        ActiveProfile.IsEraserEnabled = isEraserEnabled;
+        ActiveProfile.IsShapesEnabled = isShapesEnabled;
+        ActiveProfile.IsSelectionEnabled = isSelectionEnabled;
+        ActiveProfile.IsStickyNotesEnabled = isStickyNotesEnabled;
+        ActiveProfile.IsCameraEnabled = isCameraEnabled;
+        ActiveProfile.IsSearchEnabled = isSearchEnabled;
+        ActiveProfile.IsCopilotEnabled = isCopilotEnabled;
+        ActiveProfile.IsToolsEnabled = isToolsEnabled;
+        ActiveProfile.IsInAir3DMouseEnabled = isInAir3DMouseEnabled;
+        ActiveProfile.IsLeftHanded = isLeftHanded;
+        ActiveProfile.IsRightHanded = isRightHanded;
+        ActiveProfile.PinchSensitivity = pinchSensitivity;
+        ActiveProfile.IsCalculatorEnabled = isCalculatorEnabled;
+        ActiveProfile.IsRulerEnabled = isRulerEnabled;
+        ActiveProfile.IsTimerEnabled = isTimerEnabled;
+        ActiveProfile.IsAlarmEnabled = isAlarmEnabled;
+        ActiveProfile.IsQuickFileAccessEnabled = isQuickFileAccessEnabled;
+        ActiveProfile.SelectedWebcam = SelectedWebcam;
     }
 }

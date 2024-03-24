@@ -1,0 +1,48 @@
+{
+  "profiles": [
+    {
+      "name": "Math",
+      "isTouchlessArtsEnabled": false,
+      "isEraserEnabled": true,
+      "isShapesEnabled": false,
+      "isSelectionEnabled": true,
+      "isStickyNotesEnabled": false,
+      "isCameraEnabled": true,
+      "isSearchEnabled": false,
+      "isCopilotEnabled": true,
+      "isToolsEnabled": false,
+      "isInAir3DMouseEnabled": false,
+      "isLeftHanded": true,
+      "isRightHanded": false,
+      "pinchSensitivity": 0.5,
+      "isCalculatorEnabled": false,
+      "isRulerEnabled": true,
+      "isTimerEnabled": false,
+      "isAlarmEnabled": true,
+      "isQuickFileAccessEnabled": false,
+      "selectedWebcam": ""
+    },
+    {
+      "name": "English",
+      "isTouchlessArtsEnabled": true,
+      "isEraserEnabled": false,
+      "isShapesEnabled": false,
+      "isSelectionEnabled": true,
+      "isStickyNotesEnabled": false,
+      "isCameraEnabled": true,
+      "isSearchEnabled": false,
+      "isCopilotEnabled": true,
+      "isToolsEnabled": false,
+      "isInAir3DMouseEnabled": true,
+      "isLeftHanded": false,
+      "isRightHanded": true,
+      "pinchSensitivity": 0.31,
+      "isCalculatorEnabled": false,
+      "isRulerEnabled": true,
+      "isTimerEnabled": false,
+      "isAlarmEnabled": true,
+      "isQuickFileAccessEnabled": true,
+      "selectedWebcam": ""
+    }
+  ]
+}

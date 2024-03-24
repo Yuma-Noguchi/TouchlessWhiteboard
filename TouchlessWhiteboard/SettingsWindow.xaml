@@ -10,8 +10,9 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="720"/>
+            <ColumnDefinition Width="360"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -34,14 +35,21 @@
         </StackPanel>
         <!--#endregion Title Bar-->
         
+        <!--#region Profile Selection-->
+        <Grid Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" x:Name="ProfileSelection" Margin="10,7,0,0">
+            <TextBlock Text="Profiles" FontSize="20" FontWeight="Bold" Margin="3,0,0,0"/>
+            <Border Width="80" Height="730" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
+        </Grid>
+        <!--#endregion Profile Selection-->
+        
         <!--#region Settings Name-->
-        <Grid Grid.Row="1" Grid.Column="0" x:Name="SettingsName" Margin="10,10,0,0">
-            <TextBox Header="Enter your name:" PlaceholderText="Name" Width="200" HorizontalAlignment="Left"/>
+        <Grid Grid.Row="1" Grid.Column="1" x:Name="SettingsName" Margin="10,10,0,0">
+            <TextBox Header="Enter profile name:" PlaceholderText="Name" Width="200" HorizontalAlignment="Left" />
         </Grid>
         <!--#endregion Settings Name-->
         
         <!--#region Tool Bar Settings-->
-        <Grid Grid.Row="2" Grid.Column="0" x:Name="ToolBarSettings" Margin="10,10,0,0">
+        <Grid Grid.Row="2" Grid.Column="1" x:Name="ToolBarSettings" Margin="10,10,0,0">
             <TextBlock Text="Tool Bar Settings" FontSize="20" FontWeight="Bold"/>
             <Border Width="710" Height="400" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
             <TextBlock Text="Choose which functions to use in this profile." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
@@ -239,7 +247,7 @@
         <!--#endregion Tool Bar Settings-->
         
         <!--#region Dominant Hand-->
-        <Grid Grid.Row="3" Grid.Column="0" x:Name="DominantHand" Margin="10,10,0,0">
+        <Grid Grid.Row="3" Grid.Column="1" x:Name="DominantHand" Margin="10,10,0,0">
             <TextBlock Text="Dominant Hand" FontSize="20" FontWeight="Bold"/>
             <Border Width="710" Height="80" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
             <TextBlock Text="Choose your dominant hand." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
@@ -260,20 +268,20 @@
         <!--#endregion Dominant Hand-->
         
         <!--#region Pinch Sensitivity-->
-        <Grid Grid.Row="4" Grid.Column="0" x:Name="PinchSensitivity" Margin="10,10,0,0">
+        <Grid Grid.Row="4" Grid.Column="1" x:Name="PinchSensitivity" Margin="10,10,0,0">
             <TextBlock Text="Pinch Sensitivity" FontSize="20" FontWeight="Bold"/>
             <Border Width="710" Height="80" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
             <TextBlock Text="Choose your pinch sensitivity." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Text="0" FontSize="18" Foreground="Black" Margin="10,50,0,0" VerticalAlignment="Center"/>
-                <Slider AutomationProperties.Name="simple slider" Width="400" Margin="20,70,0,0" Minimum="0" Maximum="100" StepFrequency="1" TickFrequency="10" Value="{x:Bind ViewModel.PinchSensitivity, Mode=TwoWay}"/>
-                <TextBlock Text="100" FontSize="18" Foreground="Black" Margin="10,50,0,0" VerticalAlignment="Center" />
+                <Slider AutomationProperties.Name="simple slider" Width="400" Margin="20,70,0,0" Minimum="0" Maximum="1" StepFrequency="0.01" TickFrequency="0.1" Value="{x:Bind ViewModel.PinchSensitivity, Mode=TwoWay}"/>
+                <TextBlock Text="1" FontSize="18" Foreground="Black" Margin="10,50,0,0" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
         <!--#endregion Pinch Sensitivity-->
         
         <!--#region QUick Tools-->
-        <Grid Grid.Row="2" Grid.Column="1" x:Name="QuickTools" Margin="10,10,0,0">
+        <Grid Grid.Row="2" Grid.Column="2" x:Name="QuickTools" Margin="10,10,0,0">
             <TextBlock Text="Quick Tools" FontSize="20" FontWeight="Bold"/>
             <Border Width="350" Height="400" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
             <TextBlock Text="Choose up to 3 tools to use in this profile." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
@@ -390,7 +398,7 @@
         <!--#endregion QUick Tools-->
         
         <!--#region Webcam Selection-->
-        <Grid Grid.Row="3" Grid.Column="1" x:Name="WebcamSelection" Margin="10,10,0,0">
+        <Grid Grid.Row="3" Grid.Column="2" x:Name="WebcamSelection" Margin="10,10,0,0">
             <TextBlock Text="Webcam Selection" FontSize="20" FontWeight="Bold"/>
             <Border Width="350" Height="80" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
             <TextBlock Text="Choose your webcam." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
@@ -399,7 +407,10 @@
         <!--#endregion Webcam Selection-->
 
         <!--#region Lanuch Button-->
-        <Button Grid.Column="1" Grid.Row="1" Height="40" Width="100" Content="Launch" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" Click="LaunchButton_Click" Background="White" Foreground="Black"/>
+        <StackPanel Grid.Column="2" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,15">
+            <Button Height="50" Width="150" Content="Launch" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="LaunchButton_Click" Background="White" Foreground="Black" FontSize="20" FontWeight="Bold"/>
+            <Button Height="50" Width="150" Content="Cencel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="LaunchButton_Click" Background="Gray" Foreground="Black" FontSize="20" FontWeight="Bold" Margin="30,0,5,0"/>
+        </StackPanel>
         <!--#endregion Lanuch Button-->
     </Grid>
 </Window>
