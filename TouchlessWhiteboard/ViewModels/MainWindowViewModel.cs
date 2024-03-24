@@ -28,7 +28,7 @@ public partial class MainWindowViewModel
     public bool IsTimerEnabled { get; set; }
     public bool IsAlarmEnabled { get; set; }
     public bool IsQuickFileAccessEnabled { get; set; }
-
+    public string SelectedWebcam { get; set; }
 
     public MainWindowViewModel()
     {

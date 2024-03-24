@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
 
 namespace TouchlessWhiteboard.Models;
@@ -72,6 +73,11 @@ public class Profile
 
     [JsonPropertyName("selectedWebcam")]
     public string SelectedWebcam { get; set; }
+    public bool IsSelected { get; set; }
+
+    public Profile() {
+        IsSelected = false;
+    }
 }
 
 public class ProfileList
