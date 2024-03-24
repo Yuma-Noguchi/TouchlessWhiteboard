@@ -25,6 +25,8 @@ public partial class SettingsWindowViewModel : INotifyPropertyChanged
     private bool _isLeftHanded;
     private bool _isRightHanded;
 
+    private int _pinchSensitivity;
+
     public SettingsWindowViewModel()
     {
     }
@@ -145,6 +147,16 @@ public partial class SettingsWindowViewModel : INotifyPropertyChanged
         {
             _isRightHanded = value;
             OnPropertyChanged("IsRightHanded");
+        }
+    }
+
+    public int PinchSensitivity
+    {
+        get { return _pinchSensitivity; }
+        set
+        {
+            _pinchSensitivity = value;
+            OnPropertyChanged("PinchSensitivity");
         }
     }
 
