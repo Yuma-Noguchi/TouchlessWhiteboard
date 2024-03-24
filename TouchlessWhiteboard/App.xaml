@@ -24,6 +24,16 @@
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="Margin" Value="0,0,25,0"/>
             </Style>
+            <Style x:Key="RadioButtonStyle" TargetType="RadioButton">
+                <Setter Property="Background" Value="{ThemeResource ToggleButtonBackground}"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="MinHeight" Value="40"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="VerticalContentAlignment" Value="Top"/>
+                <Setter Property="Height" Value="40"/>
+                <!-- Add more setters as needed -->
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

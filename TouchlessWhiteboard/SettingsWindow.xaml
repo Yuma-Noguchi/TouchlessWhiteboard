@@ -16,7 +16,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
             <RowDefinition Height="70"/>
-            <RowDefinition Height="460"/>
+            <RowDefinition Height="450"/>
+            <RowDefinition Height="130"/>
         </Grid.RowDefinitions>
         
         <!--#region Title Bar-->
@@ -70,7 +71,7 @@
                     </StackPanel>
                 </CheckBox>
                 <Button Content="i" Grid.Row="0" Grid.Column="0" Click="OnClickTouchlessArtsHelpBtn" Style="{StaticResource HelpButtonStyle}"/>
-                
+
                 <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsEraserEnabled, Mode=TwoWay}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="Assets/Eraser-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
@@ -233,11 +234,30 @@
                     </Border>
                 </Popup>
             </Grid>
-            
-            <!--#region Lanuch Button-->
-            <Button Grid.Column="1" Grid.Row="1" Height="40" Width="100" Content="Launch" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" Click="LaunchButton_Click" Background="White" Foreground="Black"/>
-            <!--#endregion Lanuch Button-->
         </Grid>
         <!--#endregion Tool Bar Settings-->
+        
+        <!--#region Dominant Hand-->
+        <Grid Grid.Row="3" Grid.Column="0" x:Name="DominantHand" Margin="10,10,0,0">
+            <TextBlock Text="Dominant Hand" FontSize="20" FontWeight="Bold"/>
+            <Border Width="710" Height="80" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
+            <TextBlock Text="Choose your dominant hand." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
+            <Grid Margin="200,75,0,-10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <RadioButton Grid.Row="0" Grid.Column="0" GroupName="DominantHand" Content="Left" Style="{StaticResource RadioButtonStyle}" IsChecked="{x:Bind ViewModel.IsLeftHanded, Mode=TwoWay}"/>
+                <RadioButton Grid.Row="0" Grid.Column="1" GroupName="DominantHand" Content="Right" Style="{StaticResource RadioButtonStyle}" IsChecked="{x:Bind ViewModel.IsRightHanded, Mode=TwoWay}"/>
+            </Grid>
+        </Grid>
+        <!--#region Lanuch Button-->
+        <Button Grid.Column="1" Grid.Row="1" Height="40" Width="100" Content="Launch" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,20" Click="LaunchButton_Click" Background="White" Foreground="Black"/>
+        <!--#endregion Lanuch Button-->
     </Grid>
 </Window>
