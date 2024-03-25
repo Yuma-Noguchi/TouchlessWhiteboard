@@ -9,6 +9,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -18,10 +19,13 @@ using TouchlessWhiteboard.ViewModel;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
+using Windows.UI.WindowManagement;
+using WinRT.Interop;
+using WinUIEx;
 
 namespace TouchlessWhiteboard;
 
-public sealed partial class SettingsWindow : Window
+public sealed partial class SettingsWindow : WinUIEx.WindowEx
 {
     private int _counter = 0;
     private List<CheckBox> QuickToolsCheckBoxList = new List<CheckBox>();
@@ -40,41 +44,20 @@ public sealed partial class SettingsWindow : Window
         QuickToolsCheckBoxList.Add(TimerCheckBox);
         QuickToolsCheckBoxList.Add(AlarmCheckBox);
         QuickToolsCheckBoxList.Add(QuickFileAccessCheckBox);
+
+        this.CenterOnScreen();
     }
 
     public SettingsWindowViewModel? ViewModel { get; }
 
     private void LaunchButton_Click(object sender, RoutedEventArgs e)
     {
+        ViewModel.Launch();
+    }
 
-        var mainWindowViewModel = new MainWindowViewModel();
-
-        mainWindowViewModel.IsTouchlessArtsEnabled = ViewModel.IsTouchlessArtsEnabled;
-        mainWindowViewModel.IsEraserEnabled = ViewModel.IsEraserEnabled;
-        mainWindowViewModel.IsShapesEnabled = ViewModel.IsShapesEnabled;
-        mainWindowViewModel.IsSelectionEnabled = ViewModel.IsSelectionEnabled;
-        mainWindowViewModel.IsStickyNotesEnabled = ViewModel.IsStickyNotesEnabled;
-        mainWindowViewModel.IsCameraEnabled = ViewModel.IsCameraEnabled;
-        mainWindowViewModel.IsSearchEnabled = ViewModel.IsSearchEnabled;
-        mainWindowViewModel.IsCopilotEnabled = ViewModel.IsCopilotEnabled;
-        mainWindowViewModel.IsToolsEnabled = ViewModel.IsToolsEnabled;
-        mainWindowViewModel.IsInAir3DMouseEnabled = ViewModel.IsInAir3DMouseEnabled;
-
-        mainWindowViewModel.DominantHand = ViewModel.IsLeftHanded ? "Left" : "Right";
-
-        mainWindowViewModel.PinchSensitivity = ViewModel.PinchSensitivity / 100.0;
-
-        mainWindowViewModel.IsCalculatorEnabled = ViewModel.IsCalculatorEnabled;
-        mainWindowViewModel.IsRulerEnabled = ViewModel.IsRulerEnabled;
-        mainWindowViewModel.IsTimerEnabled = ViewModel.IsTimerEnabled;
-        mainWindowViewModel.IsAlarmEnabled = ViewModel.IsAlarmEnabled;
-        mainWindowViewModel.IsQuickFileAccessEnabled = ViewModel.IsQuickFileAccessEnabled;
-
-        mainWindowViewModel.SelectedWebcam = ViewModel.SelectedWebcam;
-
-        //// Launch the main window
-        var mainWindow = new MainWindow();
-        mainWindow.Activate();
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 
     private void ProfileChange_Clicked(object sender, RoutedEventArgs e)
@@ -93,8 +76,6 @@ public sealed partial class SettingsWindow : Window
 
     private void DeleteProfile_Clicked(object sender, RoutedEventArgs e)
     {
-        Button clickedButton = (Button)sender;
-
         // call deleteprofile function in viewmodel
         ViewModel.DeleteProfile();
     }

@@ -12,8 +12,8 @@
             </ResourceDictionary.MergedDictionaries>
             <!-- Other app resources here -->
             <Style x:Key="HelpButtonStyle" TargetType="Button">
-                <Setter Property="Background" Value="White"/>
-                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="Foreground" Value="White"/>
                 <Setter Property="FontSize" Value="15"/>
                 <Setter Property="FontWeight" Value="Bold"/>
                 <Setter Property="Height" Value="30"/>
