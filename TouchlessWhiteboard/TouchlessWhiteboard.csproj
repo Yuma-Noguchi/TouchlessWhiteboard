@@ -20,6 +20,7 @@
     <None Remove="Assets\In-Air-3D-Mouse-icon.png" />
     <None Remove="Assets\Search-icon.png" />
     <None Remove="Assets\Selection-icon.png" />
+    <None Remove="Assets\Shapes-icon.png" />
     <None Remove="Assets\Sticky-Notes-icon.png" />
     <None Remove="Assets\Tools-icon.png" />
     <None Remove="Resources\settings.json" />
@@ -61,6 +62,18 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Assets\Alarm-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Shapes-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Touchless-Arts-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Calculator-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Camera-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -70,7 +83,16 @@
     <Content Update="Assets\Eraser-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\QuickFileAccess-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\In-Air-3D-Mouse-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Ruler-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Timer-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Search-icon.png">

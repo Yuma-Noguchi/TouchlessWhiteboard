@@ -76,8 +76,6 @@ public sealed partial class SettingsWindow : WinUIEx.WindowEx
 
     private void DeleteProfile_Clicked(object sender, RoutedEventArgs e)
     {
-        Button clickedButton = (Button)sender;
-
         // call deleteprofile function in viewmodel
         ViewModel.DeleteProfile();
     }

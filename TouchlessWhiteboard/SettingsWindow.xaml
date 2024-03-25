@@ -9,11 +9,11 @@
     mc:Ignorable="d"
     MinHeight="500"
     MinWidth="600"
-    Height="820"
+    Height="840"
     Width="1200">
     <Grid>
         <ScrollViewer HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid Width="1200" Height="820" Background="Black">
+            <Grid Width="1200" Height="840" Background="Black">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="720"/>
@@ -21,7 +21,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
-                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="80"/>
                     <RowDefinition Height="450"/>
                     <RowDefinition Height="130"/>
                     <RowDefinition Height="130"/>
@@ -78,7 +78,8 @@
 
                 <!--#region Settings Name-->
                 <Grid Grid.Row="1" Grid.Column="1" x:Name="SettingsName" Margin="10,10,0,0">
-                    <TextBox Header="Enter profile name:" PlaceholderText="Name" Text="{x:Bind ViewModel.Name, Mode=TwoWay}" Width="200" HorizontalAlignment="Left" />
+                    <TextBlock Text="Settings Name" FontSize="14" Width="100" HorizontalAlignment="Left"/>
+                    <TextBox PlaceholderText="Name" Text="{x:Bind ViewModel.Name, Mode=TwoWay}" HorizontalAlignment="Left" FontWeight="Bold" FontSize="25" Margin="0,20,0,0" Width="200"/>
                 </Grid>
                 <!--#endregion Settings Name-->
 
