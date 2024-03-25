@@ -11,6 +11,7 @@ namespace TouchlessWhiteboard.ViewModel;
 
 public partial class MainWindowViewModel
 {
+    public string Name { get; set; }
     public bool IsTouchlessArtsEnabled { get; set; }
     public bool IsEraserEnabled { get; set; }
     public bool IsShapesEnabled { get; set; }
@@ -21,14 +22,11 @@ public partial class MainWindowViewModel
     public bool IsCopilotEnabled { get; set; }
     public bool IsToolsEnabled { get; set; }
     public bool IsInAir3DMouseEnabled { get; set; }
-    public string DominantHand { get; set; }
-    public double PinchSensitivity { get; set; }
     public bool IsCalculatorEnabled { get; set; }
     public bool IsRulerEnabled { get; set; }
     public bool IsTimerEnabled { get; set; }
     public bool IsAlarmEnabled { get; set; }
     public bool IsQuickFileAccessEnabled { get; set; }
-    public string SelectedWebcam { get; set; }
 
     public MainWindowViewModel()
     {

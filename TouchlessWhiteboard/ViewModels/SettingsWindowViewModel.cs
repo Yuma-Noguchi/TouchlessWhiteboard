@@ -8,6 +8,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using TouchlessWhiteboard.Models;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using WinUIEx;
+using System.IO;
 
 namespace TouchlessWhiteboard.ViewModel;
 
@@ -279,5 +282,77 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             ActiveProfile = Profiles.Last();
             ChangeProfile(ActiveProfile);
         }
+    }
+
+    public void SaveProfiles()
+    {
+        _profileService.SaveProfilesToJson("Resources/settings.json", profiles.ToList());
+    }
+
+    public void SetMotionInputConfig()
+    {
+
+    }
+
+    public void Launch()
+    {
+
+        var mainWindowViewModel = new MainWindowViewModel();
+
+        mainWindowViewModel.Name = Name;
+
+        mainWindowViewModel.IsTouchlessArtsEnabled = IsTouchlessArtsEnabled;
+        mainWindowViewModel.IsEraserEnabled = IsEraserEnabled;
+        mainWindowViewModel.IsShapesEnabled = IsShapesEnabled;
+        mainWindowViewModel.IsSelectionEnabled = IsSelectionEnabled;
+        mainWindowViewModel.IsStickyNotesEnabled = IsStickyNotesEnabled;
+        mainWindowViewModel.IsCameraEnabled = IsCameraEnabled;
+        mainWindowViewModel.IsSearchEnabled = IsSearchEnabled;
+        mainWindowViewModel.IsCopilotEnabled = IsCopilotEnabled;
+        mainWindowViewModel.IsToolsEnabled = IsToolsEnabled;
+        mainWindowViewModel.IsInAir3DMouseEnabled = IsInAir3DMouseEnabled;
+
+        mainWindowViewModel.IsCalculatorEnabled = IsCalculatorEnabled;
+        mainWindowViewModel.IsRulerEnabled = IsRulerEnabled;
+        mainWindowViewModel.IsTimerEnabled = IsTimerEnabled;
+        mainWindowViewModel.IsAlarmEnabled = IsAlarmEnabled;
+        mainWindowViewModel.IsQuickFileAccessEnabled = IsQuickFileAccessEnabled;
+
+
+        // overwrite json file with new profile
+        //SaveProfiles();
+
+        //// activate motioninput
+        //// 1. kill motioninput
+        //Process.Start("taskkill", "/F /IM MotionInput.exe");
+        //// 2. start motioninput
+        //SetMotionInputConfig();
+        //// check MottionInput/motioninput.dist exist
+
+        //// if not, copy from MotionInput/motioninput.dist
+
+        //string FilePath = "motioninput.exe";
+        //ProcessStartInfo startInfo = new ProcessStartInfo
+        //{
+        //    FileName = "@" + FilePath,
+        //    UseShellExecute = true,
+        //    Verb = "runas"
+        //};
+
+        //try
+        //{
+        //    Process.Start(startInfo);
+        //}
+        //catch (Exception ex)
+        //{
+        //    // Handle the error. For example, you can display it in a message box.
+        //    Console.WriteLine(ex.Message);
+        //}
+
+        //// 4. Minimize this window
+
+        //// Launch the main window
+        var mainWindow = new MainWindow();
+        mainWindow.Activate();
     }
 }

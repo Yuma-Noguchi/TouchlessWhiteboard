@@ -101,5 +101,18 @@ public class ProfileService
             return profiles.ToList();
         }
     }
+
+    public async Task SaveProfilesToJson(string filePath, List<Profile> profiles)
+    {
+        string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, filePath);
+        // Serialize model into json
+        var profileList = new ProfileList { Profiles = profiles };
+        var json = JsonConvert.SerializeObject(profileList);
+        // Write json to file
+        using (var sw = new StreamWriter(FilePath))
+        {
+            sw.Write(json);
+        }
+    }
 }
 
