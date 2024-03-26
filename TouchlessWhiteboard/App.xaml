@@ -44,6 +44,22 @@
                 <Setter Property="Width" Value="50"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
+            <Style x:Key="ToolBarButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="80"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Background" Value="LightSalmon"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <!-- Add other setters as needed -->
+            </Style>
+            <Style x:Key="ToolBarButtonImageStyle" TargetType="Image">
+                <!--<Setter Property="Width" Value="Auto"/>
+                <Setter Property="Height" Value="Auto"/>-->
+                <Setter Property="Margin" Value="0,0,0,0"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
+using System.Drawing;
+
 
 namespace TouchlessWhiteboard.ViewModel;
 
-public partial class MainWindowViewModel
+public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChanged
 {
     public string Name { get; set; }
     public bool IsTouchlessArtsEnabled { get; set; }
@@ -30,9 +36,24 @@ public partial class MainWindowViewModel
 
     public MainWindowViewModel()
     {
+        Name = "Touchless Whiteboard";
+        IsTouchlessArtsEnabled = true;
+        IsEraserEnabled = true;
+        IsShapesEnabled = true;
+        IsSelectionEnabled = true;
+        IsStickyNotesEnabled = true;
+        IsCameraEnabled = true;
+        IsSearchEnabled = true;
+        IsCopilotEnabled = true;
+        IsToolsEnabled = true;
+        IsInAir3DMouseEnabled = true;
+        IsCalculatorEnabled = true;
+        IsRulerEnabled = true;
+        IsTimerEnabled = true;
+        IsAlarmEnabled = true;
+        IsQuickFileAccessEnabled = true;
+       
     }
-
-
 
 }
 

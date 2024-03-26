@@ -12,15 +12,9 @@
     <Window.SystemBackdrop>
         <winuiex:TransparentTintBackdrop />
     </Window.SystemBackdrop>
-    <Grid RowDefinitions="28,*">
-        <StackPanel
-            x:Name="TitleBar"
-            Grid.Row="0"
-            Margin="5,0,120,0"
-            Background="{ThemeResource AppBarBackgroundThemeBrush}"
-            Orientation="Horizontal">
-            <Image Source="Assets/TouchlessWhiteboard-icon.ico" Width="20" Height="20"/>
-            <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{x:Bind Title}"/>
-        </StackPanel>
+    <Grid>
+        <Border Background="LightGray" Padding="10" CornerRadius="5" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <StackPanel x:Name="ToolBarPanel" Orientation="Horizontal"/>
+        </Border>
     </Grid>
 </Window>
