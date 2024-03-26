@@ -46,7 +46,7 @@
                     <TextBlock Text="Profiles" FontSize="20" FontWeight="Bold" Margin="3,0,0,0"/>
                     <Border Width="80" Height="730" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
                     <StackPanel Margin="14,35,0,0">
-                        <ItemsControl ItemsSource="{x:Bind ViewModel.Profiles}">
+                        <ItemsControl ItemsSource="{x:Bind ViewModel.Profiles, Mode=TwoWay}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Button Style="{StaticResource ProfileButtonStyle}"
@@ -58,7 +58,7 @@
                                             <converter:BoolToColorConverter x:Key="BoolToColorConverter"/>
                                         </Button.Resources>
                                         <Button.Content>
-                                            <TextBlock Text="{Binding Name, Converter={StaticResource FirstLetterConverter}}"/>
+                                            <TextBlock Text="{Binding Name, Converter={StaticResource FirstLetterConverter}, Mode=TwoWay}"/>
                                         </Button.Content>
                                         <!--<Button.Background>-->
                                         <!--<SolidColorBrush Color="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>-->
@@ -78,7 +78,7 @@
 
                 <!--#region Settings Name-->
                 <Grid Grid.Row="1" Grid.Column="1" x:Name="SettingsName" Margin="10,10,0,0">
-                    <TextBlock Text="Settings Name" FontSize="14" Width="100" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="SettingsNameTextBox" Text="Settings Name" FontSize="14" Width="100" HorizontalAlignment="Left"/>
                     <TextBox PlaceholderText="Name" Text="{x:Bind ViewModel.Name, Mode=TwoWay}" HorizontalAlignment="Left" FontWeight="Bold" FontSize="25" Margin="0,20,0,0" Width="200"/>
                 </Grid>
                 <!--#endregion Settings Name-->

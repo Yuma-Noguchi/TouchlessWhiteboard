@@ -11,6 +11,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using WinUIEx;
 using System.IO;
+using Windows.Graphics.DirectX.Direct3D11;
+using Microsoft.UI.Xaml.Controls;
 
 namespace TouchlessWhiteboard.ViewModel;
 
@@ -296,29 +298,6 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
 
     public void Launch()
     {
-
-        var mainWindowViewModel = new MainWindowViewModel();
-
-        mainWindowViewModel.Name = Name;
-
-        mainWindowViewModel.IsTouchlessArtsEnabled = IsTouchlessArtsEnabled;
-        mainWindowViewModel.IsEraserEnabled = IsEraserEnabled;
-        mainWindowViewModel.IsShapesEnabled = IsShapesEnabled;
-        mainWindowViewModel.IsSelectionEnabled = IsSelectionEnabled;
-        mainWindowViewModel.IsStickyNotesEnabled = IsStickyNotesEnabled;
-        mainWindowViewModel.IsCameraEnabled = IsCameraEnabled;
-        mainWindowViewModel.IsSearchEnabled = IsSearchEnabled;
-        mainWindowViewModel.IsCopilotEnabled = IsCopilotEnabled;
-        mainWindowViewModel.IsToolsEnabled = IsToolsEnabled;
-        mainWindowViewModel.IsInAir3DMouseEnabled = IsInAir3DMouseEnabled;
-
-        mainWindowViewModel.IsCalculatorEnabled = IsCalculatorEnabled;
-        mainWindowViewModel.IsRulerEnabled = IsRulerEnabled;
-        mainWindowViewModel.IsTimerEnabled = IsTimerEnabled;
-        mainWindowViewModel.IsAlarmEnabled = IsAlarmEnabled;
-        mainWindowViewModel.IsQuickFileAccessEnabled = IsQuickFileAccessEnabled;
-
-
         // overwrite json file with new profile
         //SaveProfiles();
 
