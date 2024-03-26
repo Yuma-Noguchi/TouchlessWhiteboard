@@ -15,9 +15,11 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\Camera-icon.png" />
+    <None Remove="Assets\Close-icon.png" />
     <None Remove="Assets\Copilot-icon.png" />
     <None Remove="Assets\Eraser-icon.png" />
     <None Remove="Assets\In-Air-3D-Mouse-icon.png" />
+    <None Remove="Assets\Open-icon.png" />
     <None Remove="Assets\Search-icon.png" />
     <None Remove="Assets\Selection-icon.png" />
     <None Remove="Assets\Shapes-icon.png" />
@@ -63,6 +65,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Update="Assets\Alarm-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Close-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Open-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Shapes-icon.png">
