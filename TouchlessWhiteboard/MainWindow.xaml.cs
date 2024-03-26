@@ -25,6 +25,7 @@ using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.Foundation;
 using Microsoft.UI.Input.DragDrop;
+using Windows.Security.Authentication.OnlineId;
 
 namespace TouchlessWhiteboard;
 
@@ -147,6 +148,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "Camera":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Camera-icon.png"));
+                button.Click += Camera_Clicked;
                 break;
             case "Search":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Search-icon.png"));
@@ -177,6 +179,12 @@ public sealed partial class MainWindow : Window
         // Set other properties and event handlers as needed
         return button;
 
+    }
+
+    private void Camera_Clicked(object sender, RoutedEventArgs e)
+    {
+        // open snipping tool
+        Windows.System.Launcher.LaunchUriAsync(new Uri("ms-screenclip:"));
     }
 
     private void Copilot_Clicked(object sender, RoutedEventArgs e)
