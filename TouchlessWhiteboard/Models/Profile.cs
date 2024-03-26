@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace TouchlessWhiteboard.Models;
 
-public class Profile
+public class Profile : ObservableObject
 {
     [JsonPropertyName("name")]
     public string Name { get; set; }

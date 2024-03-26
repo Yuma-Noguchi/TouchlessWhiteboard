@@ -23,6 +23,8 @@ using WinRT.Interop;
 using WinUIEx;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
+using Windows.Foundation;
+using Microsoft.UI.Input.DragDrop;
 
 namespace TouchlessWhiteboard;
 
@@ -31,42 +33,10 @@ namespace TouchlessWhiteboard;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
+    private bool IsToolBarOpen = true;
 
-    const int GWL_EXSTYLE = -20;
-    const int WS_EX_TRANSPARENT = 0x20;
-    const int WS_EX_LAYERED = 0x80000;
 
-    [DllImport("user32.dll", EntryPoint = "GetWindowLong")]
-    public static extern int GetWindowLong32(IntPtr hWnd, int nIndex);
-
-    [DllImport("user32.dll", EntryPoint = "GetWindowLongPtr")]
-    public static extern IntPtr GetWindowLong64(IntPtr hWnd, int nIndex);
-
-    [DllImport("user32.dll", EntryPoint = "SetWindowLong")]
-    public static extern int SetWindowLong32(IntPtr hWnd, int nIndex, int dwNewLong);
-
-    [DllImport("user32.dll", EntryPoint = "SetWindowLongPtr")]
-    public static extern IntPtr SetWindowLong64(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
-
-    // Use this method to call the appropriate function based on the platform
-    public static IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, int dwNewLong)
-    {
-        if (IntPtr.Size == 8)
-            return SetWindowLong64(hWnd, nIndex, new IntPtr(dwNewLong)); // 64-bit
-        else
-            return new IntPtr(SetWindowLong32(hWnd, nIndex, dwNewLong)); // 32-bit
-    }
-
-    // Use this method to call the appropriate function based on the platform
-    public static int GetWindowLongPtr(IntPtr hWnd, int nIndex)
-    {
-        if (IntPtr.Size == 8)
-            return (int)GetWindowLong64(hWnd, nIndex).ToInt64(); // 64-bit
-        else
-            return GetWindowLong32(hWnd, nIndex); // 32-bit
-    }
-
-    private bool IsOpen = true;
+    private Point MouseDownLocation;
     public MainWindow()
     {
         this.InitializeComponent();
@@ -78,14 +48,43 @@ public sealed partial class MainWindow : Window
         //SetWindowLongPtr(windowHandle, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
 
         ViewModel = Ioc.Default.GetService<MainWindowViewModel>();
+        SettingsWindowViewModel settingsWindowViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
+
+        ViewModel.IsTouchlessArtsEnabled = settingsWindowViewModel.IsTouchlessArtsEnabled;
+        ViewModel.IsEraserEnabled = settingsWindowViewModel.IsEraserEnabled;
+        ViewModel.IsShapesEnabled = settingsWindowViewModel.IsShapesEnabled;
+        ViewModel.IsSelectionEnabled = settingsWindowViewModel.IsSelectionEnabled;
+        ViewModel.IsStickyNotesEnabled = settingsWindowViewModel.IsStickyNotesEnabled;
+        ViewModel.IsCameraEnabled = settingsWindowViewModel.IsCameraEnabled;
+        ViewModel.IsSearchEnabled = settingsWindowViewModel.IsSearchEnabled;
+        ViewModel.IsCopilotEnabled = settingsWindowViewModel.IsCopilotEnabled;
+        ViewModel.IsToolsEnabled = settingsWindowViewModel.IsToolsEnabled;
+        ViewModel.IsInAir3DMouseEnabled = settingsWindowViewModel.IsInAir3DMouseEnabled;
+        ViewModel.IsCalculatorEnabled = settingsWindowViewModel.IsCalculatorEnabled;
+        ViewModel.IsRulerEnabled = settingsWindowViewModel.IsRulerEnabled;
+        ViewModel.IsTimerEnabled = settingsWindowViewModel.IsTimerEnabled;
+        ViewModel.IsAlarmEnabled = settingsWindowViewModel.IsAlarmEnabled;
+        ViewModel.IsQuickFileAccessEnabled = settingsWindowViewModel.IsQuickFileAccessEnabled;
+
         CreateButtons(ToolBarPanel);
     }
     public MainWindowViewModel? ViewModel { get; }
+    public SettingsWindowViewModel? SettingsWindowViewModel { get; }
+
+    private TranslateTransform dragtranslation;
+
+    private void objectManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
+    {
+        var stackDragged = e.OriginalSource as StackPanel;
+        (stackDragged.RenderTransform as TranslateTransform).X += e.Delta.Translation.X;
+        (stackDragged.RenderTransform as TranslateTransform).Y += e.Delta.Translation.Y;
+
+    }
 
     public void CreateButtons(StackPanel panel)
     {
         panel.Children.Clear();
-        if (IsOpen)
+        if (IsToolBarOpen)
         {
             if (ViewModel.IsTouchlessArtsEnabled)
                 panel.Children.Add(CreateButton("Touchless Arts"));
@@ -154,6 +153,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "Copilot":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Copilot-icon.png"));
+                button.Click += Copilot_Clicked;
                 break;
             case "Tools":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Tools-icon.png"));
@@ -179,18 +179,28 @@ public sealed partial class MainWindow : Window
 
     }
 
+    private void Copilot_Clicked(object sender, RoutedEventArgs e)
+    {
+        //Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.bing.com/chat"));
+        ViewModel.IsTouchlessWhiteboardOpen = Visibility.Collapsed;
+        ViewModel.IsIconShown = Visibility.Visible;
+    }
+
     private void CloseToolBar_Clicked(object sender, RoutedEventArgs e)
     {
-        IsOpen = false;
+        IsToolBarOpen = false;
         CreateButtons(ToolBarPanel);
     }
 
     private void OpenToolBar_Clicked(object sender, RoutedEventArgs e)
     {
-        IsOpen = true;
+        IsToolBarOpen = true;
         CreateButtons(ToolBarPanel);
     }
 
-
-
+    private void TouchlessWhiteboard_MouseDown(object sender, PointerRoutedEventArgs e)
+    {
+        ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
+        ViewModel.IsIconShown = Visibility.Collapsed;
+    }
 }
