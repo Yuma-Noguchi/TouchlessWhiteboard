@@ -42,6 +42,22 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
 
     public MainWindowViewModel()
     {
+        Name = "Touchless Whiteboard";
+        IsTouchlessArtsEnabled = true;
+        IsEraserEnabled = true;
+        IsShapesEnabled = true;
+        IsSelectionEnabled = true;
+        IsStickyNotesEnabled = true;
+        IsCameraEnabled = true;
+        IsSearchEnabled = true;
+        IsCopilotEnabled = true;
+        IsToolsEnabled = true;
+        IsInAir3DMouseEnabled = true;
+        IsCalculatorEnabled = true;
+        IsRulerEnabled = true;
+        IsTimerEnabled = true;
+        IsAlarmEnabled = true;
+        IsQuickFileAccessEnabled = true;
        
     }
 
