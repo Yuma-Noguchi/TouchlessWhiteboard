@@ -26,6 +26,7 @@ using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.Foundation;
 using Microsoft.UI.Input.DragDrop;
 using Windows.Security.Authentication.OnlineId;
+using Windows.ApplicationModel.Core;
 
 namespace TouchlessWhiteboard;
 
@@ -35,19 +36,13 @@ namespace TouchlessWhiteboard;
 public sealed partial class MainWindow : Window
 {
     private bool IsToolBarOpen = true;
+    private int screenHeight;
+    private int screenWidth;
 
 
     private Point MouseDownLocation;
     public MainWindow()
     {
-        this.InitializeComponent();
-        //this.SetIsAlwaysOnTop(true);
-        this.Maximize();
-
-        //var windowHandle = new IntPtr((long)WindowNative.GetWindowHandle(this));
-        //int extendedStyle = GetWindowLongPtr(windowHandle, GWL_EXSTYLE);
-        //SetWindowLongPtr(windowHandle, GWL_EXSTYLE, extendedStyle | WS_EX_TRANSPARENT);
-
         ViewModel = Ioc.Default.GetService<MainWindowViewModel>();
         SettingsWindowViewModel settingsWindowViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
 
@@ -67,7 +62,18 @@ public sealed partial class MainWindow : Window
         ViewModel.IsAlarmEnabled = settingsWindowViewModel.IsAlarmEnabled;
         ViewModel.IsQuickFileAccessEnabled = settingsWindowViewModel.IsQuickFileAccessEnabled;
 
+        ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
+        ViewModel.IsIconShown = Visibility.Collapsed;
+        this.InitializeComponent();
+        this.SetIsAlwaysOnTop(true);
+        this.Maximize();
         CreateButtons(ToolBarPanel);
+        //remove title bar
+        var coreTitleBar = this.GetAppWindow().TitleBar;
+        coreTitleBar.ExtendsContentIntoTitleBar = true;
+
+        screenHeight = this.AppWindow.Size.Height;
+        screenWidth = this.AppWindow.Size.Width;
     }
     public MainWindowViewModel? ViewModel { get; }
     public SettingsWindowViewModel? SettingsWindowViewModel { get; }
@@ -152,6 +158,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "Search":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Search-icon.png"));
+                button.Click += Search_Clicked;
                 break;
             case "Copilot":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Copilot-icon.png"));
@@ -180,18 +187,33 @@ public sealed partial class MainWindow : Window
         return button;
 
     }
-
+    private void MinimizeTouchlessWhiteboard()
+    {
+        ViewModel.IsTouchlessWhiteboardOpen = Visibility.Collapsed;
+        ViewModel.IsIconShown = Visibility.Visible;
+        this.MoveAndResize(10,10,150,150);
+        var coreTitleBar = this.GetAppWindow().TitleBar;
+        coreTitleBar.ExtendsContentIntoTitleBar = true;
+        this.SetIsMaximizable(false);
+        this.Bindings.Update();
+    }
     private void Camera_Clicked(object sender, RoutedEventArgs e)
     {
         // open snipping tool
         Windows.System.Launcher.LaunchUriAsync(new Uri("ms-screenclip:"));
     }
 
+    private void Search_Clicked(object sender, RoutedEventArgs e)
+    {
+        // open bing search
+        Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.bing.com/"));
+        MinimizeTouchlessWhiteboard();
+    }
+
     private void Copilot_Clicked(object sender, RoutedEventArgs e)
     {
-        //Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.bing.com/chat"));
-        ViewModel.IsTouchlessWhiteboardOpen = Visibility.Collapsed;
-        ViewModel.IsIconShown = Visibility.Visible;
+        Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.bing.com/chat"));
+        MinimizeTouchlessWhiteboard();
     }
 
     private void CloseToolBar_Clicked(object sender, RoutedEventArgs e)
@@ -210,5 +232,11 @@ public sealed partial class MainWindow : Window
     {
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
         ViewModel.IsIconShown = Visibility.Collapsed;
+        // remove title bar
+        var coreTitleBar = this.GetAppWindow().TitleBar;
+        coreTitleBar.ExtendsContentIntoTitleBar = true;
+        this.Bindings.Update();
+        this.SetWindowSize(screenWidth, screenHeight);
+        this.SetIsMaximizable(true);
     }
 }

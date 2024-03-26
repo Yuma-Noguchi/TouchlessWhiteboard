@@ -16,6 +16,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
 using TouchlessWhiteboard.Models;
 using TouchlessWhiteboard.ViewModel;
+using Windows.Devices.SmartCards;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -25,7 +26,7 @@ using WinUIEx;
 
 namespace TouchlessWhiteboard;
 
-public sealed partial class SettingsWindow : WinUIEx.WindowEx
+public sealed partial class SettingsWindow : Window
 {
     private int _counter = 0;
     private List<CheckBox> QuickToolsCheckBoxList = new List<CheckBox>();
@@ -46,9 +47,19 @@ public sealed partial class SettingsWindow : WinUIEx.WindowEx
         QuickToolsCheckBoxList.Add(QuickFileAccessCheckBox);
 
         this.CenterOnScreen();
+        this.SetWindowSize(1200, 840);
+        this.CenterOnScreen();
     }
 
     public SettingsWindowViewModel? ViewModel { get; }
+
+    private void SettingsNameChanged(object sender, TextChangedEventArgs e)
+    {
+        TextBox textBox = (TextBox)sender;
+        ViewModel.Name = textBox.Text;
+        this.Bindings.Update();
+
+    }
 
     private void LaunchButton_Click(object sender, RoutedEventArgs e)
     {
