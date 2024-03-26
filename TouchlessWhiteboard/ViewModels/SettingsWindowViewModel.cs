@@ -334,4 +334,6 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         var mainWindow = new MainWindow();
         mainWindow.Activate();
     }
+
+
 }

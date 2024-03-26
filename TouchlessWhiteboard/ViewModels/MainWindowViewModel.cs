@@ -35,10 +35,10 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
     public bool IsQuickFileAccessEnabled { get; set; }
 
     [ObservableProperty]
-    private Visibility isTouchlessWhiteboardOpen = Visibility.Visible;
+    private Visibility isTouchlessWhiteboardOpen;
 
     [ObservableProperty]
-    private Visibility isIconShown = Visibility.Collapsed;
+    private Visibility isIconShown;
 
     public MainWindowViewModel()
     {
