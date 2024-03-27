@@ -13,7 +13,6 @@
         <winuiex:TransparentTintBackdrop />
     </Window.SystemBackdrop>
     <Grid>
-
         <Grid>
             <Canvas x:Name="Whiteboard"
                     PointerPressed="Canvas_PointerPressed"
@@ -51,9 +50,6 @@
                     <Button x:Name="clearButton" Width="42" Height="42" Click="ClearButton_Click">
                         <FontIcon Glyph="&#xE894;" />
                     </Button>
-                    <!--<ToggleButton x:Name="colorPickerButton" Width="42" Height="42" Click="PickerButton_Click">
-                        <FontIcon Glyph="&#xE718;" />
-                    </ToggleButton>-->
                     <SplitButton x:Name="myColorButton" Padding="0" MinHeight="0" MinWidth="0" VerticalAlignment="Top">
                         <Border x:Name="CurrentColor" Width="42" Height="42" Background="Black" Margin="0" CornerRadius="4,0,0,4"/>
                         <SplitButton.Flyout>

@@ -31,6 +31,8 @@ using Microsoft.UI.Xaml.Shapes;
 using Microsoft.UI;
 using Windows.UI;
 using Microsoft.UI.Input;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace TouchlessWhiteboard;
 
@@ -296,10 +298,10 @@ public sealed partial class MainWindow : Window
     private bool isErasing = false;
     private bool isDragging = false;
     private Point startPoint;
-    private Stack<UIElement> elementsList = new Stack<UIElement>();
-    private Stack<int> elementNumStack = new Stack<int>();
-    private Stack<UIElement> removedElementsList = new Stack<UIElement>();
-    private Stack<int> removedElementNumStack = new Stack<int>();
+    private List<UIElement> elementsList = new List<UIElement>();
+    private List<int> elementNumStack = new List<int>();
+    private List<UIElement> removedElementsList = new List<UIElement>();
+    private List<int> removedElementNumStack = new List<int>();
     private int lastSize = 0;
     private bool isLine = false;
 
@@ -375,6 +377,7 @@ public sealed partial class MainWindow : Window
                         currentEllipse.ManipulationDelta += objectManipulationDelta;
                         currentEllipse.ManipulationMode = ManipulationModes.All;
                         currentEllipse.RenderTransform = new TranslateTransform();
+                        currentEllipse.PointerEntered += Elements_PointerPressed;
                         Whiteboard.Children.Add(currentEllipse);
                         Canvas.SetLeft(currentEllipse, startPoint.X);
                         Canvas.SetTop(currentEllipse, startPoint.Y);
@@ -389,6 +392,7 @@ public sealed partial class MainWindow : Window
                         currentRectangle.ManipulationDelta += objectManipulationDelta;
                         currentRectangle.ManipulationMode = ManipulationModes.All;
                         currentRectangle.RenderTransform = new TranslateTransform();
+                        currentRectangle.PointerEntered += Elements_PointerPressed;
                         Whiteboard.Children.Add(currentRectangle);
                         Canvas.SetLeft(currentRectangle, startPoint.X);
                         Canvas.SetTop(currentRectangle, startPoint.Y);
@@ -405,6 +409,7 @@ public sealed partial class MainWindow : Window
                         currentPolygon.ManipulationDelta += objectManipulationDelta;
                         currentPolygon.ManipulationMode = ManipulationModes.All;
                         currentPolygon.RenderTransform = new TranslateTransform();
+                        currentPolygon.PointerEntered += Elements_PointerPressed;
                         Whiteboard.Children.Add(currentPolygon);
                         break;
                 }
@@ -417,6 +422,7 @@ public sealed partial class MainWindow : Window
         if (ViewModel.IsTouchlessArtsOpen == Visibility.Collapsed) return;
         if (!isDrawing) return;
         if (isDragging) return;
+        if (isErasing) return;
         if (shapesButton.IsChecked == true)
         {
             Point currentPoint = e.GetCurrentPoint(Whiteboard).Position;
@@ -431,7 +437,7 @@ public sealed partial class MainWindow : Window
                     double top = Math.Min(startPoint.Y, currentPoint.Y);
                     Canvas.SetLeft(currentEllipse, left);
                     Canvas.SetTop(currentEllipse, top);
-                    elementsList.Push(currentEllipse);
+                    elementsList.Insert(0, currentEllipse);
                     break;
                 case DrawingMode.Rectangle:
                     newWidth = Math.Abs(currentPoint.X - startPoint.X);
@@ -443,7 +449,7 @@ public sealed partial class MainWindow : Window
                     top = Math.Min(startPoint.Y, currentPoint.Y);
                     Canvas.SetLeft(currentRectangle, left);
                     Canvas.SetTop(currentRectangle, top);
-                    elementsList.Push(currentRectangle);
+                    elementsList.Insert(0, currentRectangle);
                     break;
                 case DrawingMode.Triangle:
                     double centerX = (startPoint.X + currentPoint.X) / 2;
@@ -457,7 +463,7 @@ public sealed partial class MainWindow : Window
                     currentPolygon.Points.Add(vertex2);
                     currentPolygon.Points.Add(vertex3);
                     currentPolygon.Points.Add(vertex1);
-                    elementsList.Push(currentPolygon);
+                    elementsList.Insert(0, currentPolygon);
                     break;
             }
         }
@@ -492,11 +498,16 @@ public sealed partial class MainWindow : Window
             line.ManipulationDelta += objectManipulationDelta;
             line.ManipulationMode = ManipulationModes.All;
             line.RenderTransform = new TranslateTransform();
+            line.PointerEntered += Elements_PointerPressed;
+            lineBlur.ManipulationDelta += objectManipulationDelta;
+            lineBlur.ManipulationMode = ManipulationModes.All;
+            lineBlur.RenderTransform = new TranslateTransform();
+            lineBlur.PointerEntered += Elements_PointerPressed;
             Whiteboard.Children.Add(lineBlur);
             Whiteboard.Children.Add(line);
             startPoint = e.GetCurrentPoint(Whiteboard).Position;
-            elementsList.Push(lineBlur);
-            elementsList.Push(line);
+            elementsList.Insert(0, lineBlur);
+            elementsList.Insert(0, line);
         }
         else
         {
@@ -512,23 +523,79 @@ public sealed partial class MainWindow : Window
             line.ManipulationDelta += objectManipulationDelta;
             line.ManipulationMode = ManipulationModes.All;
             line.RenderTransform = new TranslateTransform();
+            line.PointerEntered += Elements_PointerPressed;
             Whiteboard.Children.Add(line);
             startPoint = e.GetCurrentPoint(Whiteboard).Position;
-            elementsList.Push(line);
+            elementsList.Insert(0, line);
         }
     }
 
     private void Canvas_PointerReleased(object sender, PointerRoutedEventArgs e)
     {
         isDrawing = false;
-        isErasing = false;
-        elementNumStack.Push(elementsList.Count - lastSize);
+        elementNumStack.Insert(0, elementsList.Count - lastSize);
         lastSize = elementsList.Count;
     }
 
+    private void Elements_PointerPressed(object sender, PointerRoutedEventArgs e)
+    {
+        var pointerPoint = e.GetCurrentPoint(null);
+        if (pointerPoint.Properties.IsLeftButtonPressed)
+        {
+            // The left mouse button is pressed
+            if (isErasing)
+            {
+                UIElement element = e.OriginalSource as UIElement;
+                // 1. find the index of the elmement in the elementsList
+                int index = 0;
+                for (int i = 0; i < elementsList.Count; i++)
+                {
+                    if (elementsList.ElementAt(i) == element)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+
+                // 2. find which elementnum does the element belong to
+                int elementNumIdx = 0;
+                int elementNum = 0;
+                while (index > elementNum)
+                {
+                    elementNum += elementNumStack.ElementAt(elementNumIdx);
+                    elementNumIdx += 1;
+                }
+
+                // 3. now we know that the element belongs to elementNumIdx. hence, remove the element from the elementsList
+                elementNumIdx -= 1;
+                int numElementsToRemove = elementNumStack.ElementAt(elementNumIdx);
+                int startIdx = elementNum - numElementsToRemove;
+                for (int i = elementNum - 1; i >= elementNum - numElementsToRemove; i--)
+                {
+                    UIElement removed = elementsList[startIdx];
+                    elementsList.RemoveAt(startIdx);
+                    Whiteboard.Children.Remove(removed);
+                    removedElementsList.Insert(0, removed);
+                }
+                removedElementNumStack.Insert(0, elementNumStack.ElementAt(elementNumIdx));
+                elementNumStack.RemoveAt(elementNumIdx);
+                lastSize = elementsList.Count;
+            }
+        }
+    }
+
+
     private void ClearButton_Click(object sender, RoutedEventArgs e)
     {
-        Whiteboard.Children.Clear();
+        // clear the whiteboard.children except for the stackpanel
+        for (int i = 0; i < Whiteboard.Children.Count; i++)
+        {
+            if (Whiteboard.Children[i].GetType().Name != "StackPanel")
+            {
+                Whiteboard.Children.RemoveAt(i);
+                i--;
+            }
+        }
     }
     private void ColorPicker_ColorChanged(ColorPicker sender, ColorChangedEventArgs args)
     {
@@ -546,10 +613,10 @@ public sealed partial class MainWindow : Window
         brushButton.IsChecked = false;
         pencilButton.IsChecked = false;
         eraserButton.IsChecked = false;
-        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = false;
         cursorButton.IsChecked = true;
         isDragging = true;
+        isErasing = false;
     }
     
     private void PencilButton_Click(object sender, RoutedEventArgs e)
@@ -558,10 +625,10 @@ public sealed partial class MainWindow : Window
         cursorButton.IsChecked = false;
         brushButton.IsChecked = false;
         eraserButton.IsChecked = false;
-        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = false;
         pencilButton.IsChecked = true;
         isDragging = false;
+        isErasing = false;
     }
 
     private void BrushButton_Click(object sender, RoutedEventArgs e)
@@ -570,23 +637,21 @@ public sealed partial class MainWindow : Window
         cursorButton.IsChecked = false;
         pencilButton.IsChecked = false;
         eraserButton.IsChecked = false;
-        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = false;
         brushButton.IsChecked = true;
         isDragging = false;
+        isErasing = false;
     }
 
     private void EraserButton_Click(object sender, RoutedEventArgs e)
     {
-        isErasing = !isErasing;
-        //currentBrush = new SolidColorBrush(Colors.Transparent);
         cursorButton.IsChecked = false;
         brushButton.IsChecked = false;
         pencilButton.IsChecked = false;
-        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = false;
         eraserButton.IsChecked = true;
         isDragging = false;
+        isErasing = true;
     }
 
     private void CoboBoxShapes_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -605,17 +670,6 @@ public sealed partial class MainWindow : Window
         }
     }
 
-    //private void PickerButton_Click(object sender, RoutedEventArgs e)
-    //{
-    //    cursorButton.IsChecked = false;
-    //    brushButton.IsChecked = false;
-    //    pencilButton.IsChecked = false;
-    //    eraserButton.IsChecked = false;
-    //    shapesButton.IsChecked = false;
-    //    colorPickerButton.IsChecked = true;
-    //    isDragging = false;
-    //}
-
     private void ShapesButton_Click(object sender, RoutedEventArgs e)
     {
         cursorButton.IsChecked = false;
@@ -625,57 +679,64 @@ public sealed partial class MainWindow : Window
         //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = true;
         isDragging = false;
+        isErasing = false;
     }
 
-    private void UndoButton_Click(object sender, RoutedEventArgs e)
+    private async void UndoButton_Click(object sender, RoutedEventArgs e)
     {
         if (elementsList.Count > 0)
         {
             // if elementslist is not empty
-            if (elementsList.Count > 0)
+            if (elementsList.Count > 0 || elementNumStack.Count > 0)
             {
-                int numLines = elementNumStack.Pop();
+                int numLines = elementNumStack[0];
+                elementNumStack.RemoveAt(0);
                 for (int i = 0; i < numLines; i++)
                 {
-                    UIElement removed = elementsList.Pop();
+                    UIElement removed = elementsList[0];
+                    elementsList.RemoveAt(0);
                     Whiteboard.Children.Remove(removed);
-                    removedElementsList.Push(removed);
+                    removedElementsList.Insert(0, removed);
                 }
-                removedElementNumStack.Push(numLines);
+                removedElementNumStack.Insert(0, numLines);
                 lastSize = lastSize - numLines;
             }
         }
+        undoButton.IsChecked = false;
     }
 
     private void RedoButton_Click(object sender, RoutedEventArgs e)
     {
-        if (removedElementsList.Count > 0)
+        if (removedElementsList.Count > 0 || removedElementNumStack.Count > 0)
         {
-            int numLines = removedElementNumStack.Pop();
+            int numLines = removedElementNumStack[0];
+            removedElementNumStack.RemoveAt(0);
             if (removedElementsList.First().GetType().Name == "Line")
             {
                 for (int i = 0; i < numLines; i++)
                 {
-                    UIElement added = removedElementsList.Pop();
+                    UIElement added = removedElementsList[0];
+                    removedElementsList.RemoveAt(0);
                     Whiteboard.Children.Add(added);
-                    elementsList.Push(added);
+                    elementsList.Insert(0, added);
                 }
-                elementNumStack.Push(numLines);
+                elementNumStack.Insert(0, numLines);
                 lastSize = lastSize + numLines;
             }
             else
             {
-                UIElement added = removedElementsList.Pop();
+                UIElement added = removedElementsList[0];
+                removedElementsList.RemoveAt(0);
                 Whiteboard.Children.Add(added);
-                elementsList.Push(added);
+                elementsList.Insert(0, added);
                 for (int i = 0; i < numLines - 1; i++)
                 {
-                    removedElementsList.Pop();
+                    removedElementsList.RemoveAt(0);
                 }
-                elementNumStack.Push(1);
+                elementNumStack.Insert(0, 1);
                 lastSize = lastSize + 1;
             }
-            
         }
+        redoButton.IsChecked = false;
     }
 }
