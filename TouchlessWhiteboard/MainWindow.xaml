@@ -36,7 +36,7 @@
                         <TranslateTransform />
                     </StackPanel.RenderTransform>
                     <ToggleButton x:Name="cursorButton" Width="42" Height="42" Click="CursorButton_Click">
-                        <FontIcon Glyph="&#xE8B8;"/>
+                        <FontIcon Glyph="&#xE7C9;" />
                     </ToggleButton>
                     <ToggleButton x:Name="pencilButton" IsChecked="True" Width="42" Height="42" Click="PencilButton_Click">
                         <FontIcon Glyph="&#xED63;" />
@@ -73,10 +73,15 @@
                         <ComboBoxItem Content="Triangle"/>
                     </ComboBox>
                     <ToggleButton x:Name="undoButton" Width="42" Height="42" Click="UndoButton_Click">
-                        <FontIcon Glyph="&#x21B6;" />
+                        <FontIcon Glyph="&#xE7A7;" />
                     </ToggleButton>
                     <ToggleButton x:Name="redoButton" Width="42" Height="42" Click="RedoButton_Click">
-                        <FontIcon Glyph="&#x21B7;" />
+                        <FontIcon Glyph="&#xE7A6;" />
+                    </ToggleButton>
+                    <ToggleButton x:Name="backToToolBar" Width="42" Height="42" Click="BackToToolBarButton_Clicked">
+                        <ToggleButton.Content>
+                            <Image Source="Assets/TouchlessWhiteboard-icon.ico"/>
+                        </ToggleButton.Content>
                     </ToggleButton>
                 </StackPanel>
             </Canvas>

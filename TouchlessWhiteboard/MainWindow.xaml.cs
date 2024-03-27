@@ -739,4 +739,12 @@ public sealed partial class MainWindow : Window
         }
         redoButton.IsChecked = false;
     }
+
+    private void BackToToolBarButton_Clicked(object sender, RoutedEventArgs e)
+    {
+        ViewModel.IsTouchlessArtsOpen = Visibility.Collapsed;
+        ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
+        ViewModel.IsIconShown = Visibility.Collapsed;
+        this.Bindings.Update();
+    }
 }
