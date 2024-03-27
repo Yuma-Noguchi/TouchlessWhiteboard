@@ -40,6 +40,9 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
     [ObservableProperty]
     private Visibility isIconShown;
 
+    [ObservableProperty]
+    private Visibility isTouchlessArtsOpen;
+
     public MainWindowViewModel()
     {
         Name = "Touchless Whiteboard";
@@ -58,7 +61,6 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
         IsTimerEnabled = true;
         IsAlarmEnabled = true;
         IsQuickFileAccessEnabled = true;
-       
     }
 
 }

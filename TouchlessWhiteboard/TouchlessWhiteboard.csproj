@@ -17,14 +17,17 @@
     <None Remove="Assets\Camera-icon.png" />
     <None Remove="Assets\Close-icon.png" />
     <None Remove="Assets\Copilot-icon.png" />
+    <None Remove="Assets\Cursor-icon.png" />
     <None Remove="Assets\Eraser-icon.png" />
     <None Remove="Assets\In-Air-3D-Mouse-icon.png" />
     <None Remove="Assets\Open-icon.png" />
+    <None Remove="Assets\Redo-icon.png" />
     <None Remove="Assets\Search-icon.png" />
     <None Remove="Assets\Selection-icon.png" />
     <None Remove="Assets\Shapes-icon.png" />
     <None Remove="Assets\Sticky-Notes-icon.png" />
     <None Remove="Assets\Tools-icon.png" />
+    <None Remove="Assets\Undo-icon.png" />
     <None Remove="Resources\settings.json" />
     <None Remove="SettingsWindow.xaml" />
   </ItemGroup>
@@ -35,9 +38,13 @@
     <Content Include="Assets\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.scale-200.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\StoreLogo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-	<Content Include="Assets\TouchlessWhiteboard-icon.ico" />
+	<Content Include="Assets\TouchlessWhiteboard-icon.ico">
+	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -70,7 +77,13 @@
     <Content Update="Assets\Close-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Cursor-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Open-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Redo-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Shapes-icon.png">
@@ -113,6 +126,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Tools-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Undo-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
