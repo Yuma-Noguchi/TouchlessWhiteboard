@@ -296,7 +296,13 @@ public sealed partial class MainWindow : Window
     private bool isErasing = false;
     private bool isDragging = false;
     private Point startPoint;
-    private List<UIElement> elementsList = new List<UIElement>();
+    private Stack<UIElement> elementsList = new Stack<UIElement>();
+    private Stack<int> elementNumStack = new Stack<int>();
+    private Stack<UIElement> removedElementsList = new Stack<UIElement>();
+    private Stack<int> removedElementNumStack = new Stack<int>();
+    private int lastSize = 0;
+    private bool isLine = false;
+
     private int SelectedIndex = 0;
     private Ellipse currentEllipse;
     private Rectangle currentRectangle;
@@ -336,25 +342,24 @@ public sealed partial class MainWindow : Window
         if (isDragging) return;
         if (e.Pointer.PointerDeviceType.Equals(PointerDeviceType.Mouse))
         {
-            if (colorPickerButton.IsChecked == true)
-            {
-                var pointerPosition = e.GetCurrentPoint(Whiteboard);
-                int x = (int)pointerPosition.Position.X;
-                int y = (int)pointerPosition.Position.Y;
-                RenderTargetBitmap renderBitmap = new RenderTargetBitmap();
-                await renderBitmap.RenderAsync(Whiteboard);
-                var pixelBuffer = await renderBitmap.GetPixelsAsync();
-                var pixelData = pixelBuffer.ToArray();
-                int pixelIndex = (y * renderBitmap.PixelWidth + x) * 4;
-                byte[] pixelColor = new byte[4];
-                Array.Copy(pixelData, pixelIndex, pixelColor, 0, 4);
-                Color color = Color.FromArgb(pixelColor[3], pixelColor[2], pixelColor[1], pixelColor[0]);
-                CurrentColor.Background = currentBrush = new SolidColorBrush(color);
-                return;
-            }
+            //if (colorPickerButton.IsChecked == true)
+            //{
+            //    var pointerPosition = e.GetCurrentPoint(Whiteboard);
+            //    int x = (int)pointerPosition.Position.X;
+            //    int y = (int)pointerPosition.Position.Y;
+            //    RenderTargetBitmap renderBitmap = new RenderTargetBitmap();
+            //    await renderBitmap.RenderAsync(Whiteboard);
+            //    var pixelBuffer = await renderBitmap.GetPixelsAsync();
+            //    var pixelData = pixelBuffer.ToArray();
+            //    int pixelIndex = (y * renderBitmap.PixelWidth + x) * 4;
+            //    byte[] pixelColor = new byte[4];
+            //    Array.Copy(pixelData, pixelIndex, pixelColor, 0, 4);
+            //    Color color = Color.FromArgb(pixelColor[3], pixelColor[2], pixelColor[1], pixelColor[0]);
+            //    CurrentColor.Background = currentBrush = new SolidColorBrush(color);
+            //    return;
+            //}
             isDrawing = true;
             startPoint = e.GetCurrentPoint(Whiteboard).Position;
-
             if (shapesButton.IsChecked == true)
             {
                 switch (currentDrawingMode)
@@ -425,7 +430,9 @@ public sealed partial class MainWindow : Window
                     double left = Math.Min(startPoint.X, currentPoint.X);
                     double top = Math.Min(startPoint.Y, currentPoint.Y);
                     Canvas.SetLeft(currentEllipse, left);
-                    Canvas.SetTop(currentEllipse, top); break;
+                    Canvas.SetTop(currentEllipse, top);
+                    elementsList.Push(currentEllipse);
+                    break;
                 case DrawingMode.Rectangle:
                     newWidth = Math.Abs(currentPoint.X - startPoint.X);
                     newHeight = Math.Abs(currentPoint.Y - startPoint.Y);
@@ -436,6 +443,7 @@ public sealed partial class MainWindow : Window
                     top = Math.Min(startPoint.Y, currentPoint.Y);
                     Canvas.SetLeft(currentRectangle, left);
                     Canvas.SetTop(currentRectangle, top);
+                    elementsList.Push(currentRectangle);
                     break;
                 case DrawingMode.Triangle:
                     double centerX = (startPoint.X + currentPoint.X) / 2;
@@ -449,11 +457,12 @@ public sealed partial class MainWindow : Window
                     currentPolygon.Points.Add(vertex2);
                     currentPolygon.Points.Add(vertex3);
                     currentPolygon.Points.Add(vertex1);
+                    elementsList.Push(currentPolygon);
                     break;
             }
         }
 
-        else if (brushButton.IsChecked == true || eraserButton.IsChecked == true)
+        else if (brushButton.IsChecked == true)
         {
             Line line = new Line
             {
@@ -465,7 +474,7 @@ public sealed partial class MainWindow : Window
                 StrokeThickness = BrushThickness[SelectedIndex],
                 StrokeEndLineCap = PenLineCap.Round,
                 StrokeStartLineCap = PenLineCap.Round,
-                StrokeLineJoin = PenLineJoin.Round,
+                StrokeLineJoin = PenLineJoin.Round
             };
             Line lineBlur = new Line
             {
@@ -486,6 +495,8 @@ public sealed partial class MainWindow : Window
             Whiteboard.Children.Add(lineBlur);
             Whiteboard.Children.Add(line);
             startPoint = e.GetCurrentPoint(Whiteboard).Position;
+            elementsList.Push(lineBlur);
+            elementsList.Push(line);
         }
         else
         {
@@ -503,6 +514,7 @@ public sealed partial class MainWindow : Window
             line.RenderTransform = new TranslateTransform();
             Whiteboard.Children.Add(line);
             startPoint = e.GetCurrentPoint(Whiteboard).Position;
+            elementsList.Push(line);
         }
     }
 
@@ -510,6 +522,8 @@ public sealed partial class MainWindow : Window
     {
         isDrawing = false;
         isErasing = false;
+        elementNumStack.Push(elementsList.Count - lastSize);
+        lastSize = elementsList.Count;
     }
 
     private void ClearButton_Click(object sender, RoutedEventArgs e)
@@ -532,7 +546,7 @@ public sealed partial class MainWindow : Window
         brushButton.IsChecked = false;
         pencilButton.IsChecked = false;
         eraserButton.IsChecked = false;
-        colorPickerButton.IsChecked = false;
+        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = false;
         cursorButton.IsChecked = true;
         isDragging = true;
@@ -544,7 +558,7 @@ public sealed partial class MainWindow : Window
         cursorButton.IsChecked = false;
         brushButton.IsChecked = false;
         eraserButton.IsChecked = false;
-        colorPickerButton.IsChecked = false;
+        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = false;
         pencilButton.IsChecked = true;
         isDragging = false;
@@ -556,7 +570,7 @@ public sealed partial class MainWindow : Window
         cursorButton.IsChecked = false;
         pencilButton.IsChecked = false;
         eraserButton.IsChecked = false;
-        colorPickerButton.IsChecked = false;
+        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = false;
         brushButton.IsChecked = true;
         isDragging = false;
@@ -565,11 +579,11 @@ public sealed partial class MainWindow : Window
     private void EraserButton_Click(object sender, RoutedEventArgs e)
     {
         isErasing = !isErasing;
-        currentBrush = new SolidColorBrush(Colors.White);
+        //currentBrush = new SolidColorBrush(Colors.Transparent);
         cursorButton.IsChecked = false;
         brushButton.IsChecked = false;
         pencilButton.IsChecked = false;
-        colorPickerButton.IsChecked = false;
+        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = false;
         eraserButton.IsChecked = true;
         isDragging = false;
@@ -591,16 +605,16 @@ public sealed partial class MainWindow : Window
         }
     }
 
-    private void PickerButton_Click(object sender, RoutedEventArgs e)
-    {
-        cursorButton.IsChecked = false;
-        brushButton.IsChecked = false;
-        pencilButton.IsChecked = false;
-        eraserButton.IsChecked = false;
-        shapesButton.IsChecked = false;
-        colorPickerButton.IsChecked = true;
-        isDragging = false;
-    }
+    //private void PickerButton_Click(object sender, RoutedEventArgs e)
+    //{
+    //    cursorButton.IsChecked = false;
+    //    brushButton.IsChecked = false;
+    //    pencilButton.IsChecked = false;
+    //    eraserButton.IsChecked = false;
+    //    shapesButton.IsChecked = false;
+    //    colorPickerButton.IsChecked = true;
+    //    isDragging = false;
+    //}
 
     private void ShapesButton_Click(object sender, RoutedEventArgs e)
     {
@@ -608,8 +622,60 @@ public sealed partial class MainWindow : Window
         brushButton.IsChecked = false;
         pencilButton.IsChecked = false;
         eraserButton.IsChecked = false;
-        colorPickerButton.IsChecked = false;
+        //colorPickerButton.IsChecked = false;
         shapesButton.IsChecked = true;
         isDragging = false;
+    }
+
+    private void UndoButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (elementsList.Count > 0)
+        {
+            // if elementslist is not empty
+            if (elementsList.Count > 0)
+            {
+                int numLines = elementNumStack.Pop();
+                for (int i = 0; i < numLines; i++)
+                {
+                    UIElement removed = elementsList.Pop();
+                    Whiteboard.Children.Remove(removed);
+                    removedElementsList.Push(removed);
+                }
+                removedElementNumStack.Push(numLines);
+                lastSize = lastSize - numLines;
+            }
+        }
+    }
+
+    private void RedoButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (removedElementsList.Count > 0)
+        {
+            int numLines = removedElementNumStack.Pop();
+            if (removedElementsList.First().GetType().Name == "Line")
+            {
+                for (int i = 0; i < numLines; i++)
+                {
+                    UIElement added = removedElementsList.Pop();
+                    Whiteboard.Children.Add(added);
+                    elementsList.Push(added);
+                }
+                elementNumStack.Push(numLines);
+                lastSize = lastSize + numLines;
+            }
+            else
+            {
+                UIElement added = removedElementsList.Pop();
+                Whiteboard.Children.Add(added);
+                elementsList.Push(added);
+                for (int i = 0; i < numLines - 1; i++)
+                {
+                    removedElementsList.Pop();
+                }
+                elementNumStack.Push(1);
+                lastSize = lastSize + 1;
+            }
+            
+        }
     }
 }
