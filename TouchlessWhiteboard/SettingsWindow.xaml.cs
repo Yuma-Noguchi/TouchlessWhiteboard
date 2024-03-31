@@ -34,7 +34,7 @@ namespace TouchlessWhiteboard;
 public sealed partial class SettingsWindow : Window
 {
     private int _counter = 0;
-    private List<CheckBox> QuickToolsCheckBoxList = new List<CheckBox>();
+    private List<CheckBox> ToolsCheckBoxList = new List<CheckBox>();
     private StorageFile selectedFile;
 
     private string QuickFileAccess1Name;
@@ -54,6 +54,24 @@ public sealed partial class SettingsWindow : Window
         this.CenterOnScreen();
         this.SetWindowSize(1200, 840);
         this.CenterOnScreen();
+
+        // add checkboxes to list
+        ToolsCheckBoxList.Add(TouchlessArtsCheckBox);
+        ToolsCheckBoxList.Add(StickyNotesCheckBox);
+        ToolsCheckBoxList.Add(CameraCheckBox);
+        ToolsCheckBoxList.Add(SearchCheckBox);
+        ToolsCheckBoxList.Add(CopilotCheckBox);
+        ToolsCheckBoxList.Add(CalculatorCheckBox);
+        ToolsCheckBoxList.Add(ClockCheckBox);
+        ToolsCheckBoxList.Add(QuickWebSiteAccess1CheckBox);
+        ToolsCheckBoxList.Add(QuickWebSiteAccess2CheckBox);
+        ToolsCheckBoxList.Add(QuickWebSiteAccess3CheckBox);
+        ToolsCheckBoxList.Add(InAir3DMouseCheckBox);
+        ToolsCheckBoxList.Add(NotepadCheckBox);
+        ToolsCheckBoxList.Add(QuickFileAccess1CheckBox);
+        ToolsCheckBoxList.Add(QuickFileAccess2CheckBox);
+        ToolsCheckBoxList.Add(QuickFileAccess3CheckBox);
+
     }
 
     public SettingsWindowViewModel? ViewModel { get; }
@@ -99,9 +117,9 @@ public sealed partial class SettingsWindow : Window
     private void CheckBox_Checked(object sender, RoutedEventArgs e)
     {
         _counter++;
-        if (_counter >= 3)
+        if (_counter >= 10)
         {
-            foreach (var checkbox in QuickToolsCheckBoxList)
+            foreach (var checkbox in ToolsCheckBoxList)
             {
                 if (checkbox.IsChecked == false)
                 {
@@ -114,9 +132,9 @@ public sealed partial class SettingsWindow : Window
     private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
     {
         _counter--;
-        if (_counter < 3)
+        if (_counter < 10)
         {
-            foreach (var checkbox in QuickToolsCheckBoxList)
+            foreach (var checkbox in ToolsCheckBoxList)
             {
                 checkbox.IsEnabled = true;
             }

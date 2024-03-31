@@ -85,7 +85,7 @@
                 <Grid Grid.Row="2" Grid.Column="1" x:Name="ToolBarSettings" Margin="10,10,0,0" Grid.ColumnSpan="2">
                     <TextBlock Text="Tool Bar Settings" FontSize="20" FontWeight="Bold"/>
                     <Border Width="1065" Height="400" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
-                    <TextBlock Text="Choose which functions to use in this profile." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
+                    <TextBlock Text="Choose which functions to use in this profile. You can choose up to 10 tools." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
                     <Grid Margin="20,60,20,20">
                         <Grid.Resources>
                             <Style TargetType="TextBlock">
@@ -107,7 +107,7 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsTouchlessArtsEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsTouchlessArtsEnabled, Mode=TwoWay}" x:Name="TouchlessArtsCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Touchless-Arts-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Touchless Arts" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -115,7 +115,7 @@
                         </CheckBox>
                         <Button Content="i" Grid.Row="0" Grid.Column="0" Click="OnClickTouchlessArtsHelpBtn" Style="{StaticResource HelpButtonStyle}"/>
 
-                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsStickyNotesEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsStickyNotesEnabled, Mode=TwoWay}" x:Name="StickyNotesCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Sticky-Notes-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Sticky Notes" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -133,7 +133,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCameraEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCameraEnabled, Mode=TwoWay}" x:Name="CameraCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Camera-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Camera" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -151,7 +151,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsSearchEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsSearchEnabled, Mode=TwoWay}" x:Name="SearchCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Search-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Search" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -169,7 +169,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCopilotEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCopilotEnabled, Mode=TwoWay}" x:Name="CopilotCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Copilot-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Copilot" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -187,7 +187,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsCalculatorEnabled, Mode=TwoWay}" x:Name="CalculatorCheckBox">
+                        <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsCalculatorEnabled, Mode=TwoWay}" x:Name="CalculatorCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Calculator-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Calculator" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -205,7 +205,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsClockEnabled, Mode=TwoWay}" x:Name="ClockCheckBox">
+                        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsClockEnabled, Mode=TwoWay}" x:Name="ClockCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Clock-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Clock" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -223,7 +223,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess1Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess1CheckBox">
+                        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess1Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess1CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
@@ -244,7 +244,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess2Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess2CheckBox">
+                        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess2Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess2CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
@@ -254,8 +254,8 @@
                             </StackPanel>
                         </CheckBox>
                         <Button Content="i" Grid.Row="3" Grid.Column="1" Click="OpenQuickWebSiteAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        
-                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess3Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess3CheckBox">
+
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess3Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess3CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
@@ -266,7 +266,7 @@
                         </CheckBox>
                         <Button Content="i" Grid.Row="4" Grid.Column="1" Click="OpenQuickWebSiteAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
 
-                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsInAir3DMouseEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsInAir3DMouseEnabled, Mode=TwoWay}" x:Name="InAir3DMouseCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/In-Air-3D-Mouse-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="In-Air 3D Mouse" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -284,7 +284,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsNotepadEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsNotepadEnabled, Mode=TwoWay}" x:Name="NotepadCheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Notepad-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Notepad" VerticalAlignment="Center" Margin="15,0,0,0"/>
@@ -302,7 +302,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsQuickFileAccess1Enabled, Mode=TwoWay}" x:Name="QuickFileAccess1CheckBox">
+                        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsQuickFileAccess1Enabled, Mode=TwoWay}" x:Name="QuickFileAccess1CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
@@ -326,7 +326,7 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsQuickFileAccess2Enabled, Mode=TwoWay}" x:Name="QuickFileAccess2CheckBox">
+                        <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsQuickFileAccess2Enabled, Mode=TwoWay}" x:Name="QuickFileAccess2CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
@@ -340,7 +340,7 @@
                         </CheckBox>
                         <Button Content="i" Grid.Row="3" Grid.Column="2" Click="OpenQuickFileAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
 
-                        <CheckBox Grid.Row="4" Grid.Column="3" IsChecked="{x:Bind ViewModel.IsQuickFileAccess3Enabled, Mode=TwoWay}" x:Name="QuickFileAccess3CheckBox">
+                        <CheckBox Grid.Row="4" Grid.Column="3" IsChecked="{x:Bind ViewModel.IsQuickFileAccess3Enabled, Mode=TwoWay}" x:Name="QuickFileAccess3CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
