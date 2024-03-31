@@ -261,12 +261,15 @@ public sealed partial class MainWindow : Window
                 break;
             case "QuickWebSiteAccess1":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess1-icon.png"));
+                button.Click += QuickWebSiteAccess1_Clicked;
                 break;
             case "QuickWebSiteAccess2":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess2-icon.png"));
+                button.Click += QuickWebSiteAccess2_Clicked;
                 break;
             case "QuickWebSiteAccess3":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess3-icon.png"));
+                button.Click += QuickWebSiteAccess3_Clicked;
                 break;
             case "In Air 3D Mouse":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/In-Air-3D-Mouse-icon.png"));
@@ -345,6 +348,24 @@ public sealed partial class MainWindow : Window
     private void Copilot_Clicked(object sender, RoutedEventArgs e)
     {
         Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.bing.com/chat"));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickWebSiteAccess1_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess1URL));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickWebSiteAccess2_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess2URL));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickWebSiteAccess3_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess3URL));
         MinimizeTouchlessWhiteboard();
     }
 
