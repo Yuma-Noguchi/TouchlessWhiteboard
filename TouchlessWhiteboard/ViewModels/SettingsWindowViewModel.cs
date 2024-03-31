@@ -13,6 +13,7 @@ using WinUIEx;
 using System.IO;
 using Windows.Graphics.DirectX.Direct3D11;
 using Microsoft.UI.Xaml.Controls;
+using Windows.Storage;
 
 namespace TouchlessWhiteboard.ViewModel;
 
@@ -23,12 +24,6 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
     [ObservableProperty]
     private bool isTouchlessArtsEnabled;
     [ObservableProperty]
-    private bool isEraserEnabled;
-    [ObservableProperty]
-    private bool isShapesEnabled;
-    [ObservableProperty]
-    private bool isSelectionEnabled;
-    [ObservableProperty]
     private bool isStickyNotesEnabled;
     [ObservableProperty]
     private bool isCameraEnabled;
@@ -37,9 +32,37 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
     [ObservableProperty]
     private bool isCopilotEnabled;
     [ObservableProperty]
-    private bool isToolsEnabled;
+    private bool isCalculatorEnabled;
+    [ObservableProperty]
+    private bool isClockEnabled;
+    [ObservableProperty]
+    private bool isQuickWebSiteAccess1Enabled;
+    [ObservableProperty]
+    private string quickWebSiteAccess1URL;
+    [ObservableProperty]
+    private bool isQuickWebSiteAccess2Enabled;
+    [ObservableProperty]
+    private string quickWebSiteAccess2URL;
+    [ObservableProperty]
+    private bool isQuickWebSiteAccess3Enabled;
+    [ObservableProperty]
+    private string quickWebSiteAccess3URL;
     [ObservableProperty]
     private bool isInAir3DMouseEnabled;
+    [ObservableProperty]
+    private bool isNotepadEnabled;
+    [ObservableProperty]
+    private bool isQuickFileAccess1Enabled;
+    [ObservableProperty]
+    private StorageFile quickFileAccess1File;
+    [ObservableProperty]
+    private bool isQuickFileAccess2Enabled;
+    [ObservableProperty]
+    private StorageFile quickFileAccess2File;
+    [ObservableProperty]
+    private bool isQuickFileAccess3Enabled;
+    [ObservableProperty]
+    private StorageFile quickFileAccess3File;
 
     [ObservableProperty]
     private bool isLeftHanded;
@@ -48,17 +71,6 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
 
     [ObservableProperty]
     private double pinchSensitivity;
-
-    [ObservableProperty]
-    private bool isCalculatorEnabled;
-    [ObservableProperty]
-    private bool isRulerEnabled;
-    [ObservableProperty]
-    private bool isTimerEnabled;
-    [ObservableProperty]
-    private bool isAlarmEnabled;
-    [ObservableProperty]
-    private bool isQuickFileAccessEnabled;
 
     private readonly WebcamService _webcamService;
     [ObservableProperty]
@@ -87,23 +99,24 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             // set all the properties to the values of the active profile
             name = ActiveProfile.Name;
             isTouchlessArtsEnabled = ActiveProfile.IsTouchlessArtsEnabled;
-            isEraserEnabled = ActiveProfile.IsEraserEnabled;
-            isShapesEnabled = ActiveProfile.IsShapesEnabled;
-            isSelectionEnabled = ActiveProfile.IsSelectionEnabled;
             isStickyNotesEnabled = ActiveProfile.IsStickyNotesEnabled;
             isCameraEnabled = ActiveProfile.IsCameraEnabled;
             isSearchEnabled = ActiveProfile.IsSearchEnabled;
             isCopilotEnabled = ActiveProfile.IsCopilotEnabled;
-            isToolsEnabled = ActiveProfile.IsToolsEnabled;
+            isCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
+            isClockEnabled = ActiveProfile.IsClockEnabled;
+            isQuickWebSiteAccess1Enabled = ActiveProfile.IsQuickWebSiteAccess1Enabled;
+            isQuickWebSiteAccess2Enabled = ActiveProfile.IsQuickWebSiteAccess2Enabled;
+            isQuickWebSiteAccess3Enabled = ActiveProfile.IsQuickWebSiteAccess3Enabled;
             isInAir3DMouseEnabled = ActiveProfile.IsInAir3DMouseEnabled;
+            isNotepadEnabled = ActiveProfile.IsNotepadEnabled;
+            isQuickFileAccess1Enabled = ActiveProfile.IsQuickFileAccess1Enabled;
+            isQuickFileAccess2Enabled = ActiveProfile.IsQuickFileAccess2Enabled;
+            isQuickFileAccess3Enabled = ActiveProfile.IsQuickFileAccess3Enabled;
             isLeftHanded = ActiveProfile.IsLeftHanded;
             isRightHanded = ActiveProfile.IsRightHanded;
             pinchSensitivity = ActiveProfile.PinchSensitivity;
             isCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
-            isRulerEnabled = ActiveProfile.IsRulerEnabled;
-            isTimerEnabled = ActiveProfile.IsTimerEnabled;
-            isAlarmEnabled = ActiveProfile.IsAlarmEnabled;
-            isQuickFileAccessEnabled = ActiveProfile.IsQuickFileAccessEnabled;
             // if selected webcam exists in the list of available webcams, set it as the selected webcam
             if (webcams.Contains(ActiveProfile.SelectedWebcam))
             {
@@ -143,15 +156,6 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             case nameof(IsTouchlessArtsEnabled):
                 ActiveProfile.IsTouchlessArtsEnabled = IsTouchlessArtsEnabled;
                 break;
-            case nameof(IsEraserEnabled):
-                ActiveProfile.IsEraserEnabled = IsEraserEnabled;
-                break;
-            case nameof(IsShapesEnabled):
-                ActiveProfile.IsShapesEnabled = IsShapesEnabled;
-                break;
-            case nameof(IsSelectionEnabled):
-                ActiveProfile.IsSelectionEnabled = IsSelectionEnabled;
-                break;
             case nameof(IsStickyNotesEnabled):
                 ActiveProfile.IsStickyNotesEnabled = IsStickyNotesEnabled;
                 break;
@@ -164,11 +168,35 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             case nameof(IsCopilotEnabled):
                 ActiveProfile.IsCopilotEnabled = IsCopilotEnabled;
                 break;
-            case nameof(IsToolsEnabled):
-                ActiveProfile.IsToolsEnabled = IsToolsEnabled;
+            case nameof(IsCalculatorEnabled):
+                ActiveProfile.IsCalculatorEnabled = IsCalculatorEnabled;
+                break;
+            case nameof(IsClockEnabled):
+                ActiveProfile.IsClockEnabled = IsClockEnabled;
+                break;
+            case nameof(IsQuickWebSiteAccess1Enabled):
+                ActiveProfile.IsQuickWebSiteAccess1Enabled = IsQuickWebSiteAccess1Enabled;
+                break;
+            case nameof(IsQuickWebSiteAccess2Enabled):
+                ActiveProfile.IsQuickWebSiteAccess2Enabled = IsQuickWebSiteAccess2Enabled;
+                break;
+            case nameof(IsQuickWebSiteAccess3Enabled):
+                ActiveProfile.IsQuickWebSiteAccess3Enabled = IsQuickWebSiteAccess3Enabled;
                 break;
             case nameof(IsInAir3DMouseEnabled):
                 ActiveProfile.IsInAir3DMouseEnabled = IsInAir3DMouseEnabled;
+                break;
+            case nameof(IsNotepadEnabled):
+                ActiveProfile.IsNotepadEnabled = IsNotepadEnabled;
+                break;
+            case nameof(IsQuickFileAccess1Enabled):
+                ActiveProfile.IsQuickFileAccess1Enabled = IsQuickFileAccess1Enabled;
+                break;
+            case nameof(IsQuickFileAccess2Enabled):
+                ActiveProfile.IsQuickFileAccess2Enabled = IsQuickFileAccess2Enabled;
+                break;
+            case nameof(IsQuickFileAccess3Enabled):
+                ActiveProfile.IsQuickFileAccess3Enabled = IsQuickFileAccess3Enabled;
                 break;
             case nameof(IsLeftHanded):
                 ActiveProfile.IsLeftHanded = IsLeftHanded;
@@ -178,21 +206,6 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
                 break;
             case nameof(PinchSensitivity):
                 ActiveProfile.PinchSensitivity = PinchSensitivity;
-                break;
-            case nameof(IsCalculatorEnabled):
-                ActiveProfile.IsCalculatorEnabled = IsCalculatorEnabled;
-                break;
-            case nameof(IsRulerEnabled):
-                ActiveProfile.IsRulerEnabled = IsRulerEnabled;
-                break;
-            case nameof(IsTimerEnabled):
-                ActiveProfile.IsTimerEnabled = IsTimerEnabled;
-                break;
-            case nameof(IsAlarmEnabled):
-                ActiveProfile.IsAlarmEnabled = IsAlarmEnabled;
-                break;
-            case nameof(IsQuickFileAccessEnabled):
-                ActiveProfile.IsQuickFileAccessEnabled = IsQuickFileAccessEnabled;
                 break;
             case nameof(SelectedWebcam):
                 ActiveProfile.SelectedWebcam = SelectedWebcam;
@@ -208,23 +221,23 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         // set the UI to reflect the active profile
         Name = ActiveProfile.Name;
         IsTouchlessArtsEnabled = ActiveProfile.IsTouchlessArtsEnabled;
-        IsEraserEnabled = ActiveProfile.IsEraserEnabled;
-        IsShapesEnabled = ActiveProfile.IsShapesEnabled;
-        IsSelectionEnabled = ActiveProfile.IsSelectionEnabled;
         IsStickyNotesEnabled = ActiveProfile.IsStickyNotesEnabled;
         IsCameraEnabled = ActiveProfile.IsCameraEnabled;
         IsSearchEnabled = ActiveProfile.IsSearchEnabled;
         IsCopilotEnabled = ActiveProfile.IsCopilotEnabled;
-        IsToolsEnabled = ActiveProfile.IsToolsEnabled;
+        IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
+        IsClockEnabled = ActiveProfile.IsClockEnabled;
+        IsQuickWebSiteAccess1Enabled = ActiveProfile.IsQuickWebSiteAccess1Enabled;
+        IsQuickWebSiteAccess2Enabled = ActiveProfile.IsQuickWebSiteAccess2Enabled;
+        IsQuickWebSiteAccess3Enabled = ActiveProfile.IsQuickWebSiteAccess3Enabled;
         IsInAir3DMouseEnabled = ActiveProfile.IsInAir3DMouseEnabled;
+        IsNotepadEnabled = ActiveProfile.IsNotepadEnabled;
+        IsQuickFileAccess1Enabled = ActiveProfile.IsQuickFileAccess1Enabled;
+        IsQuickFileAccess2Enabled = ActiveProfile.IsQuickFileAccess2Enabled;
+        IsQuickFileAccess3Enabled = ActiveProfile.IsQuickFileAccess3Enabled;
         IsLeftHanded = ActiveProfile.IsLeftHanded;
         IsRightHanded = ActiveProfile.IsRightHanded;
         PinchSensitivity = ActiveProfile.PinchSensitivity;
-        IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
-        IsRulerEnabled = ActiveProfile.IsRulerEnabled;
-        IsTimerEnabled = ActiveProfile.IsTimerEnabled;
-        IsAlarmEnabled = ActiveProfile.IsAlarmEnabled;
-        IsQuickFileAccessEnabled = ActiveProfile.IsQuickFileAccessEnabled;
         if (webcams.Contains(ActiveProfile.SelectedWebcam))
         {
             SelectedWebcam = ActiveProfile.SelectedWebcam;
@@ -251,23 +264,23 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         {
             Name = newName,
             IsTouchlessArtsEnabled = false,
-            IsEraserEnabled = false,
-            IsShapesEnabled = false,
-            IsSelectionEnabled = false,
             IsStickyNotesEnabled = false,
             IsCameraEnabled = false,
             IsSearchEnabled = false,
             IsCopilotEnabled = false,
-            IsToolsEnabled = false,
+            IsCalculatorEnabled = false,
+            IsClockEnabled = false,
+            IsQuickWebSiteAccess1Enabled = false,
+            IsQuickWebSiteAccess2Enabled = false,
+            IsQuickWebSiteAccess3Enabled = false,
             IsInAir3DMouseEnabled = false,
+            IsNotepadEnabled = false,
+            IsQuickFileAccess1Enabled = false,
+            IsQuickFileAccess2Enabled = false,
+            IsQuickFileAccess3Enabled = false,
             IsLeftHanded = true,
             IsRightHanded = false,
-            PinchSensitivity = 0.5,
-            IsCalculatorEnabled = false,
-            IsRulerEnabled = false,
-            IsTimerEnabled = false,
-            IsAlarmEnabled = false,
-            IsQuickFileAccessEnabled = false
+            PinchSensitivity = 0.5
         };
 
         // add the new profile to the list of profiles

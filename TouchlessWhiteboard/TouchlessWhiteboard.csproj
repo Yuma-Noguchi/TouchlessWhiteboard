@@ -20,7 +20,9 @@
     <None Remove="Assets\Cursor-icon.png" />
     <None Remove="Assets\Eraser-icon.png" />
     <None Remove="Assets\In-Air-3D-Mouse-icon.png" />
+    <None Remove="Assets\Notepad-icon.png" />
     <None Remove="Assets\Open-icon.png" />
+    <None Remove="Assets\QuickWebSiteAccess-icon.png" />
     <None Remove="Assets\Redo-icon.png" />
     <None Remove="Assets\Search-icon.png" />
     <None Remove="Assets\Selection-icon.png" />
@@ -71,7 +73,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Assets\Alarm-icon.png">
+    <Content Update="Assets\Clock-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Close-icon.png">
@@ -80,7 +82,13 @@
     <Content Update="Assets\Cursor-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Notepad-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Open-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\QuickWebSiteAccess-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Redo-icon.png">

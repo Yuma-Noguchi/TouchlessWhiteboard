@@ -82,9 +82,9 @@
                 <!--#endregion Settings Name-->
 
                 <!--#region Tool Bar Settings-->
-                <Grid Grid.Row="2" Grid.Column="1" x:Name="ToolBarSettings" Margin="10,10,0,0">
+                <Grid Grid.Row="2" Grid.Column="1" x:Name="ToolBarSettings" Margin="10,10,0,0" Grid.ColumnSpan="2">
                     <TextBlock Text="Tool Bar Settings" FontSize="20" FontWeight="Bold"/>
-                    <Border Width="710" Height="400" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
+                    <Border Width="1065" Height="400" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
                     <TextBlock Text="Choose which functions to use in this profile." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
                     <Grid Margin="20,60,20,20">
                         <Grid.Resources>
@@ -95,6 +95,7 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
@@ -114,67 +115,13 @@
                         </CheckBox>
                         <Button Content="i" Grid.Row="0" Grid.Column="0" Click="OnClickTouchlessArtsHelpBtn" Style="{StaticResource HelpButtonStyle}"/>
 
-                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsEraserEnabled, Mode=TwoWay}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/Eraser-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Eraser" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                            </StackPanel>
-                        </CheckBox>
-                        <Button Content="i" Grid.Row="1" Grid.Column="0" Click="OpenEraserPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="EraserHelpPopup">
-                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
-                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseEraserPopupClicked" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </Popup>
-
-                        <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsShapesEnabled, Mode=TwoWay}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/Shapes-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Shapes" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                            </StackPanel>
-                        </CheckBox>
-                        <Button Content="i" Grid.Row="2" Grid.Column="0" Click="OpenShapesPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="ShapesHelpPopup">
-                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
-                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseShapesPopupClicked" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </Popup>
-
-                        <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsSelectionEnabled, Mode=TwoWay}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/Selection-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Selection" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                            </StackPanel>
-                        </CheckBox>
-                        <Button Content="i" Grid.Row="3" Grid.Column="0" Click="OpenSelectionPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="SelectionHelpPopup">
-                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
-                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseSelectionPopupClicked" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </Popup>
-
-                        <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsStickyNotesEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsStickyNotesEnabled, Mode=TwoWay}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Sticky-Notes-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Sticky Notes" VerticalAlignment="Center" Margin="15,0,0,0"/>
                             </StackPanel>
                         </CheckBox>
-                        <Button Content="i" Grid.Row="4" Grid.Column="0" Click="OpenStickyNotesPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Button Content="i" Grid.Row="1" Grid.Column="0" Click="OpenStickyNotesPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="StickyNotesHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
@@ -186,13 +133,13 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsCameraEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCameraEnabled, Mode=TwoWay}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Camera-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Camera" VerticalAlignment="Center" Margin="15,0,0,0"/>
                             </StackPanel>
                         </CheckBox>
-                        <Button Content="i" Grid.Row="0" Grid.Column="1" Click="OpenCameraPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Button Content="i" Grid.Row="2" Grid.Column="0" Click="OpenCameraPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="CameraHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
@@ -204,13 +151,13 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsSearchEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsSearchEnabled, Mode=TwoWay}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Search-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Search" VerticalAlignment="Center" Margin="15,0,0,0"/>
                             </StackPanel>
                         </CheckBox>
-                        <Button Content="i" Grid.Row="1" Grid.Column="1" Click="OpenSearchPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Button Content="i" Grid.Row="3" Grid.Column="0" Click="OpenSearchPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="SearchHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
@@ -222,13 +169,13 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsCopilotEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCopilotEnabled, Mode=TwoWay}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/Copilot-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="Copilot" VerticalAlignment="Center" Margin="15,0,0,0"/>
                             </StackPanel>
                         </CheckBox>
-                        <Button Content="i" Grid.Row="2" Grid.Column="1" Click="OpenCopilotPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Button Content="i" Grid.Row="4" Grid.Column="0" Click="OpenCopilotPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="CopilotHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
@@ -240,31 +187,92 @@
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsToolsEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="0" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsCalculatorEnabled, Mode=TwoWay}" x:Name="CalculatorCheckBox">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/Tools-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Tools" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                                <Image Source="Assets/Calculator-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <TextBlock Text="Calculator" VerticalAlignment="Center" Margin="15,0,0,0"/>
                             </StackPanel>
                         </CheckBox>
-                        <Button Content="i" Grid.Row="3" Grid.Column="1" Click="OpenToolsPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="ToolsHelpPopup">
+                        <Button Content="i" Grid.Row="0" Grid.Column="1" Click="OpenCalculatorPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="CalculatorHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
                                     BorderThickness="2" Width="200" Height="200">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseToolsPopupClicked" HorizontalAlignment="Center"/>
+                                    <Button Content="Close" Click="CloseCalculatorPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
                         </Popup>
 
-                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsInAir3DMouseEnabled, Mode=TwoWay}">
+                        <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsClockEnabled, Mode=TwoWay}" x:Name="ClockCheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Clock-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <TextBlock Text="Clock" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            </StackPanel>
+                        </CheckBox>
+                        <Button Content="i" Grid.Row="1" Grid.Column="1" Click="OpenClockPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="ClockHelpPopup">
+                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
+                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                                    BorderThickness="2" Width="200" Height="200">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <Button Content="Close" Click="CloseClockPopupClicked" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+
+                        <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess1Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess1CheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                    <TextBlock Text="Quick Web Access 1" VerticalAlignment="Center"/>
+                                    <TextBox PlaceholderText="URL" Text="{x:Bind ViewModel.QuickWebSiteAccess1URL, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="13" Width="200" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </CheckBox>
+                        <Button Content="i" Grid.Row="2" Grid.Column="1" Click="OpenQuickWebSiteAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="QuickWebSiteAccessHelpPopup">
+                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
+                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                                    BorderThickness="2" Width="200" Height="200">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <Button Content="Close" Click="CloseQuickWebSiteAccessPopupClicked" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+
+                        <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess2Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess2CheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                    <TextBlock Text="Quick Web Access 2" VerticalAlignment="Center"/>
+                                    <TextBox PlaceholderText="URL" Text="{x:Bind ViewModel.QuickWebSiteAccess2URL, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="13" Width="200" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </CheckBox>
+                        <Button Content="i" Grid.Row="3" Grid.Column="1" Click="OpenQuickWebSiteAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        
+                        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess3Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess3CheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                    <TextBlock Text="Quick Web Access 3" VerticalAlignment="Center"/>
+                                    <TextBox PlaceholderText="URL" Text="{x:Bind ViewModel.QuickWebSiteAccess3URL, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="13" Width="200" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </CheckBox>
+                        <Button Content="i" Grid.Row="4" Grid.Column="1" Click="OpenQuickWebSiteAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+
+                        <CheckBox Grid.Row="0" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsInAir3DMouseEnabled, Mode=TwoWay}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="Assets/In-Air-3D-Mouse-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <TextBlock Text="In-Air 3D Mouse" VerticalAlignment="Center" Margin="15,0,0,0"/>
                             </StackPanel>
                         </CheckBox>
-                        <Button Content="i" Grid.Row="4" Grid.Column="1" Click="OpenInAir3DMousePopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Button Content="i" Grid.Row="0" Grid.Column="2" Click="OpenInAir3DMousePopupClicked" Style="{StaticResource HelpButtonStyle}"/>
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="InAir3DMouseHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
@@ -275,6 +283,76 @@
                                 </StackPanel>
                             </Border>
                         </Popup>
+
+                        <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsNotepadEnabled, Mode=TwoWay}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/Notepad-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <TextBlock Text="Notepad" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                            </StackPanel>
+                        </CheckBox>
+                        <Button Content="i" Grid.Row="1" Grid.Column="2" Click="OpenNotepadPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="NotepadHelpPopup">
+                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
+                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                                    BorderThickness="2" Width="200" Height="200">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <Button Content="Close" Click="CloseNotepadPopupClicked" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+
+                        <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsQuickFileAccess1Enabled, Mode=TwoWay}" x:Name="QuickFileAccess1CheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                    <TextBlock Text="Quick File Access 1" VerticalAlignment="Center" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="..." Click="QuickFileAccess1_Clicked" Background="Gray" Foreground="White" Width="33"/>
+                                        <TextBox x:Name="QuickFileAccess1TextBox" PlaceholderText="FileName" Text="{x:Bind ViewModel.QuickFileAccess1File.DisplayName, Mode=OneWay}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="13" Width="150" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black" IsReadOnly="True"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </CheckBox>
+                        <Button Content="i" Grid.Row="2" Grid.Column="2" Click="OpenQuickFileAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="QuickFileAccessHelpPopup">
+                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
+                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                                    BorderThickness="2" Width="200" Height="200">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <Button Content="Close" Click="CloseQuickFileAccessPopupClicked" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </Popup>
+
+                        <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsQuickFileAccess2Enabled, Mode=TwoWay}" x:Name="QuickFileAccess2CheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                    <TextBlock Text="Quick File Access 2" VerticalAlignment="Center" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="..." Click="QuickFileAccess2_Clicked" Background="Gray" Foreground="White" Width="33"/>
+                                        <TextBox x:Name="QuickFileAccess2TextBox" PlaceholderText="FileName" Text="{x:Bind ViewModel.QuickFileAccess2File.DisplayName, Mode=OneWay}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="13" Width="150" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black" IsReadOnly="True"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </CheckBox>
+                        <Button Content="i" Grid.Row="3" Grid.Column="2" Click="OpenQuickFileAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
+
+                        <CheckBox Grid.Row="4" Grid.Column="3" IsChecked="{x:Bind ViewModel.IsQuickFileAccess3Enabled, Mode=TwoWay}" x:Name="QuickFileAccess3CheckBox">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+                                    <TextBlock Text="Quick File Access 3" VerticalAlignment="Center" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Content="..." Click="QuickFileAccess3_Clicked" Background="Gray" Foreground="White" Width="33"/>
+                                        <TextBox x:Name="QuickFileAccess3TextBox" PlaceholderText="FileName" Text="{x:Bind ViewModel.QuickFileAccess3File.DisplayName, Mode=OneWay}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="13" Width="150" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black" IsReadOnly="True"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </CheckBox>
+                        <Button Content="i" Grid.Row="4" Grid.Column="2" Click="OpenQuickFileAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
                     </Grid>
                 </Grid>
                 <!--#endregion Tool Bar Settings-->
@@ -312,123 +390,6 @@
                     </StackPanel>
                 </Grid>
                 <!--#endregion Pinch Sensitivity-->
-
-                <!--#region QUick Tools-->
-                <Grid Grid.Row="2" Grid.Column="2" x:Name="QuickTools" Margin="10,10,0,0">
-                    <TextBlock Text="Quick Tools" FontSize="20" FontWeight="Bold"/>
-                    <Border Width="350" Height="400" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
-                    <TextBlock Text="Choose up to 3 tools to use in this profile." FontSize="15" FontWeight="Normal" Foreground="Black" Margin="20,50,0,0"/>
-                    <Grid Margin="20,80,20,20">
-                        <Grid.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="FontSize" Value="20"/>
-                                <Setter Property="FontWeight" Value="Bold"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                            </Style>
-                        </Grid.Resources>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="320"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <CheckBox Grid.Row="0" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsCalculatorEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="CalculatorCheckBox">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/Calculator-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Calculator" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                            </StackPanel>
-                        </CheckBox>
-                        <Button Content="i" Grid.Row="0" Grid.Column="0" Click="OpenCalculatorPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="CalculatorHelpPopup">
-                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
-                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseCalculatorPopupClicked" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </Popup>
-
-                        <CheckBox Grid.Row="1" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsRulerEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="RulerCheckBox">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/Ruler-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Ruler" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                            </StackPanel>
-                        </CheckBox>
-                        <Button Content="i" Grid.Row="1" Grid.Column="0" Click="OpenRulerPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="RulerHelpPopup">
-                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
-                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseRulerPopupClicked" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </Popup>
-
-                        <CheckBox Grid.Row="2" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsTimerEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="TimerCheckBox">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/Timer-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Timer" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                            </StackPanel>
-                        </CheckBox>
-                        <Button Content="i" Grid.Row="2" Grid.Column="0" Click="OpenTimerPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="TimerHelpPopup">
-                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
-                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseTimerPopupClicked" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </Popup>
-
-                        <CheckBox Grid.Row="3" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsAlarmEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="AlarmCheckBox">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/Alarm-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Alarm" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                            </StackPanel>
-                        </CheckBox>
-                        <Button Content="i" Grid.Row="3" Grid.Column="0" Click="OpenAlarmPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="AlarmHelpPopup">
-                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
-                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseAlarmPopupClicked" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </Popup>
-
-                        <CheckBox Grid.Row="4" Grid.Column="0" IsChecked="{x:Bind ViewModel.IsQuickFileAccessEnabled, Mode=TwoWay}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" x:Name="QuickFileAccessCheckBox">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
-                                <TextBlock Text="Quick File Access" VerticalAlignment="Center" Margin="15,0,0,0"/>
-                            </StackPanel>
-                        </CheckBox>
-                        <Button Content="i" Grid.Row="4" Grid.Column="0" Click="OpenQuickFileAccessPopupClicked" Style="{StaticResource HelpButtonStyle}"/>
-                        <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="QuickFileAccessHelpPopup">
-                            <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
-                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
-                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
-                                    <Button Content="Close" Click="CloseQuickFileAccessPopupClicked" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Border>
-                        </Popup>
-                    </Grid>
-                </Grid>
-                <!--#endregion QUick Tools-->
 
                 <!--#region Webcam Selection-->
                 <Grid Grid.Row="3" Grid.Column="2" x:Name="WebcamSelection" Margin="10,10,0,0">

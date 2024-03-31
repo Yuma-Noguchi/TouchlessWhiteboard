@@ -16,13 +16,18 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Windows.Input;
 using TouchlessWhiteboard.Models;
 using TouchlessWhiteboard.ViewModel;
+using Windows.ApplicationModel.VoiceCommands;
 using Windows.Devices.SmartCards;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Pickers.Provider;
 using Windows.UI.Popups;
 using Windows.UI.WindowManagement;
 using WinRT.Interop;
 using WinUIEx;
+using System.Threading.Tasks;
 
 namespace TouchlessWhiteboard;
 
@@ -30,6 +35,12 @@ public sealed partial class SettingsWindow : Window
 {
     private int _counter = 0;
     private List<CheckBox> QuickToolsCheckBoxList = new List<CheckBox>();
+    private StorageFile selectedFile;
+
+    private string QuickFileAccess1Name;
+    private string QuickFileAccess2Name;
+    private string QuickFileAccess3Name;
+
     public SettingsWindow()
     {
         this.InitializeComponent();
@@ -39,12 +50,6 @@ public sealed partial class SettingsWindow : Window
         SetTitleBar(TitleBar);
 
         ViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
-
-        QuickToolsCheckBoxList.Add(CalculatorCheckBox);
-        QuickToolsCheckBoxList.Add(RulerCheckBox);
-        QuickToolsCheckBoxList.Add(TimerCheckBox);
-        QuickToolsCheckBoxList.Add(AlarmCheckBox);
-        QuickToolsCheckBoxList.Add(QuickFileAccessCheckBox);
 
         this.CenterOnScreen();
         this.SetWindowSize(1200, 840);
@@ -58,7 +63,6 @@ public sealed partial class SettingsWindow : Window
         TextBox textBox = (TextBox)sender;
         ViewModel.Name = textBox.Text;
         this.Bindings.Update();
-
     }
 
     private void LaunchButton_Click(object sender, RoutedEventArgs e)
@@ -119,49 +123,41 @@ public sealed partial class SettingsWindow : Window
         }
     }
 
+    private async Task<StorageFile> ChooseFile()
+    {
+        var filePicker = new FileOpenPicker();
+        filePicker.FileTypeFilter.Add("*"); // Allow all file types
+        nint windowHandle = this.GetWindowHandle();
+        InitializeWithWindow.Initialize(filePicker, windowHandle);
+
+        StorageFile file = await filePicker.PickSingleFileAsync();
+
+        return file;
+    }
+
+    private async void QuickFileAccess1_Clicked(object sender, RoutedEventArgs e)
+    {
+        StorageFile file = await ChooseFile();
+        ViewModel.QuickFileAccess1File = file;
+    }
+
+    private async void QuickFileAccess2_Clicked(object sender, RoutedEventArgs e)
+    {
+        StorageFile file = await ChooseFile();
+        ViewModel.QuickFileAccess2File = file;
+    }
+
+    private async void QuickFileAccess3_Clicked(object sender, RoutedEventArgs e)
+    {
+        StorageFile file = await ChooseFile();
+        ViewModel.QuickFileAccess3File = file;
+    }
 
     private async void OnClickTouchlessArtsHelpBtn(object sender, RoutedEventArgs e)
     {
         // if wifi connection exists, open the help page
         await Windows.System.Launcher.LaunchUriAsync(new Uri("http://touchlesswhiteboard.com/"));
     }
-
-    private void OpenEraserPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // open the Popup if it isn't open already 
-        if (!EraserHelpPopup.IsOpen) { EraserHelpPopup.IsOpen = true; }
-    }
-
-    private void CloseEraserPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // if the Popup is open, then close it 
-        if (EraserHelpPopup.IsOpen) { EraserHelpPopup.IsOpen = false; }
-    }
-
-    private void OpenShapesPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // open the Popup if it isn't open already 
-        if (!ShapesHelpPopup.IsOpen) { ShapesHelpPopup.IsOpen = true; }
-    }
-
-    private void CloseShapesPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // if the Popup is open, then close it 
-        if (ShapesHelpPopup.IsOpen) { ShapesHelpPopup.IsOpen = false; }
-    }
-
-    private void OpenSelectionPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // open the Popup if it isn't open already 
-        if (!SelectionHelpPopup.IsOpen) { SelectionHelpPopup.IsOpen = true; }
-    }
-
-    private void CloseSelectionPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // if the Popup is open, then close it 
-        if (SelectionHelpPopup.IsOpen) { SelectionHelpPopup.IsOpen = false; }
-    }
-
     private void OpenStickyNotesPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
@@ -209,17 +205,40 @@ public sealed partial class SettingsWindow : Window
         // if the Popup is open, then close it 
         if (CopilotHelpPopup.IsOpen) { CopilotHelpPopup.IsOpen = false; }
     }
-
-    private void OpenToolsPopupClicked(object sender, RoutedEventArgs e)
+    private void OpenCalculatorPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!ToolsHelpPopup.IsOpen) { ToolsHelpPopup.IsOpen = true; }
+        if (!CalculatorHelpPopup.IsOpen) { CalculatorHelpPopup.IsOpen = true; }
     }
 
-    private void CloseToolsPopupClicked(object sender, RoutedEventArgs e)
+    private void CloseCalculatorPopupClicked(object sender, RoutedEventArgs e)
     {
         // if the Popup is open, then close it 
-        if (ToolsHelpPopup.IsOpen) { ToolsHelpPopup.IsOpen = false; }
+        if (CalculatorHelpPopup.IsOpen) { CalculatorHelpPopup.IsOpen = false; }
+    }
+    
+    private void OpenClockPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // open the Popup if it isn't open already 
+        if (!ClockHelpPopup.IsOpen) { ClockHelpPopup.IsOpen = true; }
+    }
+
+    private void CloseClockPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // if the Popup is open, then close it 
+        if (ClockHelpPopup.IsOpen) { ClockHelpPopup.IsOpen = false; }
+    }
+
+    private void OpenQuickWebSiteAccessPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // open the Popup if it isn't open already 
+        if (!QuickWebSiteAccessHelpPopup.IsOpen) { QuickWebSiteAccessHelpPopup.IsOpen = true; }
+    }
+
+    private void CloseQuickWebSiteAccessPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // if the Popup is open, then close it 
+        if (QuickWebSiteAccessHelpPopup.IsOpen) { QuickWebSiteAccessHelpPopup.IsOpen = false; }
     }
 
     private void OpenInAir3DMousePopupClicked(object sender, RoutedEventArgs e)
@@ -234,52 +253,16 @@ public sealed partial class SettingsWindow : Window
         if (InAir3DMouseHelpPopup.IsOpen) { InAir3DMouseHelpPopup.IsOpen = false; }
     }
 
-    private void OpenCalculatorPopupClicked(object sender, RoutedEventArgs e)
+    private void OpenNotepadPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!CalculatorHelpPopup.IsOpen) { CalculatorHelpPopup.IsOpen = true; }
+        if (!NotepadHelpPopup.IsOpen) { NotepadHelpPopup.IsOpen = true; }
     }
 
-    private void CloseCalculatorPopupClicked(object sender, RoutedEventArgs e)
+    private void CloseNotepadPopupClicked(object sender, RoutedEventArgs e)
     {
         // if the Popup is open, then close it 
-        if (CalculatorHelpPopup.IsOpen) { CalculatorHelpPopup.IsOpen = false; }
-    }
-
-    private void OpenRulerPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // open the Popup if it isn't open already 
-        if (!RulerHelpPopup.IsOpen) { RulerHelpPopup.IsOpen = true; }
-    }
-
-    private void CloseRulerPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // if the Popup is open, then close it 
-        if (RulerHelpPopup.IsOpen) { RulerHelpPopup.IsOpen = false; }
-    }
-
-    private void OpenTimerPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // open the Popup if it isn't open already 
-        if (!TimerHelpPopup.IsOpen) { TimerHelpPopup.IsOpen = true; }
-    }
-
-    private void CloseTimerPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // if the Popup is open, then close it 
-        if (TimerHelpPopup.IsOpen) { TimerHelpPopup.IsOpen = false; }
-    }
-
-    private void OpenAlarmPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // open the Popup if it isn't open already 
-        if (!AlarmHelpPopup.IsOpen) { AlarmHelpPopup.IsOpen = true; }
-    }
-
-    private void CloseAlarmPopupClicked(object sender, RoutedEventArgs e)
-    {
-        // if the Popup is open, then close it 
-        if (AlarmHelpPopup.IsOpen) { AlarmHelpPopup.IsOpen = false; }
+        if (NotepadHelpPopup.IsOpen) { NotepadHelpPopup.IsOpen = false; }
     }
 
     private void OpenQuickFileAccessPopupClicked(object sender, RoutedEventArgs e)
