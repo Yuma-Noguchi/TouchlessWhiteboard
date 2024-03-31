@@ -35,6 +35,9 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Graphics;
 using Windows.UI.WindowManagement;
+using System.Collections;
+using System.Diagnostics;
+using Windows.ApplicationModel.VoiceCommands;
 
 namespace TouchlessWhiteboard;
 
@@ -235,6 +238,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "Sticky Notes":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Sticky-Notes-icon.png"));
+                button.Click += StickyNotes_Clicked;
                 break;
             case "Camera":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Camera-icon.png"));
@@ -250,33 +254,42 @@ public sealed partial class MainWindow : Window
                 break;
             case "Calculator":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Calculator-icon.png"));
+                button.Click += Calculator_Clicked;
                 break;
             case "Clock":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Clock-icon.png"));
+                button.Click += Clock_Clicked;
                 break;
             case "QuickWebSiteAccess1":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess1-icon.png"));
+                button.Click += QuickWebSiteAccess1_Clicked;
                 break;
             case "QuickWebSiteAccess2":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess2-icon.png"));
+                button.Click += QuickWebSiteAccess2_Clicked;
                 break;
             case "QuickWebSiteAccess3":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess3-icon.png"));
+                button.Click += QuickWebSiteAccess3_Clicked;
                 break;
             case "In Air 3D Mouse":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/In-Air-3D-Mouse-icon.png"));
                 break;
             case "Notepad":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Notepad-icon.png"));
+                button.Click += Notepad_Clicked;
                 break;
             case "QuickFileAccess1":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess1-icon.png"));
+                button.Click += QuickFileAccess1_Clicked;
                 break;
             case "QuickFileAccess2":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess2-icon.png"));
+                button.Click += QuickFileAccess2_Clicked;
                 break;
             case "QuickFileAccess3":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess3-icon.png"));
+                button.Click += QuickFileAccess3_Clicked;
                 break;
             case "Close":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Close-icon.png"));
@@ -317,10 +330,17 @@ public sealed partial class MainWindow : Window
         this.Move(0, 0);
         this.SetIsMaximizable(true);
     }
+
+    private void StickyNotes_Clicked(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe!App") { CreateNoWindow = true });
+        MinimizeTouchlessWhiteboard();
+    }
     private void Camera_Clicked(object sender, RoutedEventArgs e)
     {
         // open snipping tool
         Windows.System.Launcher.LaunchUriAsync(new Uri("ms-screenclip:"));
+        MinimizeTouchlessWhiteboard();
     }
 
     private void Search_Clicked(object sender, RoutedEventArgs e)
@@ -333,6 +353,60 @@ public sealed partial class MainWindow : Window
     private void Copilot_Clicked(object sender, RoutedEventArgs e)
     {
         Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.bing.com/chat"));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void Calculator_Clicked(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsCalculator_8wekyb3d8bbwe!App") { CreateNoWindow = true });
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void Clock_Clicked(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App") { CreateNoWindow = true });
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickWebSiteAccess1_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess1URL));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickWebSiteAccess2_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess2URL));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickWebSiteAccess3_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess3URL));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void Notepad_Clicked(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsNotepad_8wekyb3d8bbwe!App") { CreateNoWindow = true });
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickFileAccess1_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess1File);
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickFileAccess2_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess2File);
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void QuickFileAccess3_Clicked(object sender, RoutedEventArgs e)
+    {
+        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess3File);
         MinimizeTouchlessWhiteboard();
     }
 
