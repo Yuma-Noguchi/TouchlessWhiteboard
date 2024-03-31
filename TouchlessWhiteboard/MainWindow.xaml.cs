@@ -276,6 +276,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "Notepad":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Notepad-icon.png"));
+                button.Click += Notepad_Clicked;
                 break;
             case "QuickFileAccess1":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess1-icon.png"));
@@ -351,6 +352,12 @@ public sealed partial class MainWindow : Window
         MinimizeTouchlessWhiteboard();
     }
 
+    private void Calculator_Clicked(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsCalculator_8wekyb3d8bbwe!App") { CreateNoWindow = true });
+        MinimizeTouchlessWhiteboard();
+    }
+
     private void QuickWebSiteAccess1_Clicked(object sender, RoutedEventArgs e)
     {
         Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess1URL));
@@ -369,9 +376,9 @@ public sealed partial class MainWindow : Window
         MinimizeTouchlessWhiteboard();
     }
 
-    private void Calculator_Clicked(object sender, RoutedEventArgs e)
+    private void Notepad_Clicked(object sender, RoutedEventArgs e)
     {
-        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsCalculator_8wekyb3d8bbwe!App") { CreateNoWindow = true });
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsNotepad_8wekyb3d8bbwe!App") { CreateNoWindow = true });
         MinimizeTouchlessWhiteboard();
     }
 
