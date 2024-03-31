@@ -18,15 +18,19 @@
     <None Remove="Assets\Close-icon.png" />
     <None Remove="Assets\Copilot-icon.png" />
     <None Remove="Assets\Cursor-icon.png" />
-    <None Remove="Assets\Eraser-icon.png" />
     <None Remove="Assets\In-Air-3D-Mouse-icon.png" />
+    <None Remove="Assets\Notepad-icon.png" />
     <None Remove="Assets\Open-icon.png" />
+    <None Remove="Assets\QuickFileAccess1-icon.png" />
+    <None Remove="Assets\QuickFileAccess2-icon.png" />
+    <None Remove="Assets\QuickFileAccess3-icon.png" />
+    <None Remove="Assets\QuickWebSiteAccess-icon.png" />
+    <None Remove="Assets\QuickWebSiteAccess1-icon.png" />
+    <None Remove="Assets\QuickWebSiteAccess2-icon.png" />
+    <None Remove="Assets\QuickWebSiteAccess3-icon.png" />
     <None Remove="Assets\Redo-icon.png" />
     <None Remove="Assets\Search-icon.png" />
-    <None Remove="Assets\Selection-icon.png" />
-    <None Remove="Assets\Shapes-icon.png" />
     <None Remove="Assets\Sticky-Notes-icon.png" />
-    <None Remove="Assets\Tools-icon.png" />
     <None Remove="Assets\Undo-icon.png" />
     <None Remove="Resources\settings.json" />
     <None Remove="SettingsWindow.xaml" />
@@ -71,7 +75,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Assets\Alarm-icon.png">
+    <Content Update="Assets\Clock-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Close-icon.png">
@@ -80,13 +84,34 @@
     <Content Update="Assets\Cursor-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\Notepad-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Open-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Redo-icon.png">
+    <Content Update="Assets\QuickFileAccess1-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Shapes-icon.png">
+    <Content Update="Assets\QuickFileAccess2-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\QuickFileAccess3-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\QuickWebSiteAccess-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\QuickWebSiteAccess1-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\QuickWebSiteAccess2-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\QuickWebSiteAccess3-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\Redo-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Touchless-Arts-icon.png">
@@ -101,31 +126,16 @@
     <Content Update="Assets\Copilot-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Eraser-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\QuickFileAccess-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\In-Air-3D-Mouse-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Ruler-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Timer-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\Search-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Update="Assets\Selection-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="Assets\Sticky-Notes-icon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Update="Assets\Tools-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="Assets\Undo-icon.png">

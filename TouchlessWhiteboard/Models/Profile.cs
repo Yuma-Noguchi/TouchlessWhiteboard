@@ -9,6 +9,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using Windows.Storage;
 
 namespace TouchlessWhiteboard.Models;
 
@@ -19,34 +20,49 @@ public class Profile : ObservableObject
 
     [JsonPropertyName("isTouchlessArtsEnabled")]
     public bool IsTouchlessArtsEnabled { get; set; }
-
-    [JsonPropertyName("isEraserEnabled")]
-    public bool IsEraserEnabled { get; set; }
-
-    [JsonPropertyName("isShapesEnabled")]
-    public bool IsShapesEnabled { get; set; }
-
-    [JsonPropertyName("isSelectionEnabled")]
-    public bool IsSelectionEnabled { get; set; }
-
     [JsonPropertyName("isStickyNotesEnabled")]
     public bool IsStickyNotesEnabled { get; set; }
-
     [JsonPropertyName("isCameraEnabled")]
     public bool IsCameraEnabled { get; set; }
-
     [JsonPropertyName("isSearchEnabled")]
     public bool IsSearchEnabled { get; set; }
-
     [JsonPropertyName("isCopilotEnabled")]
     public bool IsCopilotEnabled { get; set; }
-
-    [JsonPropertyName("isToolsEnabled")]
-    public bool IsToolsEnabled { get; set; }
-
+    [JsonPropertyName("isCalculatorEnabled")]
+    public bool IsCalculatorEnabled { get; set; }
+    [JsonPropertyName("isClockEnabled")]
+    public bool IsClockEnabled { get; set; }
+    [JsonPropertyName("isQuickWebSiteAccess1Enabled")]
+    public bool IsQuickWebSiteAccess1Enabled { get; set; }
+    [JsonPropertyName("quickWebSiteAccess1URL")]
+    public string QuickWebSiteAccess1URL { get; set; }
+    [JsonPropertyName("isQuickWebSiteAccess2Enabled")]
+    public bool IsQuickWebSiteAccess2Enabled { get; set; }
+    [JsonPropertyName("quickWebSiteAccess2URL")]
+    public string QuickWebSiteAccess2URL { get; set; }
+    [JsonPropertyName("isQuickWebSiteAccess3Enabled")]
+    public bool IsQuickWebSiteAccess3Enabled { get; set; }
+    [JsonPropertyName("quickWebSiteAccess3URL")]
+    public string QuickWebSiteAccess3URL { get; set; }
     [JsonPropertyName("isInAir3DMouseEnabled")]
     public bool IsInAir3DMouseEnabled { get; set; }
-
+    [JsonPropertyName("isNotepadEnabled")]
+    public bool IsNotepadEnabled { get; set; }
+    [JsonPropertyName("isQuickFileAccess1Enabled")]
+    public bool IsQuickFileAccess1Enabled { get; set; }
+    [JsonPropertyName("quickFileAccess1Path")]
+    public string QuickFileAccess1Path { get; set; }
+    public StorageFile QuickFileAccess1File { get; set; }
+    [JsonPropertyName("isQuickFileAccess2Enabled")]
+    public bool IsQuickFileAccess2Enabled { get; set; }
+    [JsonPropertyName("quickFileAccess2Path")]
+    public string QuickFileAccess2Path { get; set; }
+    public StorageFile QuickFileAccess2File { get; set; }
+    [JsonPropertyName("isQuickFileAccess3Enabled")]
+    public bool IsQuickFileAccess3Enabled { get; set; }
+    [JsonPropertyName("quickFileAccess3Path")]
+    public string QuickFileAccess3Path { get; set; }
+    public StorageFile QuickFileAccess3File { get; set; }
     [JsonPropertyName("isLeftHanded")]
     public bool IsLeftHanded { get; set; }
 
@@ -55,21 +71,6 @@ public class Profile : ObservableObject
 
     [JsonPropertyName("pinchSensitivity")]
     public double PinchSensitivity { get; set; }
-
-    [JsonPropertyName("isCalculatorEnabled")]
-    public bool IsCalculatorEnabled { get; set; }
-
-    [JsonPropertyName("isRulerEnabled")]
-    public bool IsRulerEnabled { get; set; }
-
-    [JsonPropertyName("isTimerEnabled")]
-    public bool IsTimerEnabled { get; set; }
-
-    [JsonPropertyName("isAlarmEnabled")]
-    public bool IsAlarmEnabled { get; set; }
-
-    [JsonPropertyName("isQuickFileAccessEnabled")]
-    public bool IsQuickFileAccessEnabled { get; set; }
 
     [JsonPropertyName("selectedWebcam")]
     public string SelectedWebcam { get; set; }
