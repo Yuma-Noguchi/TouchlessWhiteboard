@@ -253,6 +253,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "Calculator":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Calculator-icon.png"));
+                button.Click += Calculator_Clicked;
                 break;
             case "Clock":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Clock-icon.png"));
@@ -330,6 +331,7 @@ public sealed partial class MainWindow : Window
     {
         // open snipping tool
         Windows.System.Launcher.LaunchUriAsync(new Uri("ms-screenclip:"));
+        MinimizeTouchlessWhiteboard();
     }
 
     private void Search_Clicked(object sender, RoutedEventArgs e)
@@ -342,6 +344,12 @@ public sealed partial class MainWindow : Window
     private void Copilot_Clicked(object sender, RoutedEventArgs e)
     {
         Windows.System.Launcher.LaunchUriAsync(new Uri("https://www.bing.com/chat"));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void Calculator_Clicked(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsCalculator_8wekyb3d8bbwe!App") { CreateNoWindow = true });
         MinimizeTouchlessWhiteboard();
     }
 
