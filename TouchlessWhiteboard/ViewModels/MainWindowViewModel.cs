@@ -18,31 +18,6 @@ namespace TouchlessWhiteboard.ViewModel;
 
 public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChanged
 {
-    //IsTouchlessArtsEnabled = ActiveProfile.IsTouchlessArtsEnabled;
-    //IsStickyNotesEnabled = ActiveProfile.IsStickyNotesEnabled;
-    //IsCameraEnabled = ActiveProfile.IsCameraEnabled;
-    //IsSearchEnabled = ActiveProfile.IsSearchEnabled;
-    //IsCopilotEnabled = ActiveProfile.IsCopilotEnabled;
-    //IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
-    //IsClockEnabled = ActiveProfile.IsClockEnabled;
-    //IsQuickWebSiteAccess1Enabled = ActiveProfile.IsQuickWebSiteAccess1Enabled;
-    //QuickWebSiteAccess1URL = ActiveProfile.QuickWebSiteAccess1URL;
-    //IsQuickWebSiteAccess2Enabled = ActiveProfile.IsQuickWebSiteAccess2Enabled;
-    //QuickWebSiteAccess2URL = ActiveProfile.QuickWebSiteAccess2URL;
-    //IsQuickWebSiteAccess3Enabled = ActiveProfile.IsQuickWebSiteAccess3Enabled;
-    //QuickWebSiteAccess3URL = ActiveProfile.QuickWebSiteAccess3URL;
-    //IsInAir3DMouseEnabled = ActiveProfile.IsInAir3DMouseEnabled;
-    //IsNotepadEnabled = ActiveProfile.IsNotepadEnabled;
-    //IsQuickFileAccess1Enabled = ActiveProfile.IsQuickFileAccess1Enabled;
-    //QuickFileAccess1File = ActiveProfile.QuickFileAccess1File;
-    //IsQuickFileAccess2Enabled = ActiveProfile.IsQuickFileAccess2Enabled;
-    //QuickFileAccess2File = ActiveProfile.QuickFileAccess2File;
-    //IsQuickFileAccess3Enabled = ActiveProfile.IsQuickFileAccess3Enabled;
-    //QuickFileAccess3File = ActiveProfile.QuickFileAccess3File;
-    //IsLeftHanded = ActiveProfile.IsLeftHanded;
-    //IsRightHanded = ActiveProfile.IsRightHanded;
-    //PinchSensitivity = ActiveProfile.PinchSensitivity;
-    //IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
     public string Name { get; set; }
     public bool IsTouchlessArtsEnabled { get; set; }
     public bool IsStickyNotesEnabled { get; set; }
@@ -78,22 +53,25 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
 
     public MainWindowViewModel()
     {
-        //Name = "Touchless Whiteboard";
-        //IsTouchlessArtsEnabled = true;
-        //IsEraserEnabled = true;
-        //IsShapesEnabled = true;
-        //IsSelectionEnabled = true;
-        //IsStickyNotesEnabled = true;
-        //IsCameraEnabled = true;
-        //IsSearchEnabled = true;
-        //IsCopilotEnabled = true;
-        //IsToolsEnabled = true;
-        //IsInAir3DMouseEnabled = true;
-        //IsCalculatorEnabled = true;
-        //IsRulerEnabled = true;
-        //IsTimerEnabled = true;
-        //IsAlarmEnabled = true;
-        //IsQuickFileAccessEnabled = true;
+        Name = "Touchless Whiteboard";
+        IsTouchlessArtsEnabled = false;
+        IsStickyNotesEnabled = true;
+        IsCameraEnabled = false;
+        IsSearchEnabled = false;
+        IsCopilotEnabled = false;
+        IsCalculatorEnabled = true;
+        IsClockEnabled = true;
+        IsQuickWebSiteAccess1Enabled = true;
+        QuickWebSiteAccess1URL = "https://www.google.com";
+        IsQuickWebSiteAccess2Enabled = true;
+        QuickWebSiteAccess2URL = "https://www.bing.com";
+        IsQuickWebSiteAccess3Enabled = true;
+        QuickWebSiteAccess3URL = "https://www.yahoo.com";
+        IsInAir3DMouseEnabled = false;
+        IsNotepadEnabled = true;
+        IsQuickFileAccess1Enabled = true;
+        IsQuickFileAccess2Enabled = true;
+        IsQuickFileAccess3Enabled = true;
 
     }
 

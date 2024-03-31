@@ -35,6 +35,8 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.Graphics;
 using Windows.UI.WindowManagement;
+using System.Collections;
+using System.Diagnostics;
 
 namespace TouchlessWhiteboard;
 
@@ -60,27 +62,27 @@ public sealed partial class MainWindow : Window
         ViewModel = Ioc.Default.GetService<MainWindowViewModel>();
         SettingsWindowViewModel settingsWindowViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
 
-        ViewModel.IsTouchlessArtsEnabled = settingsWindowViewModel.IsTouchlessArtsEnabled;
-        ViewModel.IsStickyNotesEnabled = settingsWindowViewModel.IsStickyNotesEnabled;
-        ViewModel.IsCameraEnabled = settingsWindowViewModel.IsCameraEnabled;
-        ViewModel.IsSearchEnabled = settingsWindowViewModel.IsSearchEnabled;
-        ViewModel.IsCopilotEnabled = settingsWindowViewModel.IsCopilotEnabled;
-        ViewModel.IsCalculatorEnabled = settingsWindowViewModel.IsCalculatorEnabled;
-        ViewModel.IsClockEnabled = settingsWindowViewModel.IsClockEnabled;
-        ViewModel.IsQuickWebSiteAccess1Enabled = settingsWindowViewModel.IsQuickWebSiteAccess1Enabled;
-        ViewModel.QuickWebSiteAccess1URL = settingsWindowViewModel.QuickWebSiteAccess1URL;
-        ViewModel.IsQuickWebSiteAccess2Enabled = settingsWindowViewModel.IsQuickWebSiteAccess2Enabled;
-        ViewModel.QuickWebSiteAccess2URL = settingsWindowViewModel.QuickWebSiteAccess2URL;
-        ViewModel.IsQuickWebSiteAccess3Enabled = settingsWindowViewModel.IsQuickWebSiteAccess3Enabled;
-        ViewModel.QuickWebSiteAccess3URL = settingsWindowViewModel.QuickWebSiteAccess3URL;
-        ViewModel.IsInAir3DMouseEnabled = settingsWindowViewModel.IsInAir3DMouseEnabled;
-        ViewModel.IsNotepadEnabled = settingsWindowViewModel.IsNotepadEnabled;
-        ViewModel.IsQuickFileAccess1Enabled = settingsWindowViewModel.IsQuickFileAccess1Enabled;
-        ViewModel.QuickFileAccess1File = settingsWindowViewModel.QuickFileAccess1File;
-        ViewModel.IsQuickFileAccess2Enabled = settingsWindowViewModel.IsQuickFileAccess2Enabled;
-        ViewModel.QuickFileAccess2File = settingsWindowViewModel.QuickFileAccess2File;
-        ViewModel.IsQuickFileAccess3Enabled = settingsWindowViewModel.IsQuickFileAccess3Enabled;
-        ViewModel.QuickFileAccess3File = settingsWindowViewModel.QuickFileAccess3File;
+        //ViewModel.IsTouchlessArtsEnabled = settingsWindowViewModel.IsTouchlessArtsEnabled;
+        //ViewModel.IsStickyNotesEnabled = settingsWindowViewModel.IsStickyNotesEnabled;
+        //ViewModel.IsCameraEnabled = settingsWindowViewModel.IsCameraEnabled;
+        //ViewModel.IsSearchEnabled = settingsWindowViewModel.IsSearchEnabled;
+        //ViewModel.IsCopilotEnabled = settingsWindowViewModel.IsCopilotEnabled;
+        //ViewModel.IsCalculatorEnabled = settingsWindowViewModel.IsCalculatorEnabled;
+        //ViewModel.IsClockEnabled = settingsWindowViewModel.IsClockEnabled;
+        //ViewModel.IsQuickWebSiteAccess1Enabled = settingsWindowViewModel.IsQuickWebSiteAccess1Enabled;
+        //ViewModel.QuickWebSiteAccess1URL = settingsWindowViewModel.QuickWebSiteAccess1URL;
+        //ViewModel.IsQuickWebSiteAccess2Enabled = settingsWindowViewModel.IsQuickWebSiteAccess2Enabled;
+        //ViewModel.QuickWebSiteAccess2URL = settingsWindowViewModel.QuickWebSiteAccess2URL;
+        //ViewModel.IsQuickWebSiteAccess3Enabled = settingsWindowViewModel.IsQuickWebSiteAccess3Enabled;
+        //ViewModel.QuickWebSiteAccess3URL = settingsWindowViewModel.QuickWebSiteAccess3URL;
+        //ViewModel.IsInAir3DMouseEnabled = settingsWindowViewModel.IsInAir3DMouseEnabled;
+        //ViewModel.IsNotepadEnabled = settingsWindowViewModel.IsNotepadEnabled;
+        //ViewModel.IsQuickFileAccess1Enabled = settingsWindowViewModel.IsQuickFileAccess1Enabled;
+        //ViewModel.QuickFileAccess1File = settingsWindowViewModel.QuickFileAccess1File;
+        //ViewModel.IsQuickFileAccess2Enabled = settingsWindowViewModel.IsQuickFileAccess2Enabled;
+        //ViewModel.QuickFileAccess2File = settingsWindowViewModel.QuickFileAccess2File;
+        //ViewModel.IsQuickFileAccess3Enabled = settingsWindowViewModel.IsQuickFileAccess3Enabled;
+        //ViewModel.QuickFileAccess3File = settingsWindowViewModel.QuickFileAccess3File;
 
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
         ViewModel.IsIconShown = Visibility.Collapsed;
@@ -235,6 +237,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "Sticky Notes":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Sticky-Notes-icon.png"));
+                button.Click += StickyNotes_Clicked;
                 break;
             case "Camera":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Camera-icon.png"));
@@ -316,6 +319,12 @@ public sealed partial class MainWindow : Window
         this.SetWindowSize(maxScreenWidth, maxScreenHeight);
         this.Move(0, 0);
         this.SetIsMaximizable(true);
+    }
+
+    private void StickyNotes_Clicked(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe!App") { CreateNoWindow = true });
+        MinimizeTouchlessWhiteboard();
     }
     private void Camera_Clicked(object sender, RoutedEventArgs e)
     {
