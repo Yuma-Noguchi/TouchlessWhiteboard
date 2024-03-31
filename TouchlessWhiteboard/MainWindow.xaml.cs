@@ -257,6 +257,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "Clock":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Clock-icon.png"));
+                button.Click += Clock_Clicked;
                 break;
             case "QuickWebSiteAccess1":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess1-icon.png"));
@@ -350,6 +351,12 @@ public sealed partial class MainWindow : Window
     private void Calculator_Clicked(object sender, RoutedEventArgs e)
     {
         Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsCalculator_8wekyb3d8bbwe!App") { CreateNoWindow = true });
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void Clock_Clicked(object sender, RoutedEventArgs e)
+    {
+        Process.Start(new ProcessStartInfo("cmd", $"/c start shell:AppsFolder\\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App") { CreateNoWindow = true });
         MinimizeTouchlessWhiteboard();
     }
 
