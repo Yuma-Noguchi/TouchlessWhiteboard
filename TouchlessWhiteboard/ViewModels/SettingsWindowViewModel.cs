@@ -14,6 +14,7 @@ using System.IO;
 using Windows.Graphics.DirectX.Direct3D11;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
+using static System.Net.WebRequestMethods;
 
 namespace TouchlessWhiteboard.ViewModel;
 
@@ -92,31 +93,44 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         _webcamService = webcamService;
         _profileService = profileService;
         InitializeAsync();
+        PropertyChanged += (s, e) => UpdateProfile(s, e);
+    }
+
+    private async void InitializeAsync()
+    {
+        await GetFilesandWebcamsAsync();
         if (profiles != null && profiles.Any())
         {
             ActiveProfile = profiles.First();
 
             // set all the properties to the values of the active profile
-            name = ActiveProfile.Name;
-            isTouchlessArtsEnabled = ActiveProfile.IsTouchlessArtsEnabled;
-            isStickyNotesEnabled = ActiveProfile.IsStickyNotesEnabled;
-            isCameraEnabled = ActiveProfile.IsCameraEnabled;
-            isSearchEnabled = ActiveProfile.IsSearchEnabled;
-            isCopilotEnabled = ActiveProfile.IsCopilotEnabled;
-            isCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
-            isClockEnabled = ActiveProfile.IsClockEnabled;
-            isQuickWebSiteAccess1Enabled = ActiveProfile.IsQuickWebSiteAccess1Enabled;
-            isQuickWebSiteAccess2Enabled = ActiveProfile.IsQuickWebSiteAccess2Enabled;
-            isQuickWebSiteAccess3Enabled = ActiveProfile.IsQuickWebSiteAccess3Enabled;
-            isInAir3DMouseEnabled = ActiveProfile.IsInAir3DMouseEnabled;
-            isNotepadEnabled = ActiveProfile.IsNotepadEnabled;
-            isQuickFileAccess1Enabled = ActiveProfile.IsQuickFileAccess1Enabled;
-            isQuickFileAccess2Enabled = ActiveProfile.IsQuickFileAccess2Enabled;
-            isQuickFileAccess3Enabled = ActiveProfile.IsQuickFileAccess3Enabled;
-            isLeftHanded = ActiveProfile.IsLeftHanded;
-            isRightHanded = ActiveProfile.IsRightHanded;
-            pinchSensitivity = ActiveProfile.PinchSensitivity;
-            isCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
+            Name = ActiveProfile.Name;
+            IsTouchlessArtsEnabled = ActiveProfile.IsTouchlessArtsEnabled;
+            IsStickyNotesEnabled = ActiveProfile.IsStickyNotesEnabled;
+            IsCameraEnabled = ActiveProfile.IsCameraEnabled;
+            IsSearchEnabled = ActiveProfile.IsSearchEnabled;
+            IsCopilotEnabled = ActiveProfile.IsCopilotEnabled;
+            IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
+            IsClockEnabled = ActiveProfile.IsClockEnabled;
+            IsQuickWebSiteAccess1Enabled = ActiveProfile.IsQuickWebSiteAccess1Enabled;
+            QuickWebSiteAccess1URL = ActiveProfile.QuickWebSiteAccess1URL;
+            IsQuickWebSiteAccess2Enabled = ActiveProfile.IsQuickWebSiteAccess2Enabled;
+            QuickWebSiteAccess2URL = ActiveProfile.QuickWebSiteAccess2URL;
+            IsQuickWebSiteAccess3Enabled = ActiveProfile.IsQuickWebSiteAccess3Enabled;
+            QuickWebSiteAccess3URL = ActiveProfile.QuickWebSiteAccess3URL;
+            IsInAir3DMouseEnabled = ActiveProfile.IsInAir3DMouseEnabled;
+            IsNotepadEnabled = ActiveProfile.IsNotepadEnabled;
+            IsQuickFileAccess1Enabled = ActiveProfile.IsQuickFileAccess1Enabled;
+            QuickFileAccess1File = ActiveProfile.QuickFileAccess1File;
+            IsQuickFileAccess2Enabled = ActiveProfile.IsQuickFileAccess2Enabled;
+            QuickFileAccess2File = ActiveProfile.QuickFileAccess2File;
+            IsQuickFileAccess3Enabled = ActiveProfile.IsQuickFileAccess3Enabled;
+            QuickFileAccess3File = ActiveProfile.QuickFileAccess3File;
+            IsLeftHanded = ActiveProfile.IsLeftHanded;
+            IsRightHanded = ActiveProfile.IsRightHanded;
+            PinchSensitivity = ActiveProfile.PinchSensitivity;
+            IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
+
             // if selected webcam exists in the list of available webcams, set it as the selected webcam
             if (webcams.Contains(ActiveProfile.SelectedWebcam))
             {
@@ -129,13 +143,13 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
                     SelectedWebcam = webcams[0];
                 }
             }
+            // convert file path to storage file
             ActiveProfile.IsSelected = true;
-            isSelected = true;
+            IsSelected = true;
         }
-        PropertyChanged += (s, e) => UpdateProfile(s, e);
     }
 
-    private async void InitializeAsync()
+    private async Task GetFilesandWebcamsAsync()
     {
         Profiles = new ObservableCollection<Profile>(await _profileService.LoadProfilesFromJson("Resources/settings.json"));
 
@@ -143,6 +157,47 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         if (webcams.Count > 0)
         {
             SelectedWebcam = webcams[0];
+        }
+
+        // for all profiles, convert file paths to storage files
+        foreach (Profile p in Profiles)
+        {
+            if (p.QuickFileAccess1Path != null)
+            {
+                try
+                {
+                    p.QuickFileAccess1File = await StorageFile.GetFileFromPathAsync(p.QuickFileAccess1Path);
+                }
+                catch (Exception ex)
+
+                {
+                    p.QuickFileAccess1Path = null;
+                }
+            }
+
+            if (p.QuickFileAccess2Path != null)
+            {
+                try
+                {
+                    p.QuickFileAccess2File = await StorageFile.GetFileFromPathAsync(p.QuickFileAccess2Path);
+                }
+                catch (Exception ex)
+                {
+                    p.QuickFileAccess2Path = null;
+                }
+            }
+
+            if (p.QuickFileAccess3Path != null)
+            {
+                try
+                {
+                    p.QuickFileAccess3File = await StorageFile.GetFileFromPathAsync(p.QuickFileAccess3Path);
+                }
+                catch (Exception ex)
+                {
+                    p.QuickFileAccess3Path = null;
+                }
+            }
         }
     }
 
@@ -177,11 +232,20 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             case nameof(IsQuickWebSiteAccess1Enabled):
                 ActiveProfile.IsQuickWebSiteAccess1Enabled = IsQuickWebSiteAccess1Enabled;
                 break;
+            case nameof(QuickWebSiteAccess1URL):
+                ActiveProfile.QuickWebSiteAccess1URL = QuickWebSiteAccess1URL;
+                break;
             case nameof(IsQuickWebSiteAccess2Enabled):
                 ActiveProfile.IsQuickWebSiteAccess2Enabled = IsQuickWebSiteAccess2Enabled;
                 break;
+            case nameof(QuickWebSiteAccess2URL):
+                ActiveProfile.QuickWebSiteAccess2URL = QuickWebSiteAccess2URL;
+                break;
             case nameof(IsQuickWebSiteAccess3Enabled):
                 ActiveProfile.IsQuickWebSiteAccess3Enabled = IsQuickWebSiteAccess3Enabled;
+                break;
+            case nameof(QuickWebSiteAccess3URL):
+                ActiveProfile.QuickWebSiteAccess3URL = QuickWebSiteAccess3URL;
                 break;
             case nameof(IsInAir3DMouseEnabled):
                 ActiveProfile.IsInAir3DMouseEnabled = IsInAir3DMouseEnabled;
@@ -192,11 +256,20 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             case nameof(IsQuickFileAccess1Enabled):
                 ActiveProfile.IsQuickFileAccess1Enabled = IsQuickFileAccess1Enabled;
                 break;
+            case nameof(QuickFileAccess1File):
+                ActiveProfile.QuickFileAccess1File = QuickFileAccess1File;
+                break;
             case nameof(IsQuickFileAccess2Enabled):
                 ActiveProfile.IsQuickFileAccess2Enabled = IsQuickFileAccess2Enabled;
                 break;
+            case nameof(QuickFileAccess2File):
+                ActiveProfile.QuickFileAccess2File = QuickFileAccess2File;
+                break;
             case nameof(IsQuickFileAccess3Enabled):
                 ActiveProfile.IsQuickFileAccess3Enabled = IsQuickFileAccess3Enabled;
+                break;
+            case nameof(QuickFileAccess3File):
+                ActiveProfile.QuickFileAccess3File = QuickFileAccess3File;
                 break;
             case nameof(IsLeftHanded):
                 ActiveProfile.IsLeftHanded = IsLeftHanded;
@@ -228,13 +301,19 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
         IsClockEnabled = ActiveProfile.IsClockEnabled;
         IsQuickWebSiteAccess1Enabled = ActiveProfile.IsQuickWebSiteAccess1Enabled;
+        QuickWebSiteAccess1URL = ActiveProfile.QuickWebSiteAccess1URL;
         IsQuickWebSiteAccess2Enabled = ActiveProfile.IsQuickWebSiteAccess2Enabled;
+        QuickWebSiteAccess2URL = ActiveProfile.QuickWebSiteAccess2URL;
         IsQuickWebSiteAccess3Enabled = ActiveProfile.IsQuickWebSiteAccess3Enabled;
+        QuickWebSiteAccess3URL = ActiveProfile.QuickWebSiteAccess3URL;
         IsInAir3DMouseEnabled = ActiveProfile.IsInAir3DMouseEnabled;
         IsNotepadEnabled = ActiveProfile.IsNotepadEnabled;
         IsQuickFileAccess1Enabled = ActiveProfile.IsQuickFileAccess1Enabled;
+        QuickFileAccess1File = ActiveProfile.QuickFileAccess1File;
         IsQuickFileAccess2Enabled = ActiveProfile.IsQuickFileAccess2Enabled;
+        QuickFileAccess2File = ActiveProfile.QuickFileAccess2File;
         IsQuickFileAccess3Enabled = ActiveProfile.IsQuickFileAccess3Enabled;
+        QuickFileAccess3File = ActiveProfile.QuickFileAccess3File;
         IsLeftHanded = ActiveProfile.IsLeftHanded;
         IsRightHanded = ActiveProfile.IsRightHanded;
         PinchSensitivity = ActiveProfile.PinchSensitivity;
@@ -271,13 +350,19 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             IsCalculatorEnabled = false,
             IsClockEnabled = false,
             IsQuickWebSiteAccess1Enabled = false,
+            QuickWebSiteAccess1URL = "",
             IsQuickWebSiteAccess2Enabled = false,
+            QuickWebSiteAccess2URL = "",
             IsQuickWebSiteAccess3Enabled = false,
+            QuickWebSiteAccess3URL = "",
             IsInAir3DMouseEnabled = false,
             IsNotepadEnabled = false,
             IsQuickFileAccess1Enabled = false,
+            QuickFileAccess1File = null,
             IsQuickFileAccess2Enabled = false,
+            QuickFileAccess2File = null,
             IsQuickFileAccess3Enabled = false,
+            QuickFileAccess3File = null,
             IsLeftHanded = true,
             IsRightHanded = false,
             PinchSensitivity = 0.5

@@ -225,7 +225,7 @@
 
                         <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess1Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess1CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <Image Source="Assets/QuickWebsiteAccess1-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
                                     <TextBlock Text="Quick Web Access 1" VerticalAlignment="Center"/>
                                     <TextBox PlaceholderText="URL" Text="{x:Bind ViewModel.QuickWebSiteAccess1URL, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="13" Width="200" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black"/>
@@ -246,7 +246,7 @@
 
                         <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess2Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess2CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <Image Source="Assets/QuickWebsiteAccess2-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
                                     <TextBlock Text="Quick Web Access 2" VerticalAlignment="Center"/>
                                     <TextBox PlaceholderText="URL" Text="{x:Bind ViewModel.QuickWebSiteAccess2URL, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="13" Width="200" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black"/>
@@ -257,7 +257,7 @@
 
                         <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{x:Bind ViewModel.IsQuickWebSiteAccess3Enabled, Mode=TwoWay}" x:Name="QuickWebSiteAccess3CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/QuickWebsiteAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <Image Source="Assets/QuickWebsiteAccess3-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
                                     <TextBlock Text="Quick Web Access 3" VerticalAlignment="Center"/>
                                     <TextBox PlaceholderText="URL" Text="{x:Bind ViewModel.QuickWebSiteAccess3URL, Mode=TwoWay}" HorizontalAlignment="Left" FontSize="13" Width="200" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black"/>
@@ -304,7 +304,7 @@
 
                         <CheckBox Grid.Row="2" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsQuickFileAccess1Enabled, Mode=TwoWay}" x:Name="QuickFileAccess1CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <Image Source="Assets/QuickFileAccess1-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
                                     <TextBlock Text="Quick File Access 1" VerticalAlignment="Center" />
                                     <StackPanel Orientation="Horizontal">
@@ -328,7 +328,7 @@
 
                         <CheckBox Grid.Row="3" Grid.Column="2" IsChecked="{x:Bind ViewModel.IsQuickFileAccess2Enabled, Mode=TwoWay}" x:Name="QuickFileAccess2CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <Image Source="Assets/QuickFileAccess2-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
                                     <TextBlock Text="Quick File Access 2" VerticalAlignment="Center" />
                                     <StackPanel Orientation="Horizontal">
@@ -342,7 +342,7 @@
 
                         <CheckBox Grid.Row="4" Grid.Column="3" IsChecked="{x:Bind ViewModel.IsQuickFileAccess3Enabled, Mode=TwoWay}" x:Name="QuickFileAccess3CheckBox" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="Assets/QuickFileAccess-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
+                                <Image Source="Assets/QuickFileAccess3-icon.png" Width="30" Height="30" Margin="10,0,0,0"/>
                                 <StackPanel Orientation="Vertical" Margin="15,0,0,0">
                                     <TextBlock Text="Quick File Access 3" VerticalAlignment="Center" />
                                     <StackPanel Orientation="Horizontal">

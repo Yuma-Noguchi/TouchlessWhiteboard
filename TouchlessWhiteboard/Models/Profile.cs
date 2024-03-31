@@ -9,6 +9,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Newtonsoft.Json;
+using Windows.Storage;
 
 namespace TouchlessWhiteboard.Models;
 
@@ -49,10 +50,19 @@ public class Profile : ObservableObject
     public bool IsNotepadEnabled { get; set; }
     [JsonPropertyName("isQuickFileAccess1Enabled")]
     public bool IsQuickFileAccess1Enabled { get; set; }
+    [JsonPropertyName("quickFileAccess1Path")]
+    public string QuickFileAccess1Path { get; set; }
+    public StorageFile QuickFileAccess1File { get; set; }
     [JsonPropertyName("isQuickFileAccess2Enabled")]
     public bool IsQuickFileAccess2Enabled { get; set; }
+    [JsonPropertyName("quickFileAccess2Path")]
+    public string QuickFileAccess2Path { get; set; }
+    public StorageFile QuickFileAccess2File { get; set; }
     [JsonPropertyName("isQuickFileAccess3Enabled")]
     public bool IsQuickFileAccess3Enabled { get; set; }
+    [JsonPropertyName("quickFileAccess3Path")]
+    public string QuickFileAccess3Path { get; set; }
+    public StorageFile QuickFileAccess3File { get; set; }
     [JsonPropertyName("isLeftHanded")]
     public bool IsLeftHanded { get; set; }
 

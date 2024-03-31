@@ -60,21 +60,27 @@ public sealed partial class MainWindow : Window
         ViewModel = Ioc.Default.GetService<MainWindowViewModel>();
         SettingsWindowViewModel settingsWindowViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
 
-        //ViewModel.IsTouchlessArtsEnabled = settingsWindowViewModel.IsTouchlessArtsEnabled;
-        //ViewModel.IsEraserEnabled = settingsWindowViewModel.IsEraserEnabled;
-        //ViewModel.IsShapesEnabled = settingsWindowViewModel.IsShapesEnabled;
-        //ViewModel.IsSelectionEnabled = settingsWindowViewModel.IsSelectionEnabled;
-        //ViewModel.IsStickyNotesEnabled = settingsWindowViewModel.IsStickyNotesEnabled;
-        //ViewModel.IsCameraEnabled = settingsWindowViewModel.IsCameraEnabled;
-        //ViewModel.IsSearchEnabled = settingsWindowViewModel.IsSearchEnabled;
-        //ViewModel.IsCopilotEnabled = settingsWindowViewModel.IsCopilotEnabled;
-        //ViewModel.IsToolsEnabled = settingsWindowViewModel.IsToolsEnabled;
-        //ViewModel.IsInAir3DMouseEnabled = settingsWindowViewModel.IsInAir3DMouseEnabled;
-        //ViewModel.IsCalculatorEnabled = settingsWindowViewModel.IsCalculatorEnabled;
-        //ViewModel.IsRulerEnabled = settingsWindowViewModel.IsRulerEnabled;
-        //ViewModel.IsTimerEnabled = settingsWindowViewModel.IsTimerEnabled;
-        //ViewModel.IsAlarmEnabled = settingsWindowViewModel.IsAlarmEnabled;
-        //ViewModel.IsQuickFileAccessEnabled = settingsWindowViewModel.IsQuickFileAccessEnabled;
+        ViewModel.IsTouchlessArtsEnabled = settingsWindowViewModel.IsTouchlessArtsEnabled;
+        ViewModel.IsStickyNotesEnabled = settingsWindowViewModel.IsStickyNotesEnabled;
+        ViewModel.IsCameraEnabled = settingsWindowViewModel.IsCameraEnabled;
+        ViewModel.IsSearchEnabled = settingsWindowViewModel.IsSearchEnabled;
+        ViewModel.IsCopilotEnabled = settingsWindowViewModel.IsCopilotEnabled;
+        ViewModel.IsCalculatorEnabled = settingsWindowViewModel.IsCalculatorEnabled;
+        ViewModel.IsClockEnabled = settingsWindowViewModel.IsClockEnabled;
+        ViewModel.IsQuickWebSiteAccess1Enabled = settingsWindowViewModel.IsQuickWebSiteAccess1Enabled;
+        ViewModel.QuickWebSiteAccess1URL = settingsWindowViewModel.QuickWebSiteAccess1URL;
+        ViewModel.IsQuickWebSiteAccess2Enabled = settingsWindowViewModel.IsQuickWebSiteAccess2Enabled;
+        ViewModel.QuickWebSiteAccess2URL = settingsWindowViewModel.QuickWebSiteAccess2URL;
+        ViewModel.IsQuickWebSiteAccess3Enabled = settingsWindowViewModel.IsQuickWebSiteAccess3Enabled;
+        ViewModel.QuickWebSiteAccess3URL = settingsWindowViewModel.QuickWebSiteAccess3URL;
+        ViewModel.IsInAir3DMouseEnabled = settingsWindowViewModel.IsInAir3DMouseEnabled;
+        ViewModel.IsNotepadEnabled = settingsWindowViewModel.IsNotepadEnabled;
+        ViewModel.IsQuickFileAccess1Enabled = settingsWindowViewModel.IsQuickFileAccess1Enabled;
+        ViewModel.QuickFileAccess1File = settingsWindowViewModel.QuickFileAccess1File;
+        ViewModel.IsQuickFileAccess2Enabled = settingsWindowViewModel.IsQuickFileAccess2Enabled;
+        ViewModel.QuickFileAccess2File = settingsWindowViewModel.QuickFileAccess2File;
+        ViewModel.IsQuickFileAccess3Enabled = settingsWindowViewModel.IsQuickFileAccess3Enabled;
+        ViewModel.QuickFileAccess3File = settingsWindowViewModel.QuickFileAccess3File;
 
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
         ViewModel.IsIconShown = Visibility.Collapsed;
@@ -170,24 +176,34 @@ public sealed partial class MainWindow : Window
         {
             if (ViewModel.IsTouchlessArtsEnabled)
                 panel.Children.Add(CreateButton("Touchless Arts"));
-            if (ViewModel.IsEraserEnabled)
-                panel.Children.Add(CreateButton("Eraser"));
-            if (ViewModel.IsShapesEnabled)
-                panel.Children.Add(CreateButton("Shapes"));
-            if (ViewModel.IsSelectionEnabled)
-                panel.Children.Add(CreateButton("Selection"));
-            if (ViewModel.IsStickyNotesEnabled)
-                panel.Children.Add(CreateButton("Sticky Notes"));
             if (ViewModel.IsCameraEnabled)
                 panel.Children.Add(CreateButton("Camera"));
             if (ViewModel.IsSearchEnabled)
                 panel.Children.Add(CreateButton("Search"));
             if (ViewModel.IsCopilotEnabled)
                 panel.Children.Add(CreateButton("Copilot"));
-            if (ViewModel.IsToolsEnabled)
-                panel.Children.Add(CreateButton("Tools"));
+            if (ViewModel.IsStickyNotesEnabled)
+                panel.Children.Add(CreateButton("Sticky Notes"));
+            if (ViewModel.IsCalculatorEnabled)
+                panel.Children.Add(CreateButton("Calculator"));
+            if (ViewModel.IsClockEnabled)
+                panel.Children.Add(CreateButton("Clock"));
+            if (ViewModel.IsQuickWebSiteAccess1Enabled)
+                panel.Children.Add(CreateButton("QuickWebSiteAccess1"));
+            if (ViewModel.IsQuickWebSiteAccess2Enabled)
+                panel.Children.Add(CreateButton("QuickWebSiteAccess2"));
+            if (ViewModel.IsQuickWebSiteAccess3Enabled)
+                panel.Children.Add(CreateButton("QuickWebSiteAccess3"));
             if (ViewModel.IsInAir3DMouseEnabled)
                 panel.Children.Add(CreateButton("In Air 3D Mouse"));
+            if (ViewModel.IsNotepadEnabled)
+                panel.Children.Add(CreateButton("Notepad"));
+            if (ViewModel.IsQuickFileAccess1Enabled)
+                panel.Children.Add(CreateButton("QuickFileAccess1"));
+            if (ViewModel.IsQuickFileAccess2Enabled)
+                panel.Children.Add(CreateButton("QuickFileAccess2"));
+            if (ViewModel.IsQuickFileAccess3Enabled)
+                panel.Children.Add(CreateButton("QuickFileAccess3"));
             panel.Children.Add(CreateButton("Close"));
         }
         else
@@ -217,15 +233,6 @@ public sealed partial class MainWindow : Window
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Touchless-Arts-icon.png"));
                 button.Click += TouchlessArts_Clicked;
                 break;
-            case "Eraser":
-                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Eraser-icon.png"));
-                break;
-            case "Shapes":
-                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Shapes-icon.png"));
-                break;
-            case "Selection":
-                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Selection-icon.png"));
-                break;
             case "Sticky Notes":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Sticky-Notes-icon.png"));
                 break;
@@ -241,11 +248,35 @@ public sealed partial class MainWindow : Window
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Copilot-icon.png"));
                 button.Click += Copilot_Clicked;
                 break;
-            case "Tools":
-                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Tools-icon.png"));
+            case "Calculator":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Calculator-icon.png"));
+                break;
+            case "Clock":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Clock-icon.png"));
+                break;
+            case "QuickWebSiteAccess1":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess1-icon.png"));
+                break;
+            case "QuickWebSiteAccess2":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess2-icon.png"));
+                break;
+            case "QuickWebSiteAccess3":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess3-icon.png"));
                 break;
             case "In Air 3D Mouse":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/In-Air-3D-Mouse-icon.png"));
+                break;
+            case "Notepad":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Notepad-icon.png"));
+                break;
+            case "QuickFileAccess1":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess1-icon.png"));
+                break;
+            case "QuickFileAccess2":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess2-icon.png"));
+                break;
+            case "QuickFileAccess3":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess3-icon.png"));
                 break;
             case "Close":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Close-icon.png"));

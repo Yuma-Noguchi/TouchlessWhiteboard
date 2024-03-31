@@ -72,6 +72,7 @@ public sealed partial class SettingsWindow : Window
         ToolsCheckBoxList.Add(QuickFileAccess2CheckBox);
         ToolsCheckBoxList.Add(QuickFileAccess3CheckBox);
 
+
     }
 
     public SettingsWindowViewModel? ViewModel { get; }
@@ -101,6 +102,31 @@ public sealed partial class SettingsWindow : Window
 
         // call changeprofile function in viewmodel
         ViewModel.ChangeProfile(profile);
+        if (ViewModel.QuickFileAccess1File != null)
+        {
+            QuickFileAccess1TextBox.Text = ViewModel.QuickFileAccess1File.DisplayName;
+        }
+        else
+        {
+            QuickFileAccess1TextBox.Text = "";
+        }
+        if (ViewModel.QuickFileAccess2File != null)
+        {
+            QuickFileAccess2TextBox.Text = ViewModel.QuickFileAccess2File.DisplayName;
+        }
+        else
+        {
+            QuickFileAccess2TextBox.Text = "";
+        }
+        if (ViewModel.QuickFileAccess3File != null)
+        {
+            QuickFileAccess3TextBox.Text = ViewModel.QuickFileAccess3File.DisplayName;
+        }
+        else
+        {
+            QuickFileAccess3TextBox.Text = "";
+        }
+        this.Bindings.Update();
     }
 
     private void AddProfile_Clicked(object sender, RoutedEventArgs e)
