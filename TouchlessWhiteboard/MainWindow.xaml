@@ -14,77 +14,95 @@
     </Window.SystemBackdrop>
     <Grid>
         <Grid>
-            <Canvas x:Name="Whiteboard"
-                    PointerPressed="Canvas_PointerPressed"
-                    PointerMoved="Canvas_PointerMoved"
-                    PointerReleased="Canvas_PointerReleased"
-                    Background="Transparent"
-                    Width="{Binding ElementName=MainWindow, Path=ActualWidth}"
-                    Height="{Binding ElementName=MainWindow, Path=ActualHeight}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel
+                x:Name="TitleBar"
+                Grid.Row="0"
+                Margin="5,0,120,0"
+                Background="Black"
+                Width="180"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                >
+                <Image Source="Assets/TouchlessWhiteboard-icon.ico" Width="20" Height="20"/>
+                <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" Text="{x:Bind Title}"/>
+            </StackPanel>
+            <Grid Grid.Row="1">
                 <StackPanel x:Name="ToolBarPanel" Background="LightGray" Padding="10" CornerRadius="5"
-                    Orientation="Horizontal"
-                    ManipulationMode="All"
-                    ManipulationDelta="objectManipulationDelta"
-                    Visibility="{x:Bind ViewModel.IsTouchlessWhiteboardOpen, Mode=Twoway}">
-                    <StackPanel.RenderTransform>
+                                Orientation="Horizontal"
+                                Height="70"
+                                Visibility="{x:Bind ViewModel.IsTouchlessWhiteboardOpen, Mode=Twoway}"/>
+                    <!--<StackPanel.RenderTransform>
                         <TranslateTransform />
-                    </StackPanel.RenderTransform>
-                </StackPanel>
-                <StackPanel Visibility="{x:Bind ViewModel.IsTouchlessArtsOpen}" Orientation="Horizontal" Background="#CCD5F0" ManipulationMode="All"
-                            ManipulationDelta="objectManipulationDelta">
-                    <StackPanel.RenderTransform>
-                        <TranslateTransform />
-                    </StackPanel.RenderTransform>
-                    <ToggleButton x:Name="cursorButton" Width="42" Height="42" Click="CursorButton_Click">
-                        <FontIcon Glyph="&#xE7C9;" />
-                    </ToggleButton>
-                    <ToggleButton x:Name="pencilButton" IsChecked="True" Width="42" Height="42" Click="PencilButton_Click">
-                        <FontIcon Glyph="&#xED63;" />
-                    </ToggleButton>
-                    <ToggleButton x:Name="brushButton" Width="42" Height="42" Click="BrushButton_Click">
-                        <FontIcon Glyph="&#xE771;"/>
-                    </ToggleButton>
-                    <ToggleButton x:Name="eraserButton" Width="42" Height="42" Click="EraserButton_Click">
-                        <FontIcon Glyph="&#xE75C;"/>
-                    </ToggleButton>
-                    <Button x:Name="clearButton" Width="42" Height="42" Click="ClearButton_Click">
-                        <FontIcon Glyph="&#xE894;" />
-                    </Button>
-                    <SplitButton x:Name="myColorButton" Padding="0" MinHeight="0" MinWidth="0" VerticalAlignment="Top">
-                        <Border x:Name="CurrentColor" Width="42" Height="42" Background="Black" Margin="0" CornerRadius="4,0,0,4"/>
-                        <SplitButton.Flyout>
-                            <Flyout Placement="Bottom">
-                                <ColorPicker x:Name="ColorPicker" ColorSpectrumShape="Box" IsMoreButtonVisible="False"
-                             IsColorSliderVisible="True" IsColorChannelTextInputVisible="False" IsHexInputVisible="True"
-                             IsAlphaEnabled="False" IsAlphaSliderVisible="True" IsAlphaTextInputVisible="True"
-                             ColorChanged="ColorPicker_ColorChanged" />
-                            </Flyout>
-                        </SplitButton.Flyout>
-                    </SplitButton>
-                    <ComboBox x:Name="CoboBoxBrushThickness" ItemsSource="{x:Bind BrushThickness}" SelectedIndex="0" Width="80" Height="42"
-                            ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="CoboBoxBrushThickness_SelectionChanged"/>
-                    <ToggleButton x:Name="shapesButton" Width="42" Height="42" Click="ShapesButton_Click">
-                        <FontIcon Glyph="&#xF156;"/>
-                    </ToggleButton>
-                    <ComboBox x:Name="CoboBoxShapes" SelectedIndex="0" Width="120" Height="42"
-                            SelectionChanged="CoboBoxShapes_SelectionChanged">
-                        <ComboBoxItem Content="Circle"/>
-                        <ComboBoxItem Content="Rectangle"/>
-                        <ComboBoxItem Content="Triangle"/>
-                    </ComboBox>
-                    <ToggleButton x:Name="undoButton" Width="42" Height="42" Click="UndoButton_Click">
-                        <FontIcon Glyph="&#xE7A7;" />
-                    </ToggleButton>
-                    <ToggleButton x:Name="redoButton" Width="42" Height="42" Click="RedoButton_Click">
-                        <FontIcon Glyph="&#xE7A6;" />
-                    </ToggleButton>
-                    <ToggleButton x:Name="backToToolBar" Width="42" Height="42" Click="BackToToolBarButton_Clicked">
-                        <ToggleButton.Content>
-                            <Image Source="Assets/TouchlessWhiteboard-icon.ico"/>
-                        </ToggleButton.Content>
-                    </ToggleButton>
-                </StackPanel>
-            </Canvas>
+                    </StackPanel.RenderTransform>-->
+                <!--</StackPanel>-->
+                <Canvas x:Name="Whiteboard"
+                        PointerPressed="Canvas_PointerPressed"
+                        PointerMoved="Canvas_PointerMoved"
+                        PointerReleased="Canvas_PointerReleased"
+                        Background="Transparent"
+                        Width="{Binding ElementName=MainWindow, Path=ActualWidth}"
+                        Height="{Binding ElementName=MainWindow, Path=ActualHeight}"
+                        Visibility="{x:Bind ViewModel.IsTouchlessArtsOpen}">
+                    <StackPanel  Orientation="Horizontal" Background="#CCD5F0" ManipulationMode="All"
+                                ManipulationDelta="objectManipulationDelta">
+                        <StackPanel.RenderTransform>
+                            <TranslateTransform />
+                        </StackPanel.RenderTransform>
+                        <ToggleButton x:Name="cursorButton" Width="42" Height="42" Click="CursorButton_Click">
+                            <FontIcon Glyph="&#xE7C9;" />
+                        </ToggleButton>
+                        <ToggleButton x:Name="pencilButton" IsChecked="True" Width="42" Height="42" Click="PencilButton_Click">
+                            <FontIcon Glyph="&#xED63;" />
+                        </ToggleButton>
+                        <ToggleButton x:Name="brushButton" Width="42" Height="42" Click="BrushButton_Click">
+                            <FontIcon Glyph="&#xE771;"/>
+                        </ToggleButton>
+                        <ToggleButton x:Name="eraserButton" Width="42" Height="42" Click="EraserButton_Click">
+                            <FontIcon Glyph="&#xE75C;"/>
+                        </ToggleButton>
+                        <Button x:Name="clearButton" Width="42" Height="42" Click="ClearButton_Click">
+                            <FontIcon Glyph="&#xE894;" />
+                        </Button>
+                        <SplitButton x:Name="myColorButton" Padding="0" MinHeight="0" MinWidth="0" VerticalAlignment="Top">
+                            <Border x:Name="CurrentColor" Width="42" Height="42" Background="Black" Margin="0" CornerRadius="4,0,0,4"/>
+                            <SplitButton.Flyout>
+                                <Flyout Placement="Bottom">
+                                    <ColorPicker x:Name="ColorPicker" ColorSpectrumShape="Box" IsMoreButtonVisible="False"
+                                                IsColorSliderVisible="True" IsColorChannelTextInputVisible="False" IsHexInputVisible="True"
+                                                IsAlphaEnabled="False" IsAlphaSliderVisible="True" IsAlphaTextInputVisible="True"
+                                                ColorChanged="ColorPicker_ColorChanged" />
+                                </Flyout>
+                            </SplitButton.Flyout>
+                        </SplitButton>
+                        <ComboBox x:Name="CoboBoxBrushThickness" ItemsSource="{x:Bind BrushThickness}" SelectedIndex="0" Width="80" Height="42"
+                                    ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="CoboBoxBrushThickness_SelectionChanged"/>
+                        <ToggleButton x:Name="shapesButton" Width="42" Height="42" Click="ShapesButton_Click">
+                            <FontIcon Glyph="&#xF156;"/>
+                        </ToggleButton>
+                        <ComboBox x:Name="CoboBoxShapes" SelectedIndex="0" Width="120" Height="42"
+                                    SelectionChanged="CoboBoxShapes_SelectionChanged">
+                            <ComboBoxItem Content="Circle"/>
+                            <ComboBoxItem Content="Rectangle"/>
+                            <ComboBoxItem Content="Triangle"/>
+                        </ComboBox>
+                        <ToggleButton x:Name="undoButton" Width="42" Height="42" Click="UndoButton_Click">
+                            <FontIcon Glyph="&#xE7A7;" />
+                        </ToggleButton>
+                        <ToggleButton x:Name="redoButton" Width="42" Height="42" Click="RedoButton_Click">
+                            <FontIcon Glyph="&#xE7A6;" />
+                        </ToggleButton>
+                        <ToggleButton x:Name="backToToolBar" Width="42" Height="42" Click="BackToToolBarButton_Clicked">
+                            <ToggleButton.Content>
+                                <Image Source="Assets/TouchlessWhiteboard-icon.ico"/>
+                            </ToggleButton.Content>
+                        </ToggleButton>
+                    </StackPanel>
+                </Canvas>
+            </Grid>
         </Grid>
         <Image x:Name="TouchlessWhiteboard" 
                    Source="Assets/TouchlessWhiteboard-icon.ico"

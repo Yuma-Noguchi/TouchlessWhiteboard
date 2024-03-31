@@ -33,6 +33,8 @@ using Windows.UI;
 using Microsoft.UI.Input;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Windows.Graphics;
+using Windows.UI.WindowManagement;
 
 namespace TouchlessWhiteboard;
 
@@ -42,8 +44,14 @@ namespace TouchlessWhiteboard;
 public sealed partial class MainWindow : Window
 {
     private bool IsToolBarOpen = true;
-    private int screenHeight;
+    private int screenHeight = 100;
     private int screenWidth;
+
+    private int maxScreenHeight;
+    private int maxScreenWidth;
+
+    private int CenterX;
+    private int BottomY;
 
 
     private Point MouseDownLocation;
@@ -71,21 +79,43 @@ public sealed partial class MainWindow : Window
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
         ViewModel.IsIconShown = Visibility.Collapsed;
         ViewModel.IsTouchlessArtsOpen = Visibility.Collapsed;
+        Title = "Touchless Whiteboard";
+        ExtendsContentIntoTitleBar = true;
+        SetTitleBar(TitleBar);
         this.InitializeComponent();
         this.SetIsAlwaysOnTop(true);
-        this.Maximize();
         CreateButtons(ToolBarPanel);
+        this.SetWindowSize(screenWidth, screenHeight);
+        this.SetIsResizable(false);
+        this.SetIsMaximizable(false);
+        calculateCoordinates(this);
+        this.Move(CenterX, BottomY);
+
+        // set the width of the stackpanel to the width of the window
+        //this.SetWindowSize(screenWidth, screenHeight);
         //remove title bar
         //var coreTitleBar = this.GetAppWindow().TitleBar;
         //coreTitleBar.ExtendsContentIntoTitleBar = true;
-
-        screenHeight = this.AppWindow.Size.Height;
-        screenWidth = this.AppWindow.Size.Width;
     }
     public MainWindowViewModel? ViewModel { get; }
     public SettingsWindowViewModel? SettingsWindowViewModel { get; }
 
     private TranslateTransform dragtranslation;
+
+    private void calculateCoordinates(Window window)
+    {
+        IntPtr hWnd = WindowNative.GetWindowHandle(window);
+        WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
+
+        if (Microsoft.UI.Windowing.AppWindow.GetFromWindowId(windowId) is Microsoft.UI.Windowing.AppWindow appWindow &&
+            DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Nearest) is DisplayArea displayArea)
+        {
+            maxScreenHeight = displayArea.WorkArea.Height;
+            maxScreenWidth = displayArea.WorkArea.Width;
+            CenterX = (displayArea.WorkArea.Width - appWindow.Size.Width) / 2;
+            BottomY = (displayArea.WorkArea.Height - appWindow.Size.Height);
+        }
+    }
 
     private void objectManipulationDelta(object sender, ManipulationDeltaRoutedEventArgs e)
     {
@@ -164,6 +194,8 @@ public sealed partial class MainWindow : Window
         {
             panel.Children.Add(CreateButton("Open"));
         }
+        panel.Width = panel.Children.Count * 90 + 20;
+        screenWidth = (int)panel.Width + 30;
     }
 
     private Button CreateButton(string buttonType)
@@ -236,9 +268,9 @@ public sealed partial class MainWindow : Window
     {
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Collapsed;
         ViewModel.IsIconShown = Visibility.Visible;
-        this.MoveAndResize(10, 10, 150, 150);
-        var coreTitleBar = this.GetAppWindow().TitleBar;
-        coreTitleBar.ExtendsContentIntoTitleBar = true;
+        this.MoveAndResize(0, 0, 70, 80);
+        //var coreTitleBar = this.GetAppWindow().TitleBar;
+        //coreTitleBar.ExtendsContentIntoTitleBar = false;
         this.SetIsMaximizable(false);
         this.Bindings.Update();
     }
@@ -249,6 +281,10 @@ public sealed partial class MainWindow : Window
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Collapsed;
         ViewModel.IsIconShown = Visibility.Collapsed;
         this.Bindings.Update();
+        this.SetIsResizable(true);
+        this.SetWindowSize(maxScreenWidth, maxScreenHeight);
+        this.Move(0, 0);
+        this.SetIsMaximizable(true);
     }
     private void Camera_Clicked(object sender, RoutedEventArgs e)
     {
@@ -273,12 +309,17 @@ public sealed partial class MainWindow : Window
     {
         IsToolBarOpen = false;
         CreateButtons(ToolBarPanel);
+        this.SetWindowSize(100, screenHeight);
+        this.Move(maxScreenWidth - 250, BottomY);
     }
 
     private void OpenToolBar_Clicked(object sender, RoutedEventArgs e)
     {
         IsToolBarOpen = true;
         CreateButtons(ToolBarPanel);
+        this.SetWindowSize(screenWidth, screenHeight);
+        this.SetIsMaximizable(false);
+        this.Move(CenterX, BottomY);
     }
 
     private void TouchlessWhiteboard_MouseDown(object sender, PointerRoutedEventArgs e)
@@ -286,12 +327,16 @@ public sealed partial class MainWindow : Window
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
         ViewModel.IsIconShown = Visibility.Collapsed;
         // remove title bar
-        var coreTitleBar = this.GetAppWindow().TitleBar;
-        coreTitleBar.ExtendsContentIntoTitleBar = true;
+        //var coreTitleBar = this.GetAppWindow().TitleBar;
+        //coreTitleBar.ExtendsContentIntoTitleBar = true;
         this.Bindings.Update();
         this.SetWindowSize(screenWidth, screenHeight);
-        this.SetIsMaximizable(true);
+        this.SetIsMaximizable(false);
+        this.SetIsResizable(false);
+        this.Move(CenterX, BottomY);
     }
+
+    // Touchless Arts
 
     private Brush currentBrush = new SolidColorBrush(Colors.Black);
     private bool isDrawing = false;
@@ -518,7 +563,7 @@ public sealed partial class MainWindow : Window
                 X2 = e.GetCurrentPoint(Whiteboard).Position.X,
                 Y2 = e.GetCurrentPoint(Whiteboard).Position.Y,
                 Stroke = currentBrush,
-                StrokeThickness = 1,
+                StrokeThickness = BrushThickness[SelectedIndex],
             };
             line.ManipulationDelta += objectManipulationDelta;
             line.ManipulationMode = ManipulationModes.All;
@@ -746,5 +791,7 @@ public sealed partial class MainWindow : Window
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
         ViewModel.IsIconShown = Visibility.Collapsed;
         this.Bindings.Update();
+        this.SetWindowSize(screenWidth, screenHeight);
+        this.Move(CenterX, BottomY);
     }
 }

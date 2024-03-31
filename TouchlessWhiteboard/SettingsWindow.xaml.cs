@@ -64,6 +64,7 @@ public sealed partial class SettingsWindow : Window
     private void LaunchButton_Click(object sender, RoutedEventArgs e)
     {
         ViewModel.Launch();
+        this.Minimize();
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
