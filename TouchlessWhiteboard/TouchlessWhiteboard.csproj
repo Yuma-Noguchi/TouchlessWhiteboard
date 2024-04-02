@@ -32,6 +32,7 @@
     <None Remove="Assets\Search-icon.png" />
     <None Remove="Assets\Sticky-Notes-icon.png" />
     <None Remove="Assets\Undo-icon.png" />
+    <None Remove="Resources\help.html" />
     <None Remove="Resources\settings.json" />
     <None Remove="SettingsWindow.xaml" />
   </ItemGroup>
@@ -48,6 +49,9 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
 	<Content Include="Assets\TouchlessWhiteboard-icon.ico">
 	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</Content>
+	<Content Include="Resources\help.html">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
   </ItemGroup>
 

@@ -79,12 +79,17 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
     [ObservableProperty]
     private string selectedWebcam;
 
+    [ObservableProperty]
+    private StorageFile teachingMaterials;
+
     private readonly ProfileService _profileService;
     [ObservableProperty]
     private ObservableCollection<Profile> profiles;
 
     [ObservableProperty]
     private bool isSelected;
+
+    private StorageFile Help;
 
     public Profile ActiveProfile { get; set; }
 
@@ -130,6 +135,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             IsRightHanded = ActiveProfile.IsRightHanded;
             PinchSensitivity = ActiveProfile.PinchSensitivity;
             IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
+            TeachingMaterials = ActiveProfile.TeachingMaterials;
 
             // if selected webcam exists in the list of available webcams, set it as the selected webcam
             if (webcams.Contains(ActiveProfile.SelectedWebcam))
@@ -198,6 +204,35 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
                     p.QuickFileAccess3Path = null;
                 }
             }
+
+            if (p.TeachingMaterialsPath != null)
+            {
+                try
+                {
+                    p.TeachingMaterials = await StorageFile.GetFileFromPathAsync(p.TeachingMaterialsPath);
+                }
+                catch (Exception ex)
+                {
+                    p.TeachingMaterialsPath = null;
+                }
+            }
+        }
+        try
+        {
+            string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Resources\\help.html");
+            Help = await StorageFile.GetFileFromPathAsync(FilePath);
+        }
+        catch (Exception ex)
+        {
+            Help = null;
+        }
+    }
+
+    public void OpenHelp()
+    {
+        if (Help != null)
+        {
+            Windows.System.Launcher.LaunchFileAsync(Help);
         }
     }
 
@@ -283,6 +318,9 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             case nameof(SelectedWebcam):
                 ActiveProfile.SelectedWebcam = SelectedWebcam;
                 break;
+            case nameof(TeachingMaterials):
+                ActiveProfile.TeachingMaterials = TeachingMaterials;
+                break;
         }
     }
 
@@ -317,6 +355,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         IsLeftHanded = ActiveProfile.IsLeftHanded;
         IsRightHanded = ActiveProfile.IsRightHanded;
         PinchSensitivity = ActiveProfile.PinchSensitivity;
+        TeachingMaterials = ActiveProfile.TeachingMaterials;
         if (webcams.Contains(ActiveProfile.SelectedWebcam))
         {
             SelectedWebcam = ActiveProfile.SelectedWebcam;
@@ -365,7 +404,8 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             QuickFileAccess3File = null,
             IsLeftHanded = true,
             IsRightHanded = false,
-            PinchSensitivity = 0.5
+            PinchSensitivity = 0.5,
+            TeachingMaterials = null
         };
 
         // add the new profile to the list of profiles
@@ -383,7 +423,18 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             ChangeProfile(ActiveProfile);
         }
     }
-
+    public async Task<bool> CheckTeachingMaterials(StorageFile file)
+    {
+        // check line by line and return false if any line is not a valid file path
+        foreach (string line in System.IO.File.ReadAllLines(file.Path))
+        {
+            if (!System.IO.File.Exists(line))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     public void SaveProfiles()
     {
         _profileService.SaveProfilesToJson("Resources/settings.json", profiles.ToList());

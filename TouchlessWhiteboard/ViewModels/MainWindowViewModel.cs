@@ -40,6 +40,7 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
     public StorageFile QuickFileAccess2File { get; set; }
     public bool IsQuickFileAccess3Enabled { get; set; }
     public StorageFile QuickFileAccess3File { get; set; }
+    public StorageFile TeachingMaterials { get; set; }
         
     [ObservableProperty]
     private Visibility isTouchlessWhiteboardOpen;

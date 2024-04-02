@@ -74,6 +74,9 @@ public class Profile : ObservableObject
 
     [JsonPropertyName("selectedWebcam")]
     public string SelectedWebcam { get; set; }
+    [JsonPropertyName("teachingMaterialsPath")]
+    public string TeachingMaterialsPath { get; set; }
+    public StorageFile TeachingMaterials { get; set; }
     public bool IsSelected { get; set; }
 
     public Profile() {

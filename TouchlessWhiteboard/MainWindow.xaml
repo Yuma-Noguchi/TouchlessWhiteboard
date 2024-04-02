@@ -48,26 +48,17 @@
                         Width="{Binding ElementName=MainWindow, Path=ActualWidth}"
                         Height="{Binding ElementName=MainWindow, Path=ActualHeight}"
                         Visibility="{x:Bind ViewModel.IsTouchlessArtsOpen}">
-                    <StackPanel  Orientation="Horizontal" Background="#CCD5F0" ManipulationMode="All"
+                    <StackPanel  Orientation="Horizontal" Background="Gray" ManipulationMode="All"
                                 ManipulationDelta="objectManipulationDelta">
                         <StackPanel.RenderTransform>
                             <TranslateTransform />
                         </StackPanel.RenderTransform>
-                        <ToggleButton x:Name="cursorButton" Width="42" Height="42" Click="CursorButton_Click">
+                        <ToggleButton x:Name="cursorButton" Width="42" Height="42" Click="CursorButton_Click" Foreground="Black">
                             <FontIcon Glyph="&#xE7C9;" />
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Mouse Cursor"/>
+                            </ToolTipService.ToolTip>
                         </ToggleButton>
-                        <ToggleButton x:Name="pencilButton" IsChecked="True" Width="42" Height="42" Click="PencilButton_Click">
-                            <FontIcon Glyph="&#xED63;" />
-                        </ToggleButton>
-                        <ToggleButton x:Name="brushButton" Width="42" Height="42" Click="BrushButton_Click">
-                            <FontIcon Glyph="&#xE771;"/>
-                        </ToggleButton>
-                        <ToggleButton x:Name="eraserButton" Width="42" Height="42" Click="EraserButton_Click">
-                            <FontIcon Glyph="&#xE75C;"/>
-                        </ToggleButton>
-                        <Button x:Name="clearButton" Width="42" Height="42" Click="ClearButton_Click">
-                            <FontIcon Glyph="&#xE894;" />
-                        </Button>
                         <SplitButton x:Name="myColorButton" Padding="0" MinHeight="0" MinWidth="0" VerticalAlignment="Top">
                             <Border x:Name="CurrentColor" Width="42" Height="42" Background="Black" Margin="0" CornerRadius="4,0,0,4"/>
                             <SplitButton.Flyout>
@@ -78,28 +69,80 @@
                                                 ColorChanged="ColorPicker_ColorChanged" />
                                 </Flyout>
                             </SplitButton.Flyout>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Colour"/>
+                            </ToolTipService.ToolTip>
                         </SplitButton>
+                        <ToggleButton x:Name="pencilButton" IsChecked="True" Width="42" Height="42" Click="PencilButton_Click" Foreground="Black">
+                            <FontIcon Glyph="&#xED63;" />
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Pen"/>
+                            </ToolTipService.ToolTip>
+                        </ToggleButton>
+                        <ToggleButton x:Name="brushButton" Width="42" Height="42" Click="BrushButton_Click" Foreground="Black">
+                            <FontIcon Glyph="&#xE771;"/>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Highlighter"/>
+                            </ToolTipService.ToolTip>
+                        </ToggleButton>
+                        <ComboBox x:Name="CoboBoxBrushTransparency" ItemsSource="{x:Bind BrushTransparency}" SelectedIndex="0" Width="80" Height="42"
+                                    ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="CoboBoxBrushTransparency_SelectionChanged" Foreground="Black">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Highlighter Transparency"/>
+                            </ToolTipService.ToolTip>
+                        </ComboBox>
                         <ComboBox x:Name="CoboBoxBrushThickness" ItemsSource="{x:Bind BrushThickness}" SelectedIndex="0" Width="80" Height="42"
-                                    ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="CoboBoxBrushThickness_SelectionChanged"/>
-                        <ToggleButton x:Name="shapesButton" Width="42" Height="42" Click="ShapesButton_Click">
+                                    ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionChanged="CoboBoxBrushThickness_SelectionChanged" Foreground="Black">
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Highlighter Size"/>
+                            </ToolTipService.ToolTip>
+                        </ComboBox>
+                        <ToggleButton x:Name="eraserButton" Width="42" Height="42" Click="EraserButton_Click" Foreground="Black">
+                            <FontIcon Glyph="&#xE75C;"/>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Eraser"/>
+                            </ToolTipService.ToolTip>
+                        </ToggleButton>
+                        <Button x:Name="clearButton" Width="42" Height="42" Click="ClearButton_Click" Foreground="Black">
+                            <FontIcon Glyph="&#xE894;" />
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Clear All"/>
+                            </ToolTipService.ToolTip>
+                        </Button>
+                        <ToggleButton x:Name="shapesButton" Width="42" Height="42" Click="ShapesButton_Click" Foreground="Black">
                             <FontIcon Glyph="&#xF156;"/>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Shapes"/>
+                            </ToolTipService.ToolTip>
                         </ToggleButton>
                         <ComboBox x:Name="CoboBoxShapes" SelectedIndex="0" Width="120" Height="42"
-                                    SelectionChanged="CoboBoxShapes_SelectionChanged">
+                                    SelectionChanged="CoboBoxShapes_SelectionChanged" Foreground="Black">
                             <ComboBoxItem Content="Circle"/>
                             <ComboBoxItem Content="Rectangle"/>
                             <ComboBoxItem Content="Triangle"/>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Shape Types"/>
+                            </ToolTipService.ToolTip>
                         </ComboBox>
-                        <ToggleButton x:Name="undoButton" Width="42" Height="42" Click="UndoButton_Click">
-                            <FontIcon Glyph="&#xE7A7;" />
+                        <ToggleButton x:Name="undoButton" Width="42" Height="42" Click="UndoButton_Click" Foreground="Black">
+                            <FontIcon Glyph="&#xE7A7;"/>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Undo"/>
+                            </ToolTipService.ToolTip>
                         </ToggleButton>
-                        <ToggleButton x:Name="redoButton" Width="42" Height="42" Click="RedoButton_Click">
+                        <ToggleButton x:Name="redoButton" Width="42" Height="42" Click="RedoButton_Click" Foreground="Black">
                             <FontIcon Glyph="&#xE7A6;" />
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Redo"/>
+                            </ToolTipService.ToolTip>
                         </ToggleButton>
-                        <ToggleButton x:Name="backToToolBar" Width="42" Height="42" Click="BackToToolBarButton_Clicked">
+                        <ToggleButton x:Name="backToToolBar" Width="42" Height="42" Click="BackToToolBarButton_Clicked" Foreground="Black">
                             <ToggleButton.Content>
                                 <Image Source="Assets/TouchlessWhiteboard-icon.ico"/>
                             </ToggleButton.Content>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="Back to App"/>
+                            </ToolTipService.ToolTip>
                         </ToggleButton>
                     </StackPanel>
                 </Canvas>
