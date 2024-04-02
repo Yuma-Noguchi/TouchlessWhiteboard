@@ -50,7 +50,7 @@ public sealed partial class SettingsWindow : Window
         SetTitleBar(TitleBar);
 
         ViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
-
+        
         this.CenterOnScreen();
         this.SetWindowSize(1200, 840);
         this.CenterOnScreen();
