@@ -42,31 +42,34 @@
                 <Grid Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" x:Name="ProfileSelection" Margin="10,7,0,0">
                     <TextBlock Text="Profiles" FontSize="20" FontWeight="Bold" Margin="3,0,0,0"/>
                     <Border Width="80" Height="743" Background="LightBlue" CornerRadius="10" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,40,0,0"/>
-                    <StackPanel Margin="14,35,0,0">
-                        <ItemsControl ItemsSource="{x:Bind ViewModel.Profiles, Mode=TwoWay}" x:Name="ProfileIcons">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate x:Name="ProfileIcon">
-                                    <Button Style="{StaticResource ProfileButtonStyle}"
-                                    Click="ProfileChange_Clicked"
-                                    CommandParameter="{Binding}"
-                                    xmlns:converter="using:TouchlessWhiteboard.Converters"
-                                    >
-                                        <Button.Resources>
-                                            <converter:FirstLetterConverter x:Key="FirstLetterConverter"/>
-                                            <converter:BoolToColorConverter x:Key="BoolToColorConverter"/>
-                                        </Button.Resources>
-                                        <Button.Content>
-                                            <TextBlock x:Name="ProfileIconText" Text="{Binding Name, Converter={StaticResource FirstLetterConverter}, Mode=TwoWay}"/>
-                                        </Button.Content>
-                                        <!--<Button.Background>
-                                        <SolidColorBrush Color="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
-                                        </Button.Background>-->
-                                    </Button>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <Button Content="+" Click="AddProfile_Clicked" Style="{StaticResource ProfileButtonStyle}"/>
-                    </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto" Height="740" Margin="14,35,0,0">
+                        <StackPanel >
+                            <ItemsControl ItemsSource="{x:Bind ViewModel.Profiles, Mode=TwoWay}" x:Name="ProfileIcons">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:Name="ProfileIcon">
+                                        <Button Style="{StaticResource ProfileButtonStyle}"
+                                                Click="ProfileChange_Clicked"
+                                                CommandParameter="{Binding}"
+                                                xmlns:converter="using:TouchlessWhiteboard.Converters"
+                                                >
+                                            <Button.Resources>
+                                                <converter:FirstLetterConverter x:Key="FirstLetterConverter"/>
+                                                <converter:BoolToColorConverter x:Key="BoolToColorConverter"/>
+                                            </Button.Resources>
+                                            <Button.Content>
+                                                <TextBlock x:Name="ProfileIconText" Text="{Binding Name, Converter={StaticResource FirstLetterConverter}, Mode=TwoWay}"/>
+                                            </Button.Content>
+                                            <!--<Button.Background>
+                            <SolidColorBrush Color="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}, UpdateSourceTrigger=PropertyChanged}"/>
+                            </Button.Background>-->
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Button Content="+" Click="AddProfile_Clicked" Style="{StaticResource ProfileButtonStyle}"/>
+
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
                 <!--#endregion Profile Selection-->
 

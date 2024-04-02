@@ -47,7 +47,7 @@ namespace TouchlessWhiteboard;
 public sealed partial class MainWindow : Window
 {
     private bool IsToolBarOpen = true;
-    private int screenHeight = 100;
+    private int screenHeight = 80;
     private int screenWidth;
 
     private int maxScreenHeight;
