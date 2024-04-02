@@ -232,10 +232,8 @@ public sealed partial class SettingsWindow : Window
 
     private async Task<bool> CheckTeachingMaterials(StorageFile file)
     {
-        // read line by line and check if it is a valid file
-        //bool IsValid = await ViewModel.CheckTeachingMaterials(file);
-        //return IsValid;
-        return true;
+        bool IsValid = await ViewModel.CheckTeachingMaterials(file);
+        return IsValid;
     }
     private async void OnClickTouchlessArtsHelpBtn(object sender, RoutedEventArgs e)
     {

@@ -425,16 +425,46 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
     }
     public async Task<bool> CheckTeachingMaterials(StorageFile file)
     {
-        // check line by line and return false if any line is not a valid file path
-        foreach (string line in System.IO.File.ReadAllLines(file.Path))
+        try
         {
-            if (!System.IO.File.Exists(line))
+            using (StreamReader reader = new StreamReader(await file.OpenStreamForReadAsync()))
             {
-                return false;
+                string line;
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    // Remove quotes at the start and end of the line if they exist
+                    if (line.StartsWith("\"") && line.EndsWith("\""))
+                    {
+                        line = line.Substring(1, line.Length - 2);
+                    }
+
+                    // Check if line is a valid file path
+                    try
+                    {
+                        StorageFile storageFile = await StorageFile.GetFileFromPathAsync(line);
+                    }
+                    catch (Exception)
+                    {
+                        // If GetFileFromPathAsync throws an exception, the file does not exist
+                        // Check if line is a valid URL
+                        if (Uri.IsWellFormedUriString(line, UriKind.Absolute))
+                            continue;
+
+                        // If line is neither a valid file path nor a valid URL, return false
+                        return false;
+                    }
+                }
             }
         }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+        // If all lines are valid file paths or URLs, return true
         return true;
     }
+
     public void SaveProfiles()
     {
         _profileService.SaveProfilesToJson("Resources/settings.json", profiles.ToList());
