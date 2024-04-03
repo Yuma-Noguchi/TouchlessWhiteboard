@@ -481,7 +481,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
     public void Launch()
     {
         // overwrite json file with new profile
-        //SaveProfiles();
+        SaveProfiles();
 
         //// activate motioninput
         //// 1. kill motioninput

@@ -128,6 +128,14 @@ public sealed partial class SettingsWindow : Window
         {
             QuickFileAccess3TextBox.Text = "";
         }
+        if (ViewModel.TeachingMaterials != null)
+        {
+            TeachingMaterialsTextBox.Text = ViewModel.TeachingMaterials.DisplayName;
+        }
+        else
+        {
+            TeachingMaterialsTextBox.Text = "";
+        }
         this.Bindings.Update();
     }
 
@@ -197,18 +205,21 @@ public sealed partial class SettingsWindow : Window
     {
         StorageFile file = await ChooseFile("");
         ViewModel.QuickFileAccess1File = file;
+        ViewModel.ActiveProfile.QuickFileAccess1Path = file.Path;
     }
 
     private async void QuickFileAccess2_Clicked(object sender, RoutedEventArgs e)
     {
         StorageFile file = await ChooseFile("");
         ViewModel.QuickFileAccess2File = file;
+        ViewModel.ActiveProfile.QuickFileAccess2Path = file.Path;
     }
 
     private async void QuickFileAccess3_Clicked(object sender, RoutedEventArgs e)
     {
         StorageFile file = await ChooseFile("");
         ViewModel.QuickFileAccess3File = file;
+        ViewModel.ActiveProfile.QuickFileAccess3Path = file.Path;
     }
 
     private async void TeachingMaterials_Clicked(object sender, RoutedEventArgs e)
@@ -218,6 +229,7 @@ public sealed partial class SettingsWindow : Window
         if (Isvalid)
         {
             ViewModel.TeachingMaterials = file;
+            ViewModel.ActiveProfile.TeachingMaterialsPath = file.Path;
         }
         else
         {
