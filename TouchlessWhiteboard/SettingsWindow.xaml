@@ -419,6 +419,7 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10">
                         <Button Content="..." Click="TeachingMaterials_Clicked" Background="Gray" Foreground="White" Width="33"/>
                         <TextBox x:Name="TeachingMaterialsTextBox" PlaceholderText="File Name" Text="{x:Bind ViewModel.TeachingMaterials.DisplayName, Mode=OneWay}" Margin="10,0,0,0" HorizontalAlignment="Left" FontSize="13" Width="250" Background="LightBlue" Height="3" BorderBrush="Black" Foreground="Black" IsReadOnly="True" PlaceholderForeground="Black"/>
+                        <Button Content="X" Click="TeachingMaterialsClear_Clicked" Background="Gray" Foreground="White" Width="33" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Grid>
                 <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="TeachingMaterialsErrorPopup">

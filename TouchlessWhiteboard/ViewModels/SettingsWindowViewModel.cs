@@ -15,6 +15,8 @@ using Windows.Graphics.DirectX.Direct3D11;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
 using static System.Net.WebRequestMethods;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace TouchlessWhiteboard.ViewModel;
 
@@ -454,6 +456,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
                         return false;
                     }
                 }
+                reader.Close();
             }
         }
         catch (Exception ex)
@@ -510,9 +513,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         //// 4. Minimize this window
 
         //// Launch the main window
-        var mainWindow = new MainWindow();
-        mainWindow.Activate();
+       var mainWindow = new MainWindow();
+       mainWindow.Activate();
     }
-
-
 }

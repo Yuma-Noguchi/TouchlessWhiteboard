@@ -12,6 +12,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using System.Drawing;
 using Windows.Storage;
+using TouchlessWhiteboard;
 
 
 namespace TouchlessWhiteboard.ViewModel;
@@ -73,7 +74,6 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
         //IsQuickFileAccess1Enabled = true;
         //IsQuickFileAccess2Enabled = true;
         //IsQuickFileAccess3Enabled = true;
-
     }
 
 }

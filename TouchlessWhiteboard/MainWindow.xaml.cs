@@ -98,11 +98,11 @@ public sealed partial class MainWindow : Window
         this.SetIsMaximizable(false);
         calculateCoordinates(this);
         this.Move(CenterX, BottomY);
-
         //remove title bar
         //var coreTitleBar = this.GetAppWindow().TitleBar;
         //coreTitleBar.ExtendsContentIntoTitleBar = true;
     }
+
     public MainWindowViewModel? ViewModel { get; }
     public SettingsWindowViewModel? SettingsWindowViewModel { get; }
 
@@ -202,6 +202,8 @@ public sealed partial class MainWindow : Window
                 panel.Children.Add(CreateButton("QuickFileAccess1"));
             if (ViewModel.IsQuickFileAccess2Enabled)
                 panel.Children.Add(CreateButton("QuickFileAccess2"));
+            if (ViewModel.TeachingMaterials != null)
+                panel.Children.Add(CreateButton("TeachingMaterials"));
             if (ViewModel.IsQuickFileAccess3Enabled)
                 panel.Children.Add(CreateButton("QuickFileAccess3"));
             panel.Children.Add(CreateButton("Close"));
@@ -304,6 +306,11 @@ public sealed partial class MainWindow : Window
                 button.Click += QuickFileAccess3_Clicked;
                 ToolTipService.SetToolTip(button, "Quick File Access 3");
                 break;
+            case "TeachingMaterials":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/TeachingMaterials-icon.png"));
+                button.Click += TeachingMaterials_Clicked;
+                ToolTipService.SetToolTip(button, "Teaching Materials");
+                break;
             case "Close":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Close-icon.png"));
                 button.Click += CloseToolBar_Clicked;
@@ -397,8 +404,10 @@ public sealed partial class MainWindow : Window
 
     private void QuickWebSiteAccess3_Clicked(object sender, RoutedEventArgs e)
     {
-        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess3URL));
-        MinimizeTouchlessWhiteboard();
+        //Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess3URL));
+        //MinimizeTouchlessWhiteboard();
+        var TeachingMaterials = new TeachingMaterials(ViewModel.TeachingMaterials);
+        TeachingMaterials.Activate();
     }
 
     private void Notepad_Clicked(object sender, RoutedEventArgs e)
@@ -409,20 +418,65 @@ public sealed partial class MainWindow : Window
 
     private void QuickFileAccess1_Clicked(object sender, RoutedEventArgs e)
     {
-        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess1File);
+        try
+        {
+            Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess1File);
+        }
+        catch
+        {
+            // create popup
+            var dialog = new ContentDialog
+            {
+                Title = "File not found",
+                Content = "The file you are trying to access is not found.",
+                CloseButtonText = "Ok"
+            };
+        }
         MinimizeTouchlessWhiteboard();
     }
 
     private void QuickFileAccess2_Clicked(object sender, RoutedEventArgs e)
     {
-        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess2File);
+        try
+        {
+            Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess2File);
+        }
+        catch
+        {
+            // create popup
+            var dialog = new ContentDialog
+            {
+                Title = "File not found",
+                Content = "The file you are trying to access is not found.",
+                CloseButtonText = "Ok"
+            };
+        }
         MinimizeTouchlessWhiteboard();
     }
 
     private void QuickFileAccess3_Clicked(object sender, RoutedEventArgs e)
     {
-        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess3File);
+        try
+        {
+            Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess3File);
+        }
+        catch
+        {
+            // create popup
+            var dialog = new ContentDialog
+            {
+                Title = "File not found",
+                Content = "The file you are trying to access is not found.",
+                CloseButtonText = "Ok"
+            };
+        }
         MinimizeTouchlessWhiteboard();
+    }
+
+    private void TeachingMaterials_Clicked(object sender, RoutedEventArgs e)
+    {
+        var TeachingMaterials = new TeachingMaterials(ViewModel.TeachingMaterials);
+        TeachingMaterials.Activate();
     }
 
     private void CloseToolBar_Clicked(object sender, RoutedEventArgs e)

@@ -12,9 +12,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TouchlessWhiteboard.Models;
 using TouchlessWhiteboard.ViewModel;
+using TouchlessWhiteboard.ViewModels;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
@@ -41,6 +43,7 @@ namespace TouchlessWhiteboard
             .AddSingleton<Profile>()
             .AddSingleton<ProfileList>()
             .AddSingleton<MainWindowViewModel>()
+            .AddSingleton<TeachingMaterialsViewModel>()
             .BuildServiceProvider());
         }
 
@@ -52,6 +55,15 @@ namespace TouchlessWhiteboard
         {
             _window = new SettingsWindow();
             _window.Activate();
+        }
+
+        public static TEnum GetEnum<TEnum>(string text) where TEnum : struct
+        {
+            if (!typeof(TEnum).GetTypeInfo().IsEnum)
+            {
+                throw new InvalidOperationException("Generic parameter 'TEnum' must be an enum.");
+            }
+            return (TEnum)Enum.Parse(typeof(TEnum), text);
         }
 
         private Window? _window;

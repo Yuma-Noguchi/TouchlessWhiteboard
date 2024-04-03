@@ -225,6 +225,13 @@ public sealed partial class SettingsWindow : Window
         }
     }
 
+    private void TeachingMaterialsClear_Clicked(object sender, RoutedEventArgs e)
+    {
+        ViewModel.TeachingMaterials = null;
+        TeachingMaterialsTextBox.Text = "";
+        this.Bindings.Update();
+    }
+
     private void CloseTeachingMaterialsErrorPopupClicked(object sender, RoutedEventArgs e)
     {
         if (TeachingMaterialsErrorPopup.IsOpen) { TeachingMaterialsErrorPopup.IsOpen = false; }

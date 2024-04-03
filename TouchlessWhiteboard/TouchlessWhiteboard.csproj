@@ -31,10 +31,12 @@
     <None Remove="Assets\Redo-icon.png" />
     <None Remove="Assets\Search-icon.png" />
     <None Remove="Assets\Sticky-Notes-icon.png" />
+    <None Remove="Assets\TeachingMaterials-icon.png" />
     <None Remove="Assets\Undo-icon.png" />
     <None Remove="Resources\help.html" />
     <None Remove="Resources\settings.json" />
     <None Remove="SettingsWindow.xaml" />
+    <None Remove="TeachingMaterials.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -118,6 +120,9 @@
     <Content Update="Assets\Redo-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\TeachingMaterials-icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Touchless-Arts-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -153,6 +158,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MotionInput\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="TeachingMaterials.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 	
 	
