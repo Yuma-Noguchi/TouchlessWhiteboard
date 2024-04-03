@@ -15,6 +15,8 @@ using Windows.Graphics.DirectX.Direct3D11;
 using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
 using static System.Net.WebRequestMethods;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace TouchlessWhiteboard.ViewModel;
 
@@ -79,12 +81,17 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
     [ObservableProperty]
     private string selectedWebcam;
 
+    [ObservableProperty]
+    private StorageFile teachingMaterials;
+
     private readonly ProfileService _profileService;
     [ObservableProperty]
     private ObservableCollection<Profile> profiles;
 
     [ObservableProperty]
     private bool isSelected;
+
+    private StorageFile Help;
 
     public Profile ActiveProfile { get; set; }
 
@@ -130,6 +137,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             IsRightHanded = ActiveProfile.IsRightHanded;
             PinchSensitivity = ActiveProfile.PinchSensitivity;
             IsCalculatorEnabled = ActiveProfile.IsCalculatorEnabled;
+            TeachingMaterials = ActiveProfile.TeachingMaterials;
 
             // if selected webcam exists in the list of available webcams, set it as the selected webcam
             if (webcams.Contains(ActiveProfile.SelectedWebcam))
@@ -198,6 +206,35 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
                     p.QuickFileAccess3Path = null;
                 }
             }
+
+            if (p.TeachingMaterialsPath != null)
+            {
+                try
+                {
+                    p.TeachingMaterials = await StorageFile.GetFileFromPathAsync(p.TeachingMaterialsPath);
+                }
+                catch (Exception ex)
+                {
+                    p.TeachingMaterialsPath = null;
+                }
+            }
+        }
+        try
+        {
+            string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Resources\\help.html");
+            Help = await StorageFile.GetFileFromPathAsync(FilePath);
+        }
+        catch (Exception ex)
+        {
+            Help = null;
+        }
+    }
+
+    public void OpenHelp()
+    {
+        if (Help != null)
+        {
+            Windows.System.Launcher.LaunchFileAsync(Help);
         }
     }
 
@@ -283,6 +320,9 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             case nameof(SelectedWebcam):
                 ActiveProfile.SelectedWebcam = SelectedWebcam;
                 break;
+            case nameof(TeachingMaterials):
+                ActiveProfile.TeachingMaterials = TeachingMaterials;
+                break;
         }
     }
 
@@ -317,6 +357,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         IsLeftHanded = ActiveProfile.IsLeftHanded;
         IsRightHanded = ActiveProfile.IsRightHanded;
         PinchSensitivity = ActiveProfile.PinchSensitivity;
+        TeachingMaterials = ActiveProfile.TeachingMaterials;
         if (webcams.Contains(ActiveProfile.SelectedWebcam))
         {
             SelectedWebcam = ActiveProfile.SelectedWebcam;
@@ -365,7 +406,8 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             QuickFileAccess3File = null,
             IsLeftHanded = true,
             IsRightHanded = false,
-            PinchSensitivity = 0.5
+            PinchSensitivity = 0.5,
+            TeachingMaterials = null
         };
 
         // add the new profile to the list of profiles
@@ -383,6 +425,48 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
             ChangeProfile(ActiveProfile);
         }
     }
+    public async Task<bool> CheckTeachingMaterials(StorageFile file)
+    {
+        try
+        {
+            using (StreamReader reader = new StreamReader(await file.OpenStreamForReadAsync()))
+            {
+                string line;
+                while ((line = await reader.ReadLineAsync()) != null)
+                {
+                    // Remove quotes at the start and end of the line if they exist
+                    if (line.StartsWith("\"") && line.EndsWith("\""))
+                    {
+                        line = line.Substring(1, line.Length - 2);
+                    }
+
+                    // Check if line is a valid file path
+                    try
+                    {
+                        StorageFile storageFile = await StorageFile.GetFileFromPathAsync(line);
+                    }
+                    catch (Exception)
+                    {
+                        // If GetFileFromPathAsync throws an exception, the file does not exist
+                        // Check if line is a valid URL
+                        if (Uri.IsWellFormedUriString(line, UriKind.Absolute))
+                            continue;
+
+                        // If line is neither a valid file path nor a valid URL, return false
+                        return false;
+                    }
+                }
+                reader.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
+
+        // If all lines are valid file paths or URLs, return true
+        return true;
+    }
 
     public void SaveProfiles()
     {
@@ -397,7 +481,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
     public async void Launch()
     {
         // overwrite json file with new profile
-        //SaveProfiles();
+        SaveProfiles();
 
         //// activate motioninput
         //// 1. kill motioninput
@@ -429,8 +513,6 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         //// 4. Minimize this window
 
         //// Launch the main window
-        var mainWindow = new MainWindow();
-        mainWindow.Activate();
         //StorageFile storageFile = await StorageFile.GetFileFromPathAsync("C:\\Users\\student\\Downloads\\MI3.4_Education_Executable_Final\\motioninput.exe");
         //Process P = new();
         //P.StartInfo.UseShellExecute = true;
@@ -438,7 +520,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         //P.StartInfo.FileName = storageFile.Path;
         //P.StartInfo.Arguments = "";
         //P.Start();
+       var mainWindow = new MainWindow();
+       mainWindow.Activate();
     }
-
-
 }

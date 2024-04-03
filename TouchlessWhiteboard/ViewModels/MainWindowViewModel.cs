@@ -12,6 +12,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using System.Drawing;
 using Windows.Storage;
+using TouchlessWhiteboard;
 
 
 namespace TouchlessWhiteboard.ViewModel;
@@ -40,6 +41,7 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
     public StorageFile QuickFileAccess2File { get; set; }
     public bool IsQuickFileAccess3Enabled { get; set; }
     public StorageFile QuickFileAccess3File { get; set; }
+    public StorageFile TeachingMaterials { get; set; }
         
     [ObservableProperty]
     private Visibility isTouchlessWhiteboardOpen;
@@ -53,26 +55,25 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
 
     public MainWindowViewModel()
     {
-        Name = "Touchless Whiteboard";
-        IsTouchlessArtsEnabled = true;
-        IsStickyNotesEnabled = true;
-        IsCameraEnabled = false;
-        IsSearchEnabled = false;
-        IsCopilotEnabled = true;
-        IsCalculatorEnabled = true;
-        IsClockEnabled = true;
-        IsQuickWebSiteAccess1Enabled = true;
-        QuickWebSiteAccess1URL = "https://www.google.com";
-        IsQuickWebSiteAccess2Enabled = true;
-        QuickWebSiteAccess2URL = "https://www.bing.com";
-        IsQuickWebSiteAccess3Enabled = true;
-        QuickWebSiteAccess3URL = "https://www.yahoo.com";
-        IsInAir3DMouseEnabled = false;
-        IsNotepadEnabled = true;
-        IsQuickFileAccess1Enabled = true;
-        IsQuickFileAccess2Enabled = true;
-        IsQuickFileAccess3Enabled = true;
-
+        //Name = "Touchless Whiteboard";
+        //IsTouchlessArtsEnabled = false;
+        //IsStickyNotesEnabled = true;
+        //IsCameraEnabled = false;
+        //IsSearchEnabled = false;
+        //IsCopilotEnabled = false;
+        //IsCalculatorEnabled = true;
+        //IsClockEnabled = true;
+        //IsQuickWebSiteAccess1Enabled = true;
+        //QuickWebSiteAccess1URL = "https://www.google.com";
+        //IsQuickWebSiteAccess2Enabled = true;
+        //QuickWebSiteAccess2URL = "https://www.bing.com";
+        //IsQuickWebSiteAccess3Enabled = true;
+        //QuickWebSiteAccess3URL = "https://www.yahoo.com";
+        //IsInAir3DMouseEnabled = false;
+        //IsNotepadEnabled = true;
+        //IsQuickFileAccess1Enabled = true;
+        //IsQuickFileAccess2Enabled = true;
+        //IsQuickFileAccess3Enabled = true;
     }
 
 }

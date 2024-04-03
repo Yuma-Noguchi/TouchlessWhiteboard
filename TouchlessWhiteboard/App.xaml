@@ -60,6 +60,17 @@
                 <Setter Property="Height" Value="Auto"/>-->
                 <Setter Property="Margin" Value="0,0,0,0"/>
             </Style>
+            <Style x:Key="TeachingMaterialsButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="70"/>
+                <Setter Property="Height" Value="40"/>
+                <Setter Property="Background" Value="LightSalmon"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <!-- Add other setters as needed -->
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

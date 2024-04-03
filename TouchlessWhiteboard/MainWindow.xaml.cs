@@ -47,7 +47,7 @@ namespace TouchlessWhiteboard;
 public sealed partial class MainWindow : Window
 {
     private bool IsToolBarOpen = true;
-    private int screenHeight = 100;
+    private int screenHeight = 80;
     private int screenWidth;
 
     private int maxScreenHeight;
@@ -56,34 +56,32 @@ public sealed partial class MainWindow : Window
     private int CenterX;
     private int BottomY;
 
-
-    private Point MouseDownLocation;
     public MainWindow()
     {
         ViewModel = Ioc.Default.GetService<MainWindowViewModel>();
         SettingsWindowViewModel settingsWindowViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
-
-        //ViewModel.IsTouchlessArtsEnabled = settingsWindowViewModel.IsTouchlessArtsEnabled;
-        //ViewModel.IsStickyNotesEnabled = settingsWindowViewModel.IsStickyNotesEnabled;
-        //ViewModel.IsCameraEnabled = settingsWindowViewModel.IsCameraEnabled;
-        //ViewModel.IsSearchEnabled = settingsWindowViewModel.IsSearchEnabled;
-        //ViewModel.IsCopilotEnabled = settingsWindowViewModel.IsCopilotEnabled;
-        //ViewModel.IsCalculatorEnabled = settingsWindowViewModel.IsCalculatorEnabled;
-        //ViewModel.IsClockEnabled = settingsWindowViewModel.IsClockEnabled;
-        //ViewModel.IsQuickWebSiteAccess1Enabled = settingsWindowViewModel.IsQuickWebSiteAccess1Enabled;
-        //ViewModel.QuickWebSiteAccess1URL = settingsWindowViewModel.QuickWebSiteAccess1URL;
-        //ViewModel.IsQuickWebSiteAccess2Enabled = settingsWindowViewModel.IsQuickWebSiteAccess2Enabled;
-        //ViewModel.QuickWebSiteAccess2URL = settingsWindowViewModel.QuickWebSiteAccess2URL;
-        //ViewModel.IsQuickWebSiteAccess3Enabled = settingsWindowViewModel.IsQuickWebSiteAccess3Enabled;
-        //ViewModel.QuickWebSiteAccess3URL = settingsWindowViewModel.QuickWebSiteAccess3URL;
-        //ViewModel.IsInAir3DMouseEnabled = settingsWindowViewModel.IsInAir3DMouseEnabled;
-        //ViewModel.IsNotepadEnabled = settingsWindowViewModel.IsNotepadEnabled;
-        //ViewModel.IsQuickFileAccess1Enabled = settingsWindowViewModel.IsQuickFileAccess1Enabled;
-        //ViewModel.QuickFileAccess1File = settingsWindowViewModel.QuickFileAccess1File;
-        //ViewModel.IsQuickFileAccess2Enabled = settingsWindowViewModel.IsQuickFileAccess2Enabled;
-        //ViewModel.QuickFileAccess2File = settingsWindowViewModel.QuickFileAccess2File;
-        //ViewModel.IsQuickFileAccess3Enabled = settingsWindowViewModel.IsQuickFileAccess3Enabled;
-        //ViewModel.QuickFileAccess3File = settingsWindowViewModel.QuickFileAccess3File;
+        ViewModel.IsTouchlessArtsEnabled = settingsWindowViewModel.IsTouchlessArtsEnabled;
+        ViewModel.IsStickyNotesEnabled = settingsWindowViewModel.IsStickyNotesEnabled;
+        ViewModel.IsCameraEnabled = settingsWindowViewModel.IsCameraEnabled;
+        ViewModel.IsSearchEnabled = settingsWindowViewModel.IsSearchEnabled;
+        ViewModel.IsCopilotEnabled = settingsWindowViewModel.IsCopilotEnabled;
+        ViewModel.IsCalculatorEnabled = settingsWindowViewModel.IsCalculatorEnabled;
+        ViewModel.IsClockEnabled = settingsWindowViewModel.IsClockEnabled;
+        ViewModel.IsQuickWebSiteAccess1Enabled = settingsWindowViewModel.IsQuickWebSiteAccess1Enabled;
+        ViewModel.QuickWebSiteAccess1URL = settingsWindowViewModel.QuickWebSiteAccess1URL;
+        ViewModel.IsQuickWebSiteAccess2Enabled = settingsWindowViewModel.IsQuickWebSiteAccess2Enabled;
+        ViewModel.QuickWebSiteAccess2URL = settingsWindowViewModel.QuickWebSiteAccess2URL;
+        ViewModel.IsQuickWebSiteAccess3Enabled = settingsWindowViewModel.IsQuickWebSiteAccess3Enabled;
+        ViewModel.QuickWebSiteAccess3URL = settingsWindowViewModel.QuickWebSiteAccess3URL;
+        ViewModel.IsInAir3DMouseEnabled = settingsWindowViewModel.IsInAir3DMouseEnabled;
+        ViewModel.IsNotepadEnabled = settingsWindowViewModel.IsNotepadEnabled;
+        ViewModel.IsQuickFileAccess1Enabled = settingsWindowViewModel.IsQuickFileAccess1Enabled;
+        ViewModel.QuickFileAccess1File = settingsWindowViewModel.QuickFileAccess1File;
+        ViewModel.IsQuickFileAccess2Enabled = settingsWindowViewModel.IsQuickFileAccess2Enabled;
+        ViewModel.QuickFileAccess2File = settingsWindowViewModel.QuickFileAccess2File;
+        ViewModel.IsQuickFileAccess3Enabled = settingsWindowViewModel.IsQuickFileAccess3Enabled;
+        ViewModel.QuickFileAccess3File = settingsWindowViewModel.QuickFileAccess3File;
+        ViewModel.TeachingMaterials = settingsWindowViewModel.TeachingMaterials;
 
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
         ViewModel.IsIconShown = Visibility.Collapsed;
@@ -99,13 +97,11 @@ public sealed partial class MainWindow : Window
         this.SetIsMaximizable(false);
         calculateCoordinates(this);
         this.Move(CenterX, BottomY);
-
-        // set the width of the stackpanel to the width of the window
-        //this.SetWindowSize(screenWidth, screenHeight);
         //remove title bar
         //var coreTitleBar = this.GetAppWindow().TitleBar;
         //coreTitleBar.ExtendsContentIntoTitleBar = true;
     }
+
     public MainWindowViewModel? ViewModel { get; }
     public SettingsWindowViewModel? SettingsWindowViewModel { get; }
 
@@ -205,6 +201,8 @@ public sealed partial class MainWindow : Window
                 panel.Children.Add(CreateButton("QuickFileAccess1"));
             if (ViewModel.IsQuickFileAccess2Enabled)
                 panel.Children.Add(CreateButton("QuickFileAccess2"));
+            if (ViewModel.TeachingMaterials != null)
+                panel.Children.Add(CreateButton("TeachingMaterials"));
             if (ViewModel.IsQuickFileAccess3Enabled)
                 panel.Children.Add(CreateButton("QuickFileAccess3"));
             panel.Children.Add(CreateButton("Close"));
@@ -235,69 +233,92 @@ public sealed partial class MainWindow : Window
             case "Touchless Arts":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Touchless-Arts-icon.png"));
                 button.Click += TouchlessArts_Clicked;
+                ToolTipService.SetToolTip(button, "Touchless Arts");
                 break;
             case "Sticky Notes":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Sticky-Notes-icon.png"));
                 button.Click += StickyNotes_Clicked;
+                ToolTipService.SetToolTip(button, "Sticky Notes");
                 break;
             case "Camera":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Camera-icon.png"));
                 button.Click += Camera_Clicked;
+                ToolTipService.SetToolTip(button, "Screen Capture");
                 break;
             case "Search":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Search-icon.png"));
                 button.Click += Search_Clicked;
+                ToolTipService.SetToolTip(button, "Search");
                 break;
             case "Copilot":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Copilot-icon.png"));
                 button.Click += Copilot_Clicked;
+                ToolTipService.SetToolTip(button, "Copilot");
                 break;
             case "Calculator":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Calculator-icon.png"));
                 button.Click += Calculator_Clicked;
+                ToolTipService.SetToolTip(button, "Calculator");
                 break;
             case "Clock":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Clock-icon.png"));
                 button.Click += Clock_Clicked;
+                ToolTipService.SetToolTip(button, "Clock");
                 break;
             case "QuickWebSiteAccess1":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess1-icon.png"));
                 button.Click += QuickWebSiteAccess1_Clicked;
+                ToolTipService.SetToolTip(button, "Quick WebSite Access 1");
                 break;
             case "QuickWebSiteAccess2":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess2-icon.png"));
                 button.Click += QuickWebSiteAccess2_Clicked;
+                ToolTipService.SetToolTip(button, "Quick WebSite Access 2");
                 break;
             case "QuickWebSiteAccess3":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickWebSiteAccess3-icon.png"));
                 button.Click += QuickWebSiteAccess3_Clicked;
+                ToolTipService.SetToolTip(button, "Quick WebSite Access 3");
                 break;
             case "In Air 3D Mouse":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/In-Air-3D-Mouse-icon.png"));
+                //button.Click += InAir3DMouse_Clicked;
+                ToolTipService.SetToolTip(button, "In Air 3D Mouse");
                 break;
             case "Notepad":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Notepad-icon.png"));
                 button.Click += Notepad_Clicked;
+                ToolTipService.SetToolTip(button, "Notepad");
                 break;
             case "QuickFileAccess1":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess1-icon.png"));
                 button.Click += QuickFileAccess1_Clicked;
+                ToolTipService.SetToolTip(button, "Quick File Access 1");
                 break;
             case "QuickFileAccess2":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess2-icon.png"));
                 button.Click += QuickFileAccess2_Clicked;
+                ToolTipService.SetToolTip(button, "Quick File Access 2");
                 break;
             case "QuickFileAccess3":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/QuickFileAccess3-icon.png"));
                 button.Click += QuickFileAccess3_Clicked;
+                ToolTipService.SetToolTip(button, "Quick File Access 3");
+                break;
+            case "TeachingMaterials":
+                image.Source = new BitmapImage(new Uri("ms-appx:///Assets/TeachingMaterials-icon.png"));
+                button.Click += TeachingMaterials_Clicked;
+                ToolTipService.SetToolTip(button, "Teaching Materials");
                 break;
             case "Close":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Close-icon.png"));
                 button.Click += CloseToolBar_Clicked;
+                ToolTipService.SetToolTip(button, "Close Tool Bar");
                 break;
             case "Open":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/Open-icon.png"));
                 button.Click += OpenToolBar_Clicked;
+                ToolTipService.SetToolTip(button, "Open Tool Bar");
                 break;
         }
 
@@ -382,8 +403,10 @@ public sealed partial class MainWindow : Window
 
     private void QuickWebSiteAccess3_Clicked(object sender, RoutedEventArgs e)
     {
-        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess3URL));
-        MinimizeTouchlessWhiteboard();
+        //Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess3URL));
+        //MinimizeTouchlessWhiteboard();
+        var TeachingMaterials = new TeachingMaterials(ViewModel.TeachingMaterials);
+        TeachingMaterials.Activate();
     }
 
     private void Notepad_Clicked(object sender, RoutedEventArgs e)
@@ -394,20 +417,65 @@ public sealed partial class MainWindow : Window
 
     private void QuickFileAccess1_Clicked(object sender, RoutedEventArgs e)
     {
-        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess1File);
+        try
+        {
+            Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess1File);
+        }
+        catch
+        {
+            // create popup
+            var dialog = new ContentDialog
+            {
+                Title = "File not found",
+                Content = "The file you are trying to access is not found.",
+                CloseButtonText = "Ok"
+            };
+        }
         MinimizeTouchlessWhiteboard();
     }
 
     private void QuickFileAccess2_Clicked(object sender, RoutedEventArgs e)
     {
-        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess2File);
+        try
+        {
+            Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess2File);
+        }
+        catch
+        {
+            // create popup
+            var dialog = new ContentDialog
+            {
+                Title = "File not found",
+                Content = "The file you are trying to access is not found.",
+                CloseButtonText = "Ok"
+            };
+        }
         MinimizeTouchlessWhiteboard();
     }
 
     private void QuickFileAccess3_Clicked(object sender, RoutedEventArgs e)
     {
-        Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess3File);
+        try
+        {
+            Windows.System.Launcher.LaunchFileAsync(ViewModel.QuickFileAccess3File);
+        }
+        catch
+        {
+            // create popup
+            var dialog = new ContentDialog
+            {
+                Title = "File not found",
+                Content = "The file you are trying to access is not found.",
+                CloseButtonText = "Ok"
+            };
+        }
         MinimizeTouchlessWhiteboard();
+    }
+
+    private void TeachingMaterials_Clicked(object sender, RoutedEventArgs e)
+    {
+        var TeachingMaterials = new TeachingMaterials(ViewModel.TeachingMaterials);
+        TeachingMaterials.Activate();
     }
 
     private void CloseToolBar_Clicked(object sender, RoutedEventArgs e)
@@ -456,6 +524,7 @@ public sealed partial class MainWindow : Window
     private bool isLine = false;
 
     private int SelectedIndex = 0;
+    private int SelectedIndexTransparency = 0;
     private Ellipse currentEllipse;
     private Rectangle currentRectangle;
     private Polygon currentPolygon;
@@ -488,28 +557,26 @@ public sealed partial class MainWindow : Window
         172
     };
 
+    public List<double> BrushTransparency { get; } = new List<double>
+    {
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1
+    };
+
     private async void Canvas_PointerPressed(object sender, PointerRoutedEventArgs e)
     {
         if (ViewModel.IsTouchlessArtsOpen == Visibility.Collapsed) return;
         if (isDragging) return;
         if (e.Pointer.PointerDeviceType.Equals(PointerDeviceType.Pen))
         {
-            //if (colorPickerButton.IsChecked == true)
-            //{
-            //    var pointerPosition = e.GetCurrentPoint(Whiteboard);
-            //    int x = (int)pointerPosition.Position.X;
-            //    int y = (int)pointerPosition.Position.Y;
-            //    RenderTargetBitmap renderBitmap = new RenderTargetBitmap();
-            //    await renderBitmap.RenderAsync(Whiteboard);
-            //    var pixelBuffer = await renderBitmap.GetPixelsAsync();
-            //    var pixelData = pixelBuffer.ToArray();
-            //    int pixelIndex = (y * renderBitmap.PixelWidth + x) * 4;
-            //    byte[] pixelColor = new byte[4];
-            //    Array.Copy(pixelData, pixelIndex, pixelColor, 0, 4);
-            //    Color color = Color.FromArgb(pixelColor[3], pixelColor[2], pixelColor[1], pixelColor[0]);
-            //    CurrentColor.Background = currentBrush = new SolidColorBrush(color);
-            //    return;
-            //}
             isDrawing = true;
             (sender as UIElement).CapturePointer(e.Pointer);
             startPoint = e.GetCurrentPoint(Whiteboard).Position;
@@ -631,7 +698,8 @@ public sealed partial class MainWindow : Window
                 StrokeThickness = BrushThickness[SelectedIndex],
                 StrokeEndLineCap = PenLineCap.Round,
                 StrokeStartLineCap = PenLineCap.Round,
-                StrokeLineJoin = PenLineJoin.Round
+                StrokeLineJoin = PenLineJoin.Round,
+                Opacity = BrushTransparency[SelectedIndexTransparency]
             };
             Line lineBlur = new Line
             {
@@ -644,7 +712,7 @@ public sealed partial class MainWindow : Window
                 StrokeEndLineCap = PenLineCap.Round,
                 StrokeStartLineCap = PenLineCap.Round,
                 StrokeLineJoin = PenLineJoin.Round,
-                Opacity = 0.2
+                Opacity = BrushTransparency[SelectedIndexTransparency]
             };
             line.ManipulationDelta += objectManipulationDelta;
             line.ManipulationMode = ManipulationModes.All;
@@ -762,6 +830,12 @@ public sealed partial class MainWindow : Window
     {
         SelectedIndex = CoboBoxBrushThickness.SelectedIndex;
     }
+
+    private void CoboBoxBrushTransparency_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        SelectedIndexTransparency = CoboBoxBrushTransparency.SelectedIndex;
+    }
+
     private void CursorButton_Click(object sender, RoutedEventArgs e)
     {
         ToggleButton clickedButton = sender as ToggleButton;

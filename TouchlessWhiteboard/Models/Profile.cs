@@ -52,16 +52,19 @@ public class Profile : ObservableObject
     public bool IsQuickFileAccess1Enabled { get; set; }
     [JsonPropertyName("quickFileAccess1Path")]
     public string QuickFileAccess1Path { get; set; }
+    [Newtonsoft.Json.JsonIgnore]
     public StorageFile QuickFileAccess1File { get; set; }
     [JsonPropertyName("isQuickFileAccess2Enabled")]
     public bool IsQuickFileAccess2Enabled { get; set; }
     [JsonPropertyName("quickFileAccess2Path")]
     public string QuickFileAccess2Path { get; set; }
+    [Newtonsoft.Json.JsonIgnore]
     public StorageFile QuickFileAccess2File { get; set; }
     [JsonPropertyName("isQuickFileAccess3Enabled")]
     public bool IsQuickFileAccess3Enabled { get; set; }
     [JsonPropertyName("quickFileAccess3Path")]
     public string QuickFileAccess3Path { get; set; }
+    [Newtonsoft.Json.JsonIgnore]
     public StorageFile QuickFileAccess3File { get; set; }
     [JsonPropertyName("isLeftHanded")]
     public bool IsLeftHanded { get; set; }
@@ -74,6 +77,10 @@ public class Profile : ObservableObject
 
     [JsonPropertyName("selectedWebcam")]
     public string SelectedWebcam { get; set; }
+    [JsonPropertyName("teachingMaterialsPath")]
+    public string TeachingMaterialsPath { get; set; }
+    [Newtonsoft.Json.JsonIgnore]
+    public StorageFile TeachingMaterials { get; set; }
     public bool IsSelected { get; set; }
 
     public Profile() {
