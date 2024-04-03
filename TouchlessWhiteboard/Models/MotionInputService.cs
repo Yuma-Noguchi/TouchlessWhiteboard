@@ -18,18 +18,22 @@ using Microsoft.UI.Xaml.Controls;
 using Windows.Storage;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Navigation;
+using System.Net.Http.Json;
+using System.Text.Json;
+using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace TouchlessWhiteboard.Models;
 
 public class MotionInputService
 {
+
+    private Process MotionInput = null;
+    private string configFilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\data\\config.json");
     public async Task<bool> SetConfig(bool IsLeftHanded, bool IsRightHanded, double PinchSensitivity, int CameraIndex)
     {
         try
         {
-            // Path to your JSON file
-            string configFilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\data\\config.json");
-
             // Read the JSON file
             string configJson = File.ReadAllText(configFilePath);
 
@@ -37,8 +41,10 @@ public class MotionInputService
             JObject configJsonObj = JObject.Parse(configJson);
 
             // Modify the specific key-value pairs
+            configJsonObj["mode"] = "inking";
             configJsonObj["camera"]["source"] = CameraIndex;
             configJsonObj["hands"]["pinch_sensitivity"] = PinchSensitivity;
+
 
             // Write the modified JSON back to the file
             File.WriteAllText(configFilePath, configJsonObj.ToString());
@@ -64,4 +70,62 @@ public class MotionInputService
         return true;
     }
 
+    public async Task<bool> Start(bool IsLeftHanded, bool IsRightHanded, double PinchSensitivity, int CameraIndex)
+    {
+        bool success = await SetConfig(IsLeftHanded, IsRightHanded, PinchSensitivity, CameraIndex);
+        if (!success)
+        {
+            return false;
+        }
+        return await Launch();
+    }
+
+    public async Task<bool> ChangeMode(string mode)
+    {
+        try
+        {
+            // Read the JSON file
+            string configJson = File.ReadAllText(configFilePath);
+
+            // Parse the JSON file
+            JObject configJsonObj = JObject.Parse(configJson);
+
+            // Modify the specific key-value pairs
+            configJsonObj["mode"] = mode;
+
+            // Write the modified JSON back to the file
+            File.WriteAllText(configFilePath, configJsonObj.ToString());
+
+            return await Launch();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
+    public async Task<bool> Launch()
+    {
+        try
+        {
+            // Path to the executable
+            string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\MotionInput.exe");
+
+            if (MotionInput != null)
+            {
+                MotionInput.Kill();
+            }
+            MotionInput = new();
+            MotionInput.StartInfo.UseShellExecute = true;
+            MotionInput.StartInfo.Verb = "runas";
+            MotionInput.StartInfo.FileName = FilePath;
+            MotionInput.StartInfo.WorkingDirectory = Path.GetDirectoryName(FilePath);
+            MotionInput.Start();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        return true;
+    }
 }

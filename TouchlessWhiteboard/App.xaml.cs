@@ -40,6 +40,7 @@ namespace TouchlessWhiteboard
             .AddSingleton<SettingsWindowViewModel>()
             .AddSingleton<WebcamService>()
             .AddSingleton<ProfileService>()
+            .AddSingleton<MotionInputService>()
             .AddSingleton<Profile>()
             .AddSingleton<ProfileList>()
             .AddSingleton<MainWindowViewModel>()

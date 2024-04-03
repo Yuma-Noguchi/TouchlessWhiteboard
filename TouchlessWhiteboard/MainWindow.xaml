@@ -36,10 +36,16 @@
                                 Height="50"
                                 VerticalAlignment="Bottom"
                                 Visibility="{x:Bind ViewModel.IsTouchlessWhiteboardOpen, Mode=Twoway}"/>
-                    <!--<StackPanel.RenderTransform>
-                        <TranslateTransform />
-                    </StackPanel.RenderTransform>-->
-                <!--</StackPanel>-->
+                <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="InAir3DMouseErrorPopup">
+                    <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
+                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                                    BorderThickness="2" Width="200" Height="200">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="sample" FontSize="24.667" HorizontalAlignment="Center"/>
+                            <Button Content="Close" Click="CloseInAir3DMouseErrorPopupClicked" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
                 <Canvas x:Name="Whiteboard"
                         PointerPressed="Canvas_PointerPressed"
                         PointerMoved="Canvas_PointerMoved"

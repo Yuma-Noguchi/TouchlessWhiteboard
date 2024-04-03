@@ -483,31 +483,11 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         // overwrite json file with new profile
         SaveProfiles();
 
-        // 1. kill motioninput
-        Process.Start("taskkill", "/F /IM motioninput.exe");
-
-        // 2. set config for motioninput
-        int cameraIndex = webcams.IndexOf(SelectedWebcam);
-        bool success = await _motionInputService.SetConfig(IsLeftHanded, IsRightHanded, PinchSensitivity, cameraIndex);
-        if (!success)
-        {
-            return false;
-        }
         // 3. start motioninput
-        string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\motioninput.exe");
-
+        int cameraIndex = webcams.IndexOf(SelectedWebcam);
         try
         {
-            if (MotionInput != null)
-            {
-                MotionInput.Kill();
-            }
-            MotionInput = new();
-            MotionInput.StartInfo.UseShellExecute = true;
-            MotionInput.StartInfo.Verb = "runas";
-            MotionInput.StartInfo.FileName = FilePath;
-            MotionInput.StartInfo.WorkingDirectory = Path.GetDirectoryName(FilePath);
-            MotionInput.Start();
+           _motionInputService.Start(IsLeftHanded, IsRightHanded, PinchSensitivity, cameraIndex);
         }
         catch (Exception ex)
         {
@@ -518,13 +498,13 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
 
         if (mainWindow == null)
         {
-            mainWindow = new MainWindow();
+            mainWindow = new MainWindow(_motionInputService);
             mainWindow.Activate();
         }
         else
         {
             mainWindow.Close();
-            mainWindow = new MainWindow();
+            mainWindow = new MainWindow(_motionInputService);
             mainWindow.Activate();
         }
         return true;
