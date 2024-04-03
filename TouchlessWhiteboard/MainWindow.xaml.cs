@@ -38,6 +38,15 @@ using Windows.UI.WindowManagement;
 using System.Collections;
 using System.Diagnostics;
 using Windows.ApplicationModel.VoiceCommands;
+using TouchlessWhiteboard.Models;
+
+using CommunityToolkit.Mvvm.Input;
+using System.Windows.Input;
+using Windows.Devices.SmartCards;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Pickers.Provider;
+using Windows.UI.Popups;
 
 namespace TouchlessWhiteboard;
 
@@ -56,7 +65,9 @@ public sealed partial class MainWindow : Window
     private int CenterX;
     private int BottomY;
 
-    public MainWindow()
+    private bool IsInAir3DMouserunning = false;
+
+    public MainWindow(MotionInputService motionInputService)
     {
         ViewModel = Ioc.Default.GetService<MainWindowViewModel>();
         SettingsWindowViewModel settingsWindowViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
@@ -86,6 +97,7 @@ public sealed partial class MainWindow : Window
         ViewModel.IsTouchlessWhiteboardOpen = Visibility.Visible;
         ViewModel.IsIconShown = Visibility.Collapsed;
         ViewModel.IsTouchlessArtsOpen = Visibility.Collapsed;
+
         Title = "Touchless Whiteboard";
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(TitleBar);
@@ -100,6 +112,7 @@ public sealed partial class MainWindow : Window
         //remove title bar
         //var coreTitleBar = this.GetAppWindow().TitleBar;
         //coreTitleBar.ExtendsContentIntoTitleBar = true;
+        ViewModel._motionInputService = motionInputService;
     }
 
     public MainWindowViewModel? ViewModel { get; }
@@ -282,7 +295,7 @@ public sealed partial class MainWindow : Window
                 break;
             case "In Air 3D Mouse":
                 image.Source = new BitmapImage(new Uri("ms-appx:///Assets/In-Air-3D-Mouse-icon.png"));
-                //button.Click += InAir3DMouse_Clicked;
+                button.Click += InAir3DMouse_Clicked;
                 ToolTipService.SetToolTip(button, "In Air 3D Mouse");
                 break;
             case "Notepad":
@@ -403,10 +416,26 @@ public sealed partial class MainWindow : Window
 
     private void QuickWebSiteAccess3_Clicked(object sender, RoutedEventArgs e)
     {
-        //Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess3URL));
-        //MinimizeTouchlessWhiteboard();
-        var TeachingMaterials = new TeachingMaterials(ViewModel.TeachingMaterials);
-        TeachingMaterials.Activate();
+        Windows.System.Launcher.LaunchUriAsync(new Uri(ViewModel.QuickWebSiteAccess3URL));
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private async void InAir3DMouse_Clicked(object sender, RoutedEventArgs e)
+    {
+        bool success = await ViewModel.ChangeMode("scroll_navigation");
+        if (!success)
+        {
+            if (!InAir3DMouseErrorPopup.IsOpen) { InAir3DMouseErrorPopup.IsOpen = true; }
+            return;
+        }
+        IsInAir3DMouserunning = true;
+        MinimizeTouchlessWhiteboard();
+    }
+
+    private void CloseInAir3DMouseErrorPopupClicked(object sender, RoutedEventArgs e)
+    {
+        // close the popup
+        if (InAir3DMouseErrorPopup.IsOpen) { InAir3DMouseErrorPopup.IsOpen = false; }
     }
 
     private void Notepad_Clicked(object sender, RoutedEventArgs e)
@@ -507,6 +536,11 @@ public sealed partial class MainWindow : Window
         this.SetIsMaximizable(false);
         this.SetIsResizable(false);
         this.Move(CenterX, BottomY);
+        if (IsInAir3DMouserunning)
+        {
+            ViewModel.ChangeMode("inking");
+            IsInAir3DMouserunning = false;
+        }
     }
 
     // Touchless Arts

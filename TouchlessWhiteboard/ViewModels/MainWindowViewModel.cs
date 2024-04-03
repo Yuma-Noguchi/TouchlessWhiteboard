@@ -12,8 +12,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using System.Drawing;
 using Windows.Storage;
-using TouchlessWhiteboard;
-
+using TouchlessWhiteboard.Models;
 
 namespace TouchlessWhiteboard.ViewModel;
 
@@ -52,6 +51,7 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
     [ObservableProperty]
     private Visibility isTouchlessArtsOpen;
 
+    public MotionInputService _motionInputService;
 
     public MainWindowViewModel()
     {
@@ -76,5 +76,9 @@ public partial class MainWindowViewModel : ObservableObject, INotifyPropertyChan
         //IsQuickFileAccess3Enabled = true;
     }
 
+    public async Task<bool> ChangeMode(string mode)
+    {
+        return await _motionInputService.ChangeMode(mode);
+    }
 }
 
