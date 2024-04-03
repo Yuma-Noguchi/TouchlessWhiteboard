@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="TouchlessWhiteboard.TeachingMaterials"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TouchlessWhiteboard"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:winuiex="using:WinUIEx">
+    <Window.SystemBackdrop>
+        <winuiex:TransparentTintBackdrop />
+    </Window.SystemBackdrop>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel
+                x:Name="TitleBar"
+                Grid.Row="0"
+                Margin="5,0,0,0"
+                Background="Transparent"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal"
+                Width="120"
+                >
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <StackPanel x:Name="TeachingMaterialsPanel" Background="Transparent" CornerRadius="5"
+                                Orientation="Vertical"
+                                Width="100"
+                                VerticalAlignment="Top"
+                                Margin="20,30,0,0"
+                                HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Window>

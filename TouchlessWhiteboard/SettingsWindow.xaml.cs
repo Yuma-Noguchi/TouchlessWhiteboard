@@ -41,6 +41,8 @@ public sealed partial class SettingsWindow : Window
     private string QuickFileAccess2Name;
     private string QuickFileAccess3Name;
 
+    private string TeachingMaterialsErrorMessage = "The file you selected is not a valid teaching materials file. Please select a valid file.";
+
     public SettingsWindow()
     {
         this.InitializeComponent();
@@ -140,6 +142,11 @@ public sealed partial class SettingsWindow : Window
         ViewModel.DeleteProfile();
     }
 
+    private void HelpButton_Click(object sender, RoutedEventArgs e)
+    {
+        ViewModel.OpenHelp();
+    }
+
     private void CheckBox_Checked(object sender, RoutedEventArgs e)
     {
         _counter++;
@@ -167,10 +174,17 @@ public sealed partial class SettingsWindow : Window
         }
     }
 
-    private async Task<StorageFile> ChooseFile()
+    private async Task<StorageFile> ChooseFile(string type)
     {
         var filePicker = new FileOpenPicker();
-        filePicker.FileTypeFilter.Add("*"); // Allow all file types
+        if (type != "")
+        {
+            filePicker.FileTypeFilter.Add(type);
+        }
+        else
+        {
+            filePicker.FileTypeFilter.Add("*");
+        }
         nint windowHandle = this.GetWindowHandle();
         InitializeWithWindow.Initialize(filePicker, windowHandle);
 
@@ -181,22 +195,53 @@ public sealed partial class SettingsWindow : Window
 
     private async void QuickFileAccess1_Clicked(object sender, RoutedEventArgs e)
     {
-        StorageFile file = await ChooseFile();
+        StorageFile file = await ChooseFile("");
         ViewModel.QuickFileAccess1File = file;
     }
 
     private async void QuickFileAccess2_Clicked(object sender, RoutedEventArgs e)
     {
-        StorageFile file = await ChooseFile();
+        StorageFile file = await ChooseFile("");
         ViewModel.QuickFileAccess2File = file;
     }
 
     private async void QuickFileAccess3_Clicked(object sender, RoutedEventArgs e)
     {
-        StorageFile file = await ChooseFile();
+        StorageFile file = await ChooseFile("");
         ViewModel.QuickFileAccess3File = file;
     }
 
+    private async void TeachingMaterials_Clicked(object sender, RoutedEventArgs e)
+    {
+        StorageFile file = await ChooseFile(".txt");
+        bool Isvalid = await CheckTeachingMaterials(file);
+        if (Isvalid)
+        {
+            ViewModel.TeachingMaterials = file;
+        }
+        else
+        {
+            if (!TeachingMaterialsErrorPopup.IsOpen) { TeachingMaterialsErrorPopup.IsOpen = true; }
+        }
+    }
+
+    private void TeachingMaterialsClear_Clicked(object sender, RoutedEventArgs e)
+    {
+        ViewModel.TeachingMaterials = null;
+        TeachingMaterialsTextBox.Text = "";
+        this.Bindings.Update();
+    }
+
+    private void CloseTeachingMaterialsErrorPopupClicked(object sender, RoutedEventArgs e)
+    {
+        if (TeachingMaterialsErrorPopup.IsOpen) { TeachingMaterialsErrorPopup.IsOpen = false; }
+    }
+
+    private async Task<bool> CheckTeachingMaterials(StorageFile file)
+    {
+        bool IsValid = await ViewModel.CheckTeachingMaterials(file);
+        return IsValid;
+    }
     private async void OnClickTouchlessArtsHelpBtn(object sender, RoutedEventArgs e)
     {
         // if wifi connection exists, open the help page
