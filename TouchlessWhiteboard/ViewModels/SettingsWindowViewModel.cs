@@ -95,10 +95,15 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
 
     public Profile ActiveProfile { get; set; }
 
+    private Window mainWindow;
+    private Process MotionInput;
+    private readonly MotionInputService _motionInputService;
+
     public SettingsWindowViewModel(WebcamService webcamService, ProfileService profileService)
     {
         _webcamService = webcamService;
         _profileService = profileService;
+        _motionInputService = new MotionInputService();
         InitializeAsync();
         PropertyChanged += (s, e) => UpdateProfile(s, e);
     }
@@ -473,54 +478,55 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         _profileService.SaveProfilesToJson("Resources/settings.json", profiles.ToList());
     }
 
-    public void SetMotionInputConfig()
-    {
-
-    }
-
-    public async void Launch()
+    public async Task<bool> Launch()
     {
         // overwrite json file with new profile
         SaveProfiles();
 
-        //// activate motioninput
-        //// 1. kill motioninput
-        //Process.Start("taskkill", "/F /IM MotionInput.exe");
-        //// 2. start motioninput
-        //SetMotionInputConfig();
-        //// check MottionInput/motioninput.dist exist
+        // 1. kill motioninput
+        Process.Start("taskkill", "/F /IM motioninput.exe");
 
-        //// if not, copy from MotionInput/motioninput.dist
+        // 2. set config for motioninput
+        int cameraIndex = webcams.IndexOf(SelectedWebcam);
+        bool success = await _motionInputService.SetConfig(IsLeftHanded, IsRightHanded, PinchSensitivity, cameraIndex);
+        if (!success)
+        {
+            return false;
+        }
+        // 3. start motioninput
+        string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\motioninput.exe");
 
-        //string FilePath = "motioninput.exe";
-        //ProcessStartInfo startInfo = new ProcessStartInfo
-        //{
-        //    FileName = "@" + FilePath,
-        //    UseShellExecute = true,
-        //    Verb = "runas"
-        //};
+        try
+        {
+            if (MotionInput != null)
+            {
+                MotionInput.Kill();
+            }
+            MotionInput = new();
+            MotionInput.StartInfo.UseShellExecute = true;
+            MotionInput.StartInfo.Verb = "runas";
+            MotionInput.StartInfo.FileName = FilePath;
+            MotionInput.StartInfo.WorkingDirectory = Path.GetDirectoryName(FilePath);
+            MotionInput.Start();
+        }
+        catch (Exception ex)
+        {
+            return false;
+        }
 
-        //try
-        //{
-        //    Process.Start(startInfo);
-        //}
-        //catch (Exception ex)
-        //{
-        //    // Handle the error. For example, you can display it in a message box.
-        //    Console.WriteLine(ex.Message);
-        //}
+        // Launch the main window
 
-        //// 4. Minimize this window
-
-        //// Launch the main window
-        //StorageFile storageFile = await StorageFile.GetFileFromPathAsync("C:\\Users\\student\\Downloads\\MI3.4_Education_Executable_Final\\motioninput.exe");
-        //Process P = new();
-        //P.StartInfo.UseShellExecute = true;
-        //P.StartInfo.Verb = "runas";
-        //P.StartInfo.FileName = storageFile.Path;
-        //P.StartInfo.Arguments = "";
-        //P.Start();
-       var mainWindow = new MainWindow();
-       mainWindow.Activate();
+        if (mainWindow == null)
+        {
+            mainWindow = new MainWindow();
+            mainWindow.Activate();
+        }
+        else
+        {
+            mainWindow.Close();
+            mainWindow = new MainWindow();
+            mainWindow.Activate();
+        }
+        return true;
     }
 }
