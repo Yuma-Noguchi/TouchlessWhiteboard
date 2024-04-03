@@ -60,7 +60,6 @@ public sealed partial class MainWindow : Window
     {
         ViewModel = Ioc.Default.GetService<MainWindowViewModel>();
         SettingsWindowViewModel settingsWindowViewModel = Ioc.Default.GetService<SettingsWindowViewModel>();
-
         ViewModel.IsTouchlessArtsEnabled = settingsWindowViewModel.IsTouchlessArtsEnabled;
         ViewModel.IsStickyNotesEnabled = settingsWindowViewModel.IsStickyNotesEnabled;
         ViewModel.IsCameraEnabled = settingsWindowViewModel.IsCameraEnabled;
@@ -576,9 +575,10 @@ public sealed partial class MainWindow : Window
     {
         if (ViewModel.IsTouchlessArtsOpen == Visibility.Collapsed) return;
         if (isDragging) return;
-        if (e.Pointer.PointerDeviceType.Equals(PointerDeviceType.Mouse))
+        if (e.Pointer.PointerDeviceType.Equals(PointerDeviceType.Pen))
         {
             isDrawing = true;
+            (sender as UIElement).CapturePointer(e.Pointer);
             startPoint = e.GetCurrentPoint(Whiteboard).Position;
             if (shapesButton.IsChecked == true)
             {
@@ -737,7 +737,7 @@ public sealed partial class MainWindow : Window
                 X2 = e.GetCurrentPoint(Whiteboard).Position.X,
                 Y2 = e.GetCurrentPoint(Whiteboard).Position.Y,
                 Stroke = currentBrush,
-                StrokeThickness = BrushThickness[SelectedIndex],
+                StrokeThickness = 1
             };
             line.ManipulationDelta += objectManipulationDelta;
             line.ManipulationMode = ManipulationModes.All;
@@ -754,6 +754,7 @@ public sealed partial class MainWindow : Window
         isDrawing = false;
         elementNumStack.Insert(0, elementsList.Count - lastSize);
         lastSize = elementsList.Count;
+        (sender as UIElement).ReleasePointerCapture(e.Pointer);
     }
 
     private void Elements_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -787,18 +788,21 @@ public sealed partial class MainWindow : Window
 
                 // 3. now we know that the element belongs to elementNumIdx. hence, remove the element from the elementsList
                 elementNumIdx -= 1;
-                int numElementsToRemove = elementNumStack.ElementAt(elementNumIdx);
-                int startIdx = elementNum - numElementsToRemove;
-                for (int i = elementNum - 1; i >= elementNum - numElementsToRemove; i--)
+                if (elementNumIdx <= elementNumStack.Count())
                 {
-                    UIElement removed = elementsList[startIdx];
-                    elementsList.RemoveAt(startIdx);
-                    Whiteboard.Children.Remove(removed);
-                    removedElementsList.Insert(0, removed);
+                    int numElementsToRemove = elementNumStack.ElementAt(elementNumIdx);
+                    int startIdx = elementNum - numElementsToRemove;
+                    for (int i = elementNum - 1; i >= elementNum - numElementsToRemove; i--)
+                    {
+                        UIElement removed = elementsList[startIdx];
+                        elementsList.RemoveAt(startIdx);
+                        Whiteboard.Children.Remove(removed);
+                        removedElementsList.Insert(0, removed);
+                    }
+                    removedElementNumStack.Insert(0, elementNumStack.ElementAt(elementNumIdx));
+                    elementNumStack.RemoveAt(elementNumIdx);
+                    lastSize = elementsList.Count;
                 }
-                removedElementNumStack.Insert(0, elementNumStack.ElementAt(elementNumIdx));
-                elementNumStack.RemoveAt(elementNumIdx);
-                lastSize = elementsList.Count;
             }
         }
     }

@@ -478,7 +478,7 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
 
     }
 
-    public void Launch()
+    public async void Launch()
     {
         // overwrite json file with new profile
         SaveProfiles();
@@ -513,6 +513,13 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         //// 4. Minimize this window
 
         //// Launch the main window
+        //StorageFile storageFile = await StorageFile.GetFileFromPathAsync("C:\\Users\\student\\Downloads\\MI3.4_Education_Executable_Final\\motioninput.exe");
+        //Process P = new();
+        //P.StartInfo.UseShellExecute = true;
+        //P.StartInfo.Verb = "runas";
+        //P.StartInfo.FileName = storageFile.Path;
+        //P.StartInfo.Arguments = "";
+        //P.Start();
        var mainWindow = new MainWindow();
        mainWindow.Activate();
     }
