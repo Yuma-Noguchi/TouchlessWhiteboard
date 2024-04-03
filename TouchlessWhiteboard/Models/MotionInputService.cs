@@ -117,7 +117,6 @@ public class MotionInputService
             }
             MotionInput = new();
             MotionInput.StartInfo.UseShellExecute = true;
-            MotionInput.StartInfo.Verb = "runas";
             MotionInput.StartInfo.FileName = FilePath;
             MotionInput.StartInfo.WorkingDirectory = Path.GetDirectoryName(FilePath);
             MotionInput.Start();
