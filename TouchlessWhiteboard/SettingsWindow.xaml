@@ -439,6 +439,16 @@
                     <Button Height="50" Width="150" Content="Launch" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="LaunchButton_Click" Background="White" Foreground="Black" FontSize="20" FontWeight="Bold"/>
                     <Button Height="50" Width="150" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="CancelButton_Click" Background="Gray" Foreground="Black" FontSize="20" FontWeight="Bold" Margin="30,0,5,0"/>
                 </StackPanel>
+                <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="LaunchErrorPopup">
+                    <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
+                                    Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
+                                    BorderThickness="2" Width="200" Height="200">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{Binding TeachingMaterialsErrorMessage}" FontSize="24.667" HorizontalAlignment="Center"/>
+                            <Button Content="Close" Click="CloseLaunchErrorPopupClicked" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
                 <!--#endregion Lanuch Button-->
             </Grid>
         </ScrollViewer>

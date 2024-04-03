@@ -86,10 +86,23 @@ public sealed partial class SettingsWindow : Window
         this.Bindings.Update();
     }
 
-    private void LaunchButton_Click(object sender, RoutedEventArgs e)
+    private async void LaunchButton_Click(object sender, RoutedEventArgs e)
     {
-        ViewModel.Launch();
-        this.Minimize();
+        bool success = await ViewModel.Launch();
+        if (!success)
+        {
+            if (!LaunchErrorPopup.IsOpen) { LaunchErrorPopup.IsOpen = true; }
+            return;
+        }
+        else
+        {
+            this.Minimize();
+        }
+    }
+
+    private void CloseLaunchErrorPopupClicked(object sender, RoutedEventArgs e)
+    {
+        if (LaunchErrorPopup.IsOpen) { LaunchErrorPopup.IsOpen = false; }
     }
 
     private void CancelButton_Click(object sender, RoutedEventArgs e)
