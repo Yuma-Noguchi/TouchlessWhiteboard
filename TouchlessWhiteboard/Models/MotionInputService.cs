@@ -29,7 +29,9 @@ public class MotionInputService
 {
 
     private Process MotionInput = null;
-    private string configFilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\data\\config.json");
+    //private string configFilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\data\\config.json");
+    // combine working directory with the relative path to the config file
+    private string configFilePath = Path.Combine(Directory.GetCurrentDirectory(), "MotionInput\\data\\config.json");
     public async Task<bool> SetConfig(bool IsLeftHanded, bool IsRightHanded, double PinchSensitivity, int CameraIndex)
     {
         try
@@ -49,7 +51,8 @@ public class MotionInputService
             // Write the modified JSON back to the file
             File.WriteAllText(configFilePath, configJsonObj.ToString());
 
-            string modeFilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\data\\modes\\inking.json");
+            //string modeFilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\data\\modes\\inking.json");
+            string modeFilePath = Path.Combine(Directory.GetCurrentDirectory(), "MotionInput\\data\\modes\\inking.json");
 
             // Read the JSON file
             string modeJson = File.ReadAllText(modeFilePath);
@@ -109,7 +112,9 @@ public class MotionInputService
         try
         {
             // Path to the executable
-            string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\MotionInput.exe");
+            //string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "MotionInput\\MotionInput.exe");
+            string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "MotionInput\\MotionInput.exe");
+
 
             if (MotionInput != null)
             {

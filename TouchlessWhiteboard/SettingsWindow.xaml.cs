@@ -28,6 +28,7 @@ using Windows.UI.WindowManagement;
 using WinRT.Interop;
 using WinUIEx;
 using System.Threading.Tasks;
+using Microsoft.UI;
 
 namespace TouchlessWhiteboard;
 
@@ -40,8 +41,6 @@ public sealed partial class SettingsWindow : Window
     private string QuickFileAccess1Name;
     private string QuickFileAccess2Name;
     private string QuickFileAccess3Name;
-
-    private string TeachingMaterialsErrorMessage = "The file you selected is not a valid teaching materials file. Please select a valid file.";
 
     public SettingsWindow()
     {
@@ -74,7 +73,7 @@ public sealed partial class SettingsWindow : Window
         ToolsCheckBoxList.Add(QuickFileAccess2CheckBox);
         ToolsCheckBoxList.Add(QuickFileAccess3CheckBox);
 
-
+        this.AppWindow.SetIcon("Assets/TouchlessWhiteboard-icon.ico");
     }
 
     public SettingsWindowViewModel? ViewModel { get; }
@@ -91,7 +90,9 @@ public sealed partial class SettingsWindow : Window
         bool success = await ViewModel.Launch();
         if (!success)
         {
-            if (!LaunchErrorPopup.IsOpen) { LaunchErrorPopup.IsOpen = true; }
+            if (!LaunchErrorPopup.IsOpen) { 
+                LaunchErrorText.Text = "There was a error launching MotionInput\nReinstalling Touchless Whiteboard is recommended.";
+                LaunchErrorPopup.IsOpen = true; }
             return;
         }
         else
@@ -155,6 +156,11 @@ public sealed partial class SettingsWindow : Window
     private void AddProfile_Clicked(object sender, RoutedEventArgs e)
     {
         ViewModel.AddProfile();
+        QuickFileAccess1TextBox.Text = "";
+        QuickFileAccess2TextBox.Text = "";
+        QuickFileAccess3TextBox.Text = "";
+        TeachingMaterialsTextBox.Text = "";
+        this.Bindings.Update();
     }
 
     private void DeleteProfile_Clicked(object sender, RoutedEventArgs e)
@@ -246,7 +252,9 @@ public sealed partial class SettingsWindow : Window
         }
         else
         {
-            if (!TeachingMaterialsErrorPopup.IsOpen) { TeachingMaterialsErrorPopup.IsOpen = true; }
+            if (!TeachingMaterialsErrorPopup.IsOpen) {
+                TeachingMaterialsErrorText.Text = "The file you selected is not a valid teaching materials file.\nPlease select a valid file.";
+                TeachingMaterialsErrorPopup.IsOpen = true; }
         }
     }
 
@@ -275,7 +283,11 @@ public sealed partial class SettingsWindow : Window
     private void OpenStickyNotesPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!StickyNotesHelpPopup.IsOpen) { StickyNotesHelpPopup.IsOpen = true; }
+        if (!StickyNotesHelpPopup.IsOpen) { 
+            StickyNotesHelpText.Text = "This is a tool to activate Microsoft Sticky Notes Application.";
+            StickyNotesHelpText.FontSize = 16;
+            StickyNotesHelpPopup.IsOpen = true;
+        }
     }
 
     private void CloseStickyNotesPopupClicked(object sender, RoutedEventArgs e)
@@ -287,19 +299,26 @@ public sealed partial class SettingsWindow : Window
     private void OpenCameraPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!CameraHelpPopup.IsOpen) { CameraHelpPopup.IsOpen = true; }
+        if (!CameraHelpPopup.IsOpen) {
+            CameraHelpText.Text = "This is a tool to activate Microsoft Snipping Tool.\nYou can use this tool to take a screenshot of your screen.";
+            CameraHelpText.FontSize = 16;
+            CameraHelpPopup.IsOpen = true; 
+        }
     }
 
     private void CloseCameraPopupClicked(object sender, RoutedEventArgs e)
     {
         // if the Popup is open, then close it 
-        if (CameraHelpPopup.IsOpen) { CameraHelpPopup.IsOpen = false; }
+        if (CameraHelpPopup.IsOpen) {CameraHelpPopup.IsOpen = false; }
     }
 
     private void OpenSearchPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!SearchHelpPopup.IsOpen) { SearchHelpPopup.IsOpen = true; }
+        if (!SearchHelpPopup.IsOpen) { 
+            SearchHelpText.Text = "This is a tool to jump to Bing Search.\nYou can search anthing on the browser";
+            SearchHelpText.FontSize = 16;
+            SearchHelpPopup.IsOpen = true; }
     }
 
     private void CloseSearchPopupClicked(object sender, RoutedEventArgs e)
@@ -311,7 +330,10 @@ public sealed partial class SettingsWindow : Window
     private void OpenCopilotPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!CopilotHelpPopup.IsOpen) { CopilotHelpPopup.IsOpen = true; }
+        if (!CopilotHelpPopup.IsOpen) { 
+            CopilotHelpText.Text = "This is a tool to jump to Microsoft Copilot Search.\nYou can enjoy AI enhanced browsing experience.";
+            CopilotHelpText.FontSize = 16;
+            CopilotHelpPopup.IsOpen = true; }
     }
 
     private void CloseCopilotPopupClicked(object sender, RoutedEventArgs e)
@@ -322,7 +344,10 @@ public sealed partial class SettingsWindow : Window
     private void OpenCalculatorPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!CalculatorHelpPopup.IsOpen) { CalculatorHelpPopup.IsOpen = true; }
+        if (!CalculatorHelpPopup.IsOpen) { 
+            CalculatorHelpText.Text = "This is a tool to activate Microsoft Calculator.\nYou can use this tool to do basic calculations.";
+            CalculatorHelpText.FontSize = 16;
+            CalculatorHelpPopup.IsOpen = true; }
     }
 
     private void CloseCalculatorPopupClicked(object sender, RoutedEventArgs e)
@@ -334,7 +359,10 @@ public sealed partial class SettingsWindow : Window
     private void OpenClockPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!ClockHelpPopup.IsOpen) { ClockHelpPopup.IsOpen = true; }
+        if (!ClockHelpPopup.IsOpen) { 
+            ClockHelpText.Text = "This is a tool to activate Microsoft Clock.\nYou can use this tool to start stopwatch or set the timer.";
+            ClockHelpText.FontSize = 16;
+            ClockHelpPopup.IsOpen = true; }
     }
 
     private void CloseClockPopupClicked(object sender, RoutedEventArgs e)
@@ -346,7 +374,10 @@ public sealed partial class SettingsWindow : Window
     private void OpenQuickWebSiteAccessPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!QuickWebSiteAccessHelpPopup.IsOpen) { QuickWebSiteAccessHelpPopup.IsOpen = true; }
+        if (!QuickWebSiteAccessHelpPopup.IsOpen) {
+            QuickWebSiteAccessHelpText.Text = "This is a tool to jump to the website you set\nin the settings with one button click.";
+            QuickWebSiteAccessHelpText.FontSize = 16;
+            QuickWebSiteAccessHelpPopup.IsOpen = true; }
     }
 
     private void CloseQuickWebSiteAccessPopupClicked(object sender, RoutedEventArgs e)
@@ -358,7 +389,10 @@ public sealed partial class SettingsWindow : Window
     private void OpenInAir3DMousePopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!InAir3DMouseHelpPopup.IsOpen) { InAir3DMouseHelpPopup.IsOpen = true; }
+        if (!InAir3DMouseHelpPopup.IsOpen) { 
+            InAir3DMouseHelpText.Text = "This is a tool to activate MotionInput In-Air 3D Mouse.\nYou can use this tool to navigate through documents or\ninteract with 3D objects";
+            InAir3DMouseHelpText.FontSize = 16;
+            InAir3DMouseHelpPopup.IsOpen = true; }
     }
 
     private void CloseInAir3DMousePopupClicked(object sender, RoutedEventArgs e)
@@ -370,7 +404,10 @@ public sealed partial class SettingsWindow : Window
     private void OpenNotepadPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!NotepadHelpPopup.IsOpen) { NotepadHelpPopup.IsOpen = true; }
+        if (!NotepadHelpPopup.IsOpen) { 
+            NotepadHelpText.Text = "This is a tool to activate Microsoft Notepad.\nYou can use this tool to take notes.";
+            NotepadHelpText.FontSize = 16;
+            NotepadHelpPopup.IsOpen = true; }
     }
 
     private void CloseNotepadPopupClicked(object sender, RoutedEventArgs e)
@@ -382,7 +419,10 @@ public sealed partial class SettingsWindow : Window
     private void OpenQuickFileAccessPopupClicked(object sender, RoutedEventArgs e)
     {
         // open the Popup if it isn't open already 
-        if (!QuickFileAccessHelpPopup.IsOpen) { QuickFileAccessHelpPopup.IsOpen = true; }
+        if (!QuickFileAccessHelpPopup.IsOpen) { 
+            QuickFileAccessHelpText.Text = "This is a tool to jump to the file you set\nin the settings with one button click.";
+            QuickFileAccessHelpText.FontSize = 16;
+            QuickFileAccessHelpPopup.IsOpen = true; }
     }
 
     private void CloseQuickFileAccessPopupClicked(object sender, RoutedEventArgs e)

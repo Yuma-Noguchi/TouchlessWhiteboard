@@ -226,7 +226,9 @@ public partial class SettingsWindowViewModel : ObservableObject, INotifyProperty
         }
         try
         {
-            string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Resources\\help.html");
+            //string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Resources\\help.html");
+            string FilePath = Path.Combine(Directory.GetCurrentDirectory(), "Resources\\help.html");
+
             Help = await StorageFile.GetFileFromPathAsync(FilePath);
         }
         catch (Exception ex)

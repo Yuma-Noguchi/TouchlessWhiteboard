@@ -12,6 +12,9 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
     <Version>$(VersionPrefix)</Version>
+	<WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+    <ApplicationIcon>Assets\TouchlessWhiteboard-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\Camera-icon.png" />
@@ -32,6 +35,10 @@
     <None Remove="Assets\Search-icon.png" />
     <None Remove="Assets\Sticky-Notes-icon.png" />
     <None Remove="Assets\TeachingMaterials-icon.png" />
+    <None Remove="Assets\TouchlessWhiteboard-icon.ico" />
+    <None Remove="Assets\TouchlessWhiteboard-icon.png" />
+    <None Remove="Assets\TouchlessWhiteboard150-icon.png" />
+    <None Remove="Assets\TouchlessWhiteboard44-icon.png" />
     <None Remove="Assets\Undo-icon.png" />
     <None Remove="Resources\help.html" />
     <None Remove="Resources\settings.json" />
@@ -49,9 +56,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
-	<Content Include="Assets\TouchlessWhiteboard-icon.ico">
-	  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	</Content>
 	<Content Include="Resources\help.html">
 	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	</Content>
@@ -60,6 +64,10 @@
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Windows.CsWin32" Version="0.3.49-beta">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230913002" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -147,6 +155,12 @@
     <Content Update="Assets\Sticky-Notes-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Update="Assets\TouchlessWhiteboard150-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="Assets\TouchlessWhiteboard44-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Update="Assets\Undo-icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -167,6 +181,16 @@
   <ItemGroup>
     <Content Include="MotionInput\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\TouchlessWhiteboard-icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="Assets\TouchlessWhiteboard-icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 	

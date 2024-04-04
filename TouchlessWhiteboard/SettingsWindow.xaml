@@ -136,9 +136,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="StickyNotesHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="StickyNotesHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseStickyNotesPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -154,9 +154,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="CameraHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="CameraHelpText" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseCameraPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -172,9 +172,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="SearchHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="SearchHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseSearchPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -190,9 +190,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="CopilotHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="CopilotHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseCopilotPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -208,9 +208,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="CalculatorHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="CalculatorHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseCalculatorPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -226,9 +226,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="ClockHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="ClockHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseClockPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -247,9 +247,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="QuickWebSiteAccessHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="QuickWebSiteAccessHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseQuickWebSiteAccessPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -287,9 +287,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="InAir3DMouseHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="InAir3DMouseHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseInAir3DMousePopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -305,9 +305,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="NotepadHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="NotepadHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseNotepadPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -329,9 +329,9 @@
                         <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="QuickFileAccessHelpPopup">
                             <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <TextBlock Text="Simple Popup" FontSize="24.667" HorizontalAlignment="Center"/>
+                                    <TextBlock x:Name="QuickFileAccessHelpText" FontSize="24.667" HorizontalAlignment="Center" Foreground="White"/>
                                     <Button Content="Close" Click="CloseQuickFileAccessPopupClicked" HorizontalAlignment="Center"/>
                                 </StackPanel>
                             </Border>
@@ -422,12 +422,12 @@
                         <Button Content="X" Click="TeachingMaterialsClear_Clicked" Background="Gray" Foreground="White" Width="33" Margin="10,0,0,0"/>
                     </StackPanel>
                 </Grid>
-                <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="TeachingMaterialsErrorPopup">
+                <Popup VerticalOffset="200" HorizontalOffset="200" x:Name="TeachingMaterialsErrorPopup">
                     <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding TeachingMaterialsErrorMessage}" FontSize="24.667" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="TeachingMaterialsErrorText" FontSize="16" HorizontalAlignment="Center" Foreground="White"/>
                             <Button Content="Close" Click="CloseTeachingMaterialsErrorPopupClicked" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>
@@ -439,12 +439,12 @@
                     <Button Height="50" Width="150" Content="Launch" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="LaunchButton_Click" Background="White" Foreground="Black" FontSize="20" FontWeight="Bold"/>
                     <Button Height="50" Width="150" Content="Cancel" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="CancelButton_Click" Background="Gray" Foreground="Black" FontSize="20" FontWeight="Bold" Margin="30,0,5,0"/>
                 </StackPanel>
-                <Popup VerticalOffset="10" HorizontalOffset="200" x:Name="LaunchErrorPopup">
+                <Popup VerticalOffset="200" HorizontalOffset="200" x:Name="LaunchErrorPopup">
                     <Border BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" 
                                     Background="{StaticResource ApplicationPageBackgroundThemeBrush}"
-                                    BorderThickness="2" Width="200" Height="200">
+                                    BorderThickness="2" Width="500" Height="100">
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <TextBlock Text="{Binding TeachingMaterialsErrorMessage}" FontSize="24.667" HorizontalAlignment="Center"/>
+                            <TextBlock x:Name="LaunchErrorText" FontSize="16" HorizontalAlignment="Center" Foreground="White"/>
                             <Button Content="Close" Click="CloseLaunchErrorPopupClicked" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Border>

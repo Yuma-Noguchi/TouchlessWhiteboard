@@ -98,7 +98,11 @@ public class ProfileService
 {
     public async Task<List<Profile>> LoadProfilesFromJson(string filePath)
     {
-        string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, filePath);
+        //string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, filePath);
+
+
+        string FilePath = Path.Combine(Directory.GetCurrentDirectory(), filePath);
+
         // Read json from file
         using (var sr = new StreamReader(FilePath))
         {
@@ -112,7 +116,8 @@ public class ProfileService
 
     public async Task SaveProfilesToJson(string filePath, List<Profile> profiles)
     {
-        string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, filePath);
+        //string FilePath = Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, filePath);
+        string FilePath = Path.Combine(Directory.GetCurrentDirectory(), filePath);
         // Serialize model into json
         var profileList = new ProfileList { Profiles = profiles };
         var json = JsonConvert.SerializeObject(profileList);
