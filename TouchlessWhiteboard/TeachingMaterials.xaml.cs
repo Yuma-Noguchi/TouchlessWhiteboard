@@ -150,7 +150,8 @@ public sealed partial class TeachingMaterials : Window
     private async void Button_Click(object sender, RoutedEventArgs e)
     {
         Button button = (Button)sender;
-        string pathOrUrl = (string)button.Content;
+        // get tooltip text
+        string pathOrUrl = ToolTipService.GetToolTip(button).ToString();
 
         // Check if it's a URL or a file path
         if (Uri.IsWellFormedUriString(pathOrUrl, UriKind.Absolute))
