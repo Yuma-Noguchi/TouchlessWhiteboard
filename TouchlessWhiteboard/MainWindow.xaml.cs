@@ -609,7 +609,7 @@ public sealed partial class MainWindow : Window
     {
         if (ViewModel.IsTouchlessArtsOpen == Visibility.Collapsed) return;
         if (isDragging) return;
-        if (e.Pointer.PointerDeviceType.Equals(PointerDeviceType.Pen))
+        if ((e.Pointer.PointerDeviceType.Equals(PointerDeviceType.Pen)) || (e.Pointer.PointerDeviceType.Equals(PointerDeviceType.Mouse)))
         {
             isDrawing = true;
             (sender as UIElement).CapturePointer(e.Pointer);
